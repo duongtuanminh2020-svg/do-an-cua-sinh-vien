@@ -1,0 +1,41 @@
+﻿@model List<webquanli.Models.TienDo>
+
+<h2>Tiến độ đồ án</h2>
+
+<table class="table">
+
+    <tr>
+
+        <th>Nội dung</th>
+
+        <th>Tiến độ</th>
+
+    </tr>
+
+    @foreach (var td in Model)
+    {
+
+        <tr>
+
+            <td>@td.NoiDung</td>
+
+            <td>
+
+                <div class="progress">
+
+                    <div class="progress-bar"
+                         style="width:@td.PhanTram%">
+
+                        @td.PhanTram %
+
+                    </div>
+
+                </div>
+
+            </td>
+
+        </tr>
+
+    }
+
+</table>

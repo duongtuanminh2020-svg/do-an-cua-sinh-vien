@@ -1,0 +1,31 @@
+﻿@model List<webquanli.Models.DeTai>
+
+<h2>Danh sách đề tài</h2>
+
+<a class="btn btn-success" href="/DeTai/Create">
+    Thêm đề tài
+</a>
+
+<table class="table mt-3">
+
+    <tr>
+
+        <th>Tên đề tài</th>
+        <th>Mô tả</th>
+
+    </tr>
+
+    @foreach (var dt in Model)
+    {
+
+        <tr>
+
+            <td>@dt.TenDeTai</td>
+
+            <td>@dt.MoTa</td>
+
+        </tr>
+
+    }
+
+</table>

@@ -1,0 +1,43 @@
+﻿@model List<webquanli.Models.SinhVien>
+
+<h2>Danh sách sinh viên</h2>
+
+<a class="btn btn-success" href="/SinhVien/Create">
+    Thêm sinh viên
+</a>
+
+<table class="table table-bordered mt-3">
+
+    <tr>
+
+        <th>Mã SV</th>
+        <th>Tên</th>
+        <th>Lớp</th>
+        <th>Email</th>
+        <th>Action</th>
+
+    </tr>
+
+    @foreach (var sv in Model)
+    {
+
+        <tr>
+
+            <td>@sv.MaSV</td>
+            <td>@sv.TenSV</td>
+            <td>@sv.Lop</td>
+            <td>@sv.Email</td>
+
+            <td>
+
+                <a class="btn btn-warning" href="/SinhVien/Edit/@sv.Id">Edit</a>
+
+                <a class="btn btn-danger" href="/SinhVien/Delete/@sv.Id">Delete</a>
+
+            </td>
+
+        </tr>
+
+    }
+
+</table>

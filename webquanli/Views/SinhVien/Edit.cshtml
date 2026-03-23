@@ -1,0 +1,25 @@
+﻿@model webquanli.Models.SinhVien
+
+<h2>Sửa sinh viên</h2>
+
+<form method="post">
+
+    <input type="hidden" asp-for="Id" />
+
+    <label>Mã SV</label>
+    <input class="form-control" asp-for="MaSV" />
+
+    <label>Tên</label>
+    <input class="form-control" asp-for="TenSV" />
+
+    <label>Lớp</label>
+    <input class="form-control" asp-for="Lop" />
+
+    <label>Email</label>
+    <input class="form-control" asp-for="Email" />
+
+    <button class="btn btn-primary mt-2">
+        Cập nhật
+    </button>
+
+</form>
