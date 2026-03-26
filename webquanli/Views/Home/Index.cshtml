@@ -1,31 +1,155 @@
-﻿<h2>Dashboard</h2>
+﻿@{
+    ViewData["Title"] = "Dashboard";
+}
 
-<canvas id="chart"></canvas>
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Tổng quan hệ thống</h1>
+</div>
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<div class="row">
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-start border-primary border-4 shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Tổng Sinh Viên</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">120</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fa-solid fa-users fa-2x text-secondary opacity-50"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-<script>
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-start border-success border-4 shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Đề Tài Đã Duyệt</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">45</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fa-solid fa-book fa-2x text-secondary opacity-50"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    var ctx=document.getElementById('chart');
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-start border-info border-4 shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Tiến Độ Trung Bình</div>
+                        <div class="row no-gutters align-items-center mt-2">
+                            <div class="col-auto">
+                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800" style="margin-right: 15px;">65%</div>
+                            </div>
+                            <div class="col">
+                                <div class="progress progress-sm" style="height: 10px;">
+                                    <div class="progress-bar bg-info" role="progressbar" style="width: 65%"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fa-solid fa-bars-progress fa-2x text-secondary opacity-50"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
-    new Chart(ctx,{
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-start border-warning border-4 shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Báo Cáo Chờ Duyệt</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">8</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fa-solid fa-comments fa-2x text-secondary opacity-50"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-    type:'bar',
+<div class="row mt-4">
+    <div class="col-xl-8 col-lg-7">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Biểu đồ nộp báo cáo theo tuần</h6>
+            </div>
+            <div class="card-body">
+                <div style="height: 300px;">
+                    <canvas id="myAreaChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-4 col-lg-5">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Tỷ lệ hoàn thành</h6>
+            </div>
+            <div class="card-body">
+                <div style="height: 300px;">
+                    <canvas id="myPieChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
-    data:{
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Cấu hình biểu đồ đường
+        var ctxArea = document.getElementById("myAreaChart");
+        var myLineChart = new Chart(ctxArea, {
+        type: 'line',
+        data: {
+        labels: ["Tuần 1", "Tuần 2", "Tuần 3", "Tuần 4", "Tuần 5", "Tuần 6"],
+        datasets: [{
+        label: "Số báo cáo",
+        lineTension: 0.3,
+        backgroundColor: "rgba(78, 115, 223, 0.05)",
+        borderColor: "rgba(78, 115, 223, 1)",
+        pointRadius: 3,
+        pointBackgroundColor: "rgba(78, 115, 223, 1)",
+        pointBorderColor: "rgba(78, 115, 223, 1)",
+        pointHoverRadius: 3,
+        pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
+        pointHoverBorderColor: "rgba(78, 115, 223, 1)",
+        pointHitRadius: 10,
+        pointBorderWidth: 2,
+        data: [0, 5, 15, 10, 25, 20],
+        }],
+        },
+        options: { maintainAspectRatio: false }
+        });
 
-    labels:['Sinh viên','Đề tài','Báo cáo'],
-
-    datasets:[{
-
-    label:'Thống kê',
-
-    data:[20,10,5]
-
-    }]
-
-    }
-
-    });
-
-</script>
+        // Cấu hình biểu đồ tròn
+        var ctxPie = document.getElementById("myPieChart");
+        var myPieChart = new Chart(ctxPie, {
+        type: 'doughnut',
+        data: {
+        labels: ["Hoàn thành", "Đang thực hiện", "Trễ hạn"],
+        datasets: [{
+        data: [55, 30, 15],
+        backgroundColor: ['#1cc88a', '#36b9cc', '#e74a3b'],
+        hoverBackgroundColor: ['#17a673', '#2c9faf', '#e02d1b'],
+        hoverBorderColor: "rgba(234, 236, 244, 1)",
+        }],
+        },
+        options: { maintainAspectRatio: false, cutout: '70%' }
+        });
+    </script>
+}

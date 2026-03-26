@@ -1,41 +1,57 @@
 ﻿@model List<webquanli.Models.TienDo>
+@{
+    ViewData["Title"] = "Theo dõi Tiến độ";
+}
 
-<h2>Tiến độ đồ án</h2>
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Cập nhật Tiến độ</h1>
+</div>
 
-<table class="table">
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-info">Nhật ký thực hiện Đồ án</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
+                <thead class="table-light">
+                    <tr>
+                        <th>Nội dung công việc</th>
+                        <th style="width: 30%;">Tiến độ hoàn thành</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Any())
+                    {
+                        foreach (var td in Model)
+                        {
+                            <tr>
+                                <td class="align-middle">@td.NoiDung</td>
+                                <td class="align-middle">
+                                    <div class="d-flex align-items-center">
+                                        <span class="me-2 fw-bold text-gray-800">@td.PhanTram%</span>
+                                        <div>
+                                            <div class="progress progress-sm" style="width: 150px;">
+                                                <div class="progress-bar @(td.PhanTram == 100 ? "bg-success" : (td.PhanTram > 50 ? "bg-info" : "bg-warning"))"
+                                                     role="progressbar" style="width: @td.PhanTram%"
+                                                     aria-valuenow="@td.PhanTram" aria-valuemin="0" aria-valuemax="100"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 
-    <tr>
-
-        <th>Nội dung</th>
-
-        <th>Tiến độ</th>
-
-    </tr>
-
-    @foreach (var td in Model)
-    {
-
-        <tr>
-
-            <td>@td.NoiDung</td>
-
-            <td>
-
-                <div class="progress">
-
-                    <div class="progress-bar"
-                         style="width:@td.PhanTram%">
-
-                        @td.PhanTram %
-
-                    </div>
-
-                </div>
-
-            </td>
-
-        </tr>
-
-    }
-
-</table>
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#dataTable').DataTable({ "language": { "url": "//cdn.datatables.net/plug-ins/1.13.6/i18n/vi.json" } });
+        });
+    </script>
+}

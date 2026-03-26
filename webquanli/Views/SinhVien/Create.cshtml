@@ -1,23 +1,44 @@
 ﻿@model webquanli.Models.SinhVien
+@{
+    ViewData["Title"] = "Thêm Sinh Viên";
+}
 
-<h2>Thêm sinh viên</h2>
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Quản lý Sinh Viên</h1>
+    <a href="/SinhVien/Index" class="btn btn-secondary btn-sm shadow-sm">
+        <i class="fa-solid fa-arrow-left"></i> Quay lại danh sách
+    </a>
+</div>
 
-<form method="post">
+<div class="card shadow mb-4" style="max-width: 600px; margin: auto;">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Thêm Sinh Viên Mới</h6>
+    </div>
+    <div class="card-body">
+        <form method="post">
+            <div class="mb-3">
+                <label class="form-label fw-bold">Mã Sinh Viên</label>
+                <input class="form-control" asp-for="MaSV" required placeholder="Nhập mã sinh viên..." />
+            </div>
+            
+            <div class="mb-3">
+                <label class="form-label fw-bold">Họ và Tên</label>
+                <input class="form-control" asp-for="TenSV" required placeholder="Nhập họ tên sinh viên..." />
+            </div>
 
-    <label>Mã SV</label>
-    <input class="form-control" asp-for="MaSV" />
+            <div class="mb-3">
+                <label class="form-label fw-bold">Lớp</label>
+                <input class="form-control" asp-for="Lop" required placeholder="Ví dụ: CNTT K60..." />
+            </div>
 
-    <label>Tên</label>
-    <input class="form-control" asp-for="TenSV" />
+            <div class="mb-3">
+                <label class="form-label fw-bold">Email</label>
+                <input class="form-control" type="email" asp-for="Email" required placeholder="Nhập địa chỉ email..." />
+            </div>
 
-    <label>Lớp</label>
-    <input class="form-control" asp-for="Lop" />
-
-    <label>Email</label>
-    <input class="form-control" asp-for="Email" />
-
-    <button class="btn btn-primary mt-2">
-        Lưu
-    </button>
-
-</form>
+            <button class="btn btn-primary w-100 mt-3" type="submit">
+                <i class="fa-solid fa-floppy-disk"></i> Lưu thông tin
+            </button>
+        </form>
+    </div>
+</div>

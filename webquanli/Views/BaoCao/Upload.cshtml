@@ -1,13 +1,32 @@
-﻿<h2>Upload báo cáo</h2>
+﻿@model webquanli.Models.BaoCao
+@{
+    ViewData["Title"] = "Nộp báo cáo";
+}
 
-<form method="post" enctype="multipart/form-data">
+<div class="card shadow mb-4" style="max-width: 600px; margin: auto; margin-top: 50px;">
+    <div class="card-header py-3 bg-primary text-center">
+        <h6 class="m-0 font-weight-bold text-white text-uppercase">Tải lên báo cáo tiến độ</h6>
+    </div>
+    <div class="card-body">
+        <form asp-action="Upload" method="post" enctype="multipart/form-data">
+            <div class="mb-3">
+                <label class="form-label fw-bold">Chọn Sinh viên và Đề tài</label>
+                <select name="DangKyId" class="form-select" asp-items="@ViewBag.DanhSachDangKy" required>
+                    <option value="">-- Vui lòng chọn nhóm nộp báo cáo --</option>
+                </select>
+            </div>
 
-    <input type="file" name="file" />
+            <div class="mb-3">
+                <label class="form-label fw-bold">Chọn tệp tin báo cáo</label>
+                <input type="file" name="fileTaiLen" class="form-control" required />
+                <small class="text-muted">Chấp nhận định dạng: PDF, Word, ZIP...</small>
+            </div>
 
-    <button class="btn btn-primary">
-
-        Upload
-
-    </button>
-
-</form>
+            <hr />
+            <button type="submit" class="btn btn-primary w-100">
+                <i class="fa-solid fa-cloud-upload-alt"></i> XÁC NHẬN NỘP
+            </button>
+            <a asp-action="Index" class="btn btn-secondary w-100 mt-2">Quay lại danh sách</a>
+        </form>
+    </div>
+</div>

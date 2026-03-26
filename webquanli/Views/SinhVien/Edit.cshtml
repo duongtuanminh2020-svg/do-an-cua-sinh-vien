@@ -1,25 +1,48 @@
 ﻿@model webquanli.Models.SinhVien
+@{
+    // Bước 1: Sửa lại Tiêu đề trình duyệt cho đúng nghiệp vụ "Sửa"
+    ViewData["Title"] = "Cập nhật Sinh Viên - Khoa CNTT";
+}
 
-<h2>Sửa sinh viên</h2>
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Quản lý Sinh Viên</h1>
+    <a href="/SinhVien/Index" class="btn btn-secondary btn-sm shadow-sm">
+        <i class="fa-solid fa-arrow-left"></i> Quay lại danh sách
+    </a>
+</div>
 
-<form method="post">
+<div class="card shadow mb-4" style="max-width: 600px; margin: auto;">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Cập nhật Thông tin Sinh Viên</h6>
+    </div>
+    <div class="card-body">
+        <form method="post">
+            
+            <input type="hidden" asp-for="Id" />
+            
+            <div class="mb-3">
+                <label class="form-label fw-bold">Mã Sinh Viên</label>
+                <input class="form-control bg-light text-muted" asp-for="MaSV" readonly />
+            </div>
+            
+            <div class="mb-3">
+                <label class="form-label fw-bold">Họ và Tên</label>
+                <input class="form-control" asp-for="TenSV" required />
+            </div>
 
-    <input type="hidden" asp-for="Id" />
+            <div class="mb-3">
+                <label class="form-label fw-bold">Lớp</label>
+                <input class="form-control" asp-for="Lop" required />
+            </div>
 
-    <label>Mã SV</label>
-    <input class="form-control" asp-for="MaSV" />
+            <div class="mb-3">
+                <label class="form-label fw-bold">Email</label>
+                <input class="form-control" type="email" asp-for="Email" required />
+            </div>
 
-    <label>Tên</label>
-    <input class="form-control" asp-for="TenSV" />
-
-    <label>Lớp</label>
-    <input class="form-control" asp-for="Lop" />
-
-    <label>Email</label>
-    <input class="form-control" asp-for="Email" />
-
-    <button class="btn btn-primary mt-2">
-        Cập nhật
-    </button>
-
-</form>
+            <button class="btn btn-primary w-100 mt-3" type="submit">
+                <i class="fa-solid fa-floppy-disk"></i> Lưu thay đổi
+            </button>
+        </form>
+    </div>
+</div>

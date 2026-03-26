@@ -1,0 +1,313 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\Anh Tu\\dacs\\do-an-cua-sinh-vien\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\Anh Tu\\dacs\\do-an-cua-sinh-vien\\webquanli\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:webquanli\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\Anh Tu\\dacs\\do-an-cua-sinh-vien\\webquanli\\Controllers\\SinhVienController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:webquanli\\Controllers\\SinhVienController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\Anh Tu\\dacs\\do-an-cua-sinh-vien\\webquanli\\webquanli.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:webquanli\\webquanli.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\Anh Tu\\dacs\\do-an-cua-sinh-vien\\webquanli\\Program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:webquanli\\Program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\Anh Tu\\dacs\\do-an-cua-sinh-vien\\webquanli\\Models\\User.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:webquanli\\Models\\User.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\Anh Tu\\dacs\\do-an-cua-sinh-vien\\webquanli\\Models\\TienDo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:webquanli\\Models\\TienDo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\Anh Tu\\dacs\\do-an-cua-sinh-vien\\webquanli\\Models\\SinhVien.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:webquanli\\Models\\SinhVien.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\Anh Tu\\dacs\\do-an-cua-sinh-vien\\webquanli\\Models\\GiangVien.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:webquanli\\Models\\GiangVien.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\Anh Tu\\dacs\\do-an-cua-sinh-vien\\webquanli\\Models\\ErrorViewModel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:webquanli\\Models\\ErrorViewModel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\Anh Tu\\dacs\\do-an-cua-sinh-vien\\webquanli\\Models\\DeTai.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:webquanli\\Models\\DeTai.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\Anh Tu\\dacs\\do-an-cua-sinh-vien\\webquanli\\Models\\DangKyDeTai.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:webquanli\\Models\\DangKyDeTai.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\Anh Tu\\dacs\\do-an-cua-sinh-vien\\webquanli\\Models\\BaoCao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:webquanli\\Models\\BaoCao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\Anh Tu\\dacs\\do-an-cua-sinh-vien\\webquanli\\Data\\ApplicationDbContext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:webquanli\\Data\\ApplicationDbContext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\Anh Tu\\dacs\\do-an-cua-sinh-vien\\webquanli\\Controllers\\TienDoController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:webquanli\\Controllers\\TienDoController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\Anh Tu\\dacs\\do-an-cua-sinh-vien\\webquanli\\Controllers\\HomeController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:webquanli\\Controllers\\HomeController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\Anh Tu\\dacs\\do-an-cua-sinh-vien\\webquanli\\Controllers\\DeTaiController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:webquanli\\Controllers\\DeTaiController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\Anh Tu\\dacs\\do-an-cua-sinh-vien\\webquanli\\Controllers\\BaoCaoController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:webquanli\\Controllers\\BaoCaoController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\Anh Tu\\dacs\\do-an-cua-sinh-vien\\webquanli\\Controllers\\AccountController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:webquanli\\Controllers\\AccountController.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "webquanli.csproj",
+              "DocumentMoniker": "D:\\Anh Tu\\dacs\\do-an-cua-sinh-vien\\webquanli\\webquanli.csproj",
+              "RelativeDocumentMoniker": "webquanli\\webquanli.csproj",
+              "ToolTip": "D:\\Anh Tu\\dacs\\do-an-cua-sinh-vien\\webquanli\\webquanli.csproj",
+              "RelativeToolTip": "webquanli\\webquanli.csproj",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAABUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-03-26T08:15:49.28Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\Anh Tu\\dacs\\do-an-cua-sinh-vien\\webquanli\\Program.cs",
+              "RelativeDocumentMoniker": "webquanli\\Program.cs",
+              "ToolTip": "D:\\Anh Tu\\dacs\\do-an-cua-sinh-vien\\webquanli\\Program.cs",
+              "RelativeToolTip": "webquanli\\Program.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-26T08:15:41.641Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "D:\\Anh Tu\\dacs\\do-an-cua-sinh-vien\\webquanli\\appsettings.json",
+              "RelativeDocumentMoniker": "webquanli\\appsettings.json",
+              "ToolTip": "D:\\Anh Tu\\dacs\\do-an-cua-sinh-vien\\webquanli\\appsettings.json",
+              "RelativeToolTip": "webquanli\\appsettings.json",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAA0AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2026-03-26T08:15:40.045Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "User.cs",
+              "DocumentMoniker": "D:\\Anh Tu\\dacs\\do-an-cua-sinh-vien\\webquanli\\Models\\User.cs",
+              "RelativeDocumentMoniker": "webquanli\\Models\\User.cs",
+              "ToolTip": "D:\\Anh Tu\\dacs\\do-an-cua-sinh-vien\\webquanli\\Models\\User.cs",
+              "RelativeToolTip": "webquanli\\Models\\User.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-26T08:15:21.55Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "SinhVien.cs",
+              "DocumentMoniker": "D:\\Anh Tu\\dacs\\do-an-cua-sinh-vien\\webquanli\\Models\\SinhVien.cs",
+              "RelativeDocumentMoniker": "webquanli\\Models\\SinhVien.cs",
+              "ToolTip": "D:\\Anh Tu\\dacs\\do-an-cua-sinh-vien\\webquanli\\Models\\SinhVien.cs",
+              "RelativeToolTip": "webquanli\\Models\\SinhVien.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-26T08:15:08.697Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "TienDo.cs",
+              "DocumentMoniker": "D:\\Anh Tu\\dacs\\do-an-cua-sinh-vien\\webquanli\\Models\\TienDo.cs",
+              "RelativeDocumentMoniker": "webquanli\\Models\\TienDo.cs",
+              "ToolTip": "D:\\Anh Tu\\dacs\\do-an-cua-sinh-vien\\webquanli\\Models\\TienDo.cs",
+              "RelativeToolTip": "webquanli\\Models\\TienDo.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-26T08:15:04.352Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "GiangVien.cs",
+              "DocumentMoniker": "D:\\Anh Tu\\dacs\\do-an-cua-sinh-vien\\webquanli\\Models\\GiangVien.cs",
+              "RelativeDocumentMoniker": "webquanli\\Models\\GiangVien.cs",
+              "ToolTip": "D:\\Anh Tu\\dacs\\do-an-cua-sinh-vien\\webquanli\\Models\\GiangVien.cs",
+              "RelativeToolTip": "webquanli\\Models\\GiangVien.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-26T08:14:57.652Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "ErrorViewModel.cs",
+              "DocumentMoniker": "D:\\Anh Tu\\dacs\\do-an-cua-sinh-vien\\webquanli\\Models\\ErrorViewModel.cs",
+              "RelativeDocumentMoniker": "webquanli\\Models\\ErrorViewModel.cs",
+              "ToolTip": "D:\\Anh Tu\\dacs\\do-an-cua-sinh-vien\\webquanli\\Models\\ErrorViewModel.cs",
+              "RelativeToolTip": "webquanli\\Models\\ErrorViewModel.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-26T08:14:50.608Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "DeTai.cs",
+              "DocumentMoniker": "D:\\Anh Tu\\dacs\\do-an-cua-sinh-vien\\webquanli\\Models\\DeTai.cs",
+              "RelativeDocumentMoniker": "webquanli\\Models\\DeTai.cs",
+              "ToolTip": "D:\\Anh Tu\\dacs\\do-an-cua-sinh-vien\\webquanli\\Models\\DeTai.cs",
+              "RelativeToolTip": "webquanli\\Models\\DeTai.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-26T08:14:43.037Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "DangKyDeTai.cs",
+              "DocumentMoniker": "D:\\Anh Tu\\dacs\\do-an-cua-sinh-vien\\webquanli\\Models\\DangKyDeTai.cs",
+              "RelativeDocumentMoniker": "webquanli\\Models\\DangKyDeTai.cs",
+              "ToolTip": "D:\\Anh Tu\\dacs\\do-an-cua-sinh-vien\\webquanli\\Models\\DangKyDeTai.cs",
+              "RelativeToolTip": "webquanli\\Models\\DangKyDeTai.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-26T08:14:36.765Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "BaoCao.cs",
+              "DocumentMoniker": "D:\\Anh Tu\\dacs\\do-an-cua-sinh-vien\\webquanli\\Models\\BaoCao.cs",
+              "RelativeDocumentMoniker": "webquanli\\Models\\BaoCao.cs",
+              "ToolTip": "D:\\Anh Tu\\dacs\\do-an-cua-sinh-vien\\webquanli\\Models\\BaoCao.cs",
+              "RelativeToolTip": "webquanli\\Models\\BaoCao.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-26T08:14:29.823Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "ApplicationDbContext.cs",
+              "DocumentMoniker": "D:\\Anh Tu\\dacs\\do-an-cua-sinh-vien\\webquanli\\Data\\ApplicationDbContext.cs",
+              "RelativeDocumentMoniker": "webquanli\\Data\\ApplicationDbContext.cs",
+              "ToolTip": "D:\\Anh Tu\\dacs\\do-an-cua-sinh-vien\\webquanli\\Data\\ApplicationDbContext.cs",
+              "RelativeToolTip": "webquanli\\Data\\ApplicationDbContext.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB8AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-26T08:14:18.262Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "TienDoController.cs",
+              "DocumentMoniker": "D:\\Anh Tu\\dacs\\do-an-cua-sinh-vien\\webquanli\\Controllers\\TienDoController.cs",
+              "RelativeDocumentMoniker": "webquanli\\Controllers\\TienDoController.cs",
+              "ToolTip": "D:\\Anh Tu\\dacs\\do-an-cua-sinh-vien\\webquanli\\Controllers\\TienDoController.cs",
+              "RelativeToolTip": "webquanli\\Controllers\\TienDoController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAC0AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-26T08:14:08.024Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "SinhVienController.cs",
+              "DocumentMoniker": "D:\\Anh Tu\\dacs\\do-an-cua-sinh-vien\\webquanli\\Controllers\\SinhVienController.cs",
+              "RelativeDocumentMoniker": "webquanli\\Controllers\\SinhVienController.cs",
+              "ToolTip": "D:\\Anh Tu\\dacs\\do-an-cua-sinh-vien\\webquanli\\Controllers\\SinhVienController.cs",
+              "RelativeToolTip": "webquanli\\Controllers\\SinhVienController.cs",
+              "ViewState": "AgIAADIAAAAAAAAAAAAAAFAAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-26T08:13:57.511Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "HomeController.cs",
+              "DocumentMoniker": "D:\\Anh Tu\\dacs\\do-an-cua-sinh-vien\\webquanli\\Controllers\\HomeController.cs",
+              "RelativeDocumentMoniker": "webquanli\\Controllers\\HomeController.cs",
+              "ToolTip": "D:\\Anh Tu\\dacs\\do-an-cua-sinh-vien\\webquanli\\Controllers\\HomeController.cs",
+              "RelativeToolTip": "webquanli\\Controllers\\HomeController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-26T08:13:50.057Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "BaoCaoController.cs",
+              "DocumentMoniker": "D:\\Anh Tu\\dacs\\do-an-cua-sinh-vien\\webquanli\\Controllers\\BaoCaoController.cs",
+              "RelativeDocumentMoniker": "webquanli\\Controllers\\BaoCaoController.cs",
+              "ToolTip": "D:\\Anh Tu\\dacs\\do-an-cua-sinh-vien\\webquanli\\Controllers\\BaoCaoController.cs",
+              "RelativeToolTip": "webquanli\\Controllers\\BaoCaoController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADMAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-26T08:10:49.394Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "AccountController.cs",
+              "DocumentMoniker": "D:\\Anh Tu\\dacs\\do-an-cua-sinh-vien\\webquanli\\Controllers\\AccountController.cs",
+              "RelativeDocumentMoniker": "webquanli\\Controllers\\AccountController.cs",
+              "ToolTip": "D:\\Anh Tu\\dacs\\do-an-cua-sinh-vien\\webquanli\\Controllers\\AccountController.cs",
+              "RelativeToolTip": "webquanli\\Controllers\\AccountController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAADYAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-26T08:10:13.592Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "DeTaiController.cs",
+              "DocumentMoniker": "D:\\Anh Tu\\dacs\\do-an-cua-sinh-vien\\webquanli\\Controllers\\DeTaiController.cs",
+              "RelativeDocumentMoniker": "webquanli\\Controllers\\DeTaiController.cs",
+              "ToolTip": "D:\\Anh Tu\\dacs\\do-an-cua-sinh-vien\\webquanli\\Controllers\\DeTaiController.cs",
+              "RelativeToolTip": "webquanli\\Controllers\\DeTaiController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAC0AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-03-26T08:10:11.023Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,5 +1,67 @@
-﻿<h2>Danh sách báo cáo</h2>
+﻿@model IEnumerable<webquanli.Models.BaoCao>
+@{
+    ViewData["Title"] = "Danh sách báo cáo";
+}
 
-<a class="btn btn-success" href="/BaoCao/Upload">
-    Upload báo cáo
-</a>
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Lịch sử nộp báo cáo</h1>
+    <a asp-action="Upload" class="btn btn-success shadow-sm">
+        <i class="fas fa-upload fa-sm text-white-50"></i> Upload Báo cáo mới
+    </a>
+</div>
+
+<div class="card shadow mb-4">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover" width="100%" cellspacing="0">
+                <thead class="table-light text-center">
+                    <tr>
+                        <th>Sinh Viên</th>
+                        <th>Đề Tài</th>
+                        <th>Tên File Nộp</th>
+                        <th>Ngày Nộp</th>
+                        <th>Thao Tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Any())
+                    {
+                        foreach (var item in Model)
+                        {
+                            <tr class="align-middle">
+                                <td class="fw-bold text-primary">
+                                    @(item.DangKyDeTai?.SinhVien?.TenSV ?? "Không xác định")
+                                </td>
+                                <td class="text-secondary">
+                                    @(item.DangKyDeTai?.DeTai?.TenDeTai ?? "Không xác định")
+                                </td>
+                                
+                                <td>
+                                    <i class="fa-solid fa-file-pdf text-danger me-2"></i>
+                                    @item.TenFile
+                                </td>
+                                <td class="text-center">@item.NgayNop.ToString("dd/MM/yyyy HH:mm")</td>
+                                <td class="text-center">
+                                    <a href="@item.DuongDan" class="btn btn-outline-primary btn-sm" download="@item.TenFile">
+                                        <i class="fas fa-download"></i> Tải về
+                                    </a>
+                                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger btn-sm ms-2" onclick="return confirm('Bạn có chắc chắn muốn xóa file này không?');">
+                                        <i class="fas fa-trash"></i> Xóa
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="5" class="text-center text-muted py-4">
+                                Chưa có báo cáo nào được nộp.
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
