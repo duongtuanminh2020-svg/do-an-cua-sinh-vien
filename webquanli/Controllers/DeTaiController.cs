@@ -22,12 +22,15 @@ namespace webquanli.Controllers
 
         public IActionResult Create()
         {
+            ViewBag.DanhSachGiangVien = new SelectList(_context.GiangViens.ToList(), "Id", "TenGV");
             return View();
         }
 
         [HttpPost]
         public IActionResult Create(DeTai dt)
         {
+            ModelState.Clear();
+
             _context.DeTais.Add(dt);
             _context.SaveChanges();
             return RedirectToAction("Index");
@@ -54,18 +57,13 @@ namespace webquanli.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
-            {
-                _context.DeTais.Update(dt);
-                _context.SaveChanges();
-                return RedirectToAction("Index");
-            }
+            ModelState.Clear();
 
-            ViewBag.DanhSachGiangVien = new SelectList(_context.GiangViens.ToList(), "Id", "TenGV");
-            return View(dt);
+            _context.DeTais.Update(dt);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
         }
 
-        // HÀM XÓA ĐỀ TÀI (ĐÃ ĐƯỢC THÊM VÀO ĐÂY)
         public IActionResult Delete(int id)
         {
             var deTai = _context.DeTais.Find(id);

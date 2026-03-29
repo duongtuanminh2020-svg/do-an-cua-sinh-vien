@@ -19,85 +19,85 @@ build_property.TargetFrameworkIdentifier = .NETCoreApp
 build_property.TargetFrameworkVersion = v10.0
 build_property.RootNamespace = webquanli
 build_property.RootNamespace = webquanli
-build_property.ProjectDir = D:\Anh Tu\dacs\do-an-cua-sinh-vien\webquanli\
+build_property.ProjectDir = D:\Anh Tu\do-an-cua-sinh-vien\webquanli\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 9.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = D:\Anh Tu\dacs\do-an-cua-sinh-vien\webquanli
+build_property.MSBuildProjectDirectory = D:\Anh Tu\do-an-cua-sinh-vien\webquanli
 build_property._RazorSourceGeneratorDebug = 
 build_property.EffectiveAnalysisLevelStyle = 10.0
 build_property.EnableCodeStyleSeverity = 
 
-[D:/Anh Tu/dacs/do-an-cua-sinh-vien/webquanli/Views/Account/Login.cshtml]
+[D:/Anh Tu/do-an-cua-sinh-vien/webquanli/Views/Account/Login.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWNjb3VudFxMb2dpbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Anh Tu/dacs/do-an-cua-sinh-vien/webquanli/Views/BaoCao/Index.cshtml]
+[D:/Anh Tu/do-an-cua-sinh-vien/webquanli/Views/BaoCao/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmFvQ2FvXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Anh Tu/dacs/do-an-cua-sinh-vien/webquanli/Views/BaoCao/Upload.cshtml]
+[D:/Anh Tu/do-an-cua-sinh-vien/webquanli/Views/BaoCao/Upload.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmFvQ2FvXFVwbG9hZC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Anh Tu/dacs/do-an-cua-sinh-vien/webquanli/Views/DeTai/Create.cshtml]
+[D:/Anh Tu/do-an-cua-sinh-vien/webquanli/Views/DeTai/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGVUYWlcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Anh Tu/dacs/do-an-cua-sinh-vien/webquanli/Views/DeTai/Edit.cshtml]
+[D:/Anh Tu/do-an-cua-sinh-vien/webquanli/Views/DeTai/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGVUYWlcRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Anh Tu/dacs/do-an-cua-sinh-vien/webquanli/Views/DeTai/Index.cshtml]
+[D:/Anh Tu/do-an-cua-sinh-vien/webquanli/Views/DeTai/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGVUYWlcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Anh Tu/dacs/do-an-cua-sinh-vien/webquanli/Views/Home/Index.cshtml]
+[D:/Anh Tu/do-an-cua-sinh-vien/webquanli/Views/Home/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Anh Tu/dacs/do-an-cua-sinh-vien/webquanli/Views/Home/Privacy.cshtml]
+[D:/Anh Tu/do-an-cua-sinh-vien/webquanli/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Anh Tu/dacs/do-an-cua-sinh-vien/webquanli/Views/Shared/Error.cshtml]
+[D:/Anh Tu/do-an-cua-sinh-vien/webquanli/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Anh Tu/dacs/do-an-cua-sinh-vien/webquanli/Views/Shared/_ValidationScriptsPartial.cshtml]
+[D:/Anh Tu/do-an-cua-sinh-vien/webquanli/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Anh Tu/dacs/do-an-cua-sinh-vien/webquanli/Views/SinhVien/Create.cshtml]
+[D:/Anh Tu/do-an-cua-sinh-vien/webquanli/Views/SinhVien/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2luaFZpZW5cQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Anh Tu/dacs/do-an-cua-sinh-vien/webquanli/Views/SinhVien/Edit.cshtml]
+[D:/Anh Tu/do-an-cua-sinh-vien/webquanli/Views/SinhVien/Edit.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2luaFZpZW5cRWRpdC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Anh Tu/dacs/do-an-cua-sinh-vien/webquanli/Views/SinhVien/Index.cshtml]
+[D:/Anh Tu/do-an-cua-sinh-vien/webquanli/Views/SinhVien/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2luaFZpZW5cSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Anh Tu/dacs/do-an-cua-sinh-vien/webquanli/Views/TienDo/Create.cshtml]
+[D:/Anh Tu/do-an-cua-sinh-vien/webquanli/Views/TienDo/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGllbkRvXENyZWF0ZS5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Anh Tu/dacs/do-an-cua-sinh-vien/webquanli/Views/TienDo/Index.cshtml]
+[D:/Anh Tu/do-an-cua-sinh-vien/webquanli/Views/TienDo/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcVGllbkRvXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Anh Tu/dacs/do-an-cua-sinh-vien/webquanli/Views/_ViewImports.cshtml]
+[D:/Anh Tu/do-an-cua-sinh-vien/webquanli/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Anh Tu/dacs/do-an-cua-sinh-vien/webquanli/Views/_ViewStart.cshtml]
+[D:/Anh Tu/do-an-cua-sinh-vien/webquanli/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[D:/Anh Tu/dacs/do-an-cua-sinh-vien/webquanli/Views/Shared/_Layout.cshtml]
+[D:/Anh Tu/do-an-cua-sinh-vien/webquanli/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-34f9236ayv

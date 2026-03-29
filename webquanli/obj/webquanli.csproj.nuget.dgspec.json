@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\Anh Tu\\dacs\\do-an-cua-sinh-vien\\webquanli\\webquanli.csproj": {}
+    "D:\\Anh Tu\\do-an-cua-sinh-vien\\webquanli\\webquanli.csproj": {}
   },
   "projects": {
-    "D:\\Anh Tu\\dacs\\do-an-cua-sinh-vien\\webquanli\\webquanli.csproj": {
+    "D:\\Anh Tu\\do-an-cua-sinh-vien\\webquanli\\webquanli.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\Anh Tu\\dacs\\do-an-cua-sinh-vien\\webquanli\\webquanli.csproj",
+        "projectUniqueName": "D:\\Anh Tu\\do-an-cua-sinh-vien\\webquanli\\webquanli.csproj",
         "projectName": "webquanli",
-        "projectPath": "D:\\Anh Tu\\dacs\\do-an-cua-sinh-vien\\webquanli\\webquanli.csproj",
+        "projectPath": "D:\\Anh Tu\\do-an-cua-sinh-vien\\webquanli\\webquanli.csproj",
         "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-        "outputPath": "D:\\Anh Tu\\dacs\\do-an-cua-sinh-vien\\webquanli\\obj\\",
+        "outputPath": "D:\\Anh Tu\\do-an-cua-sinh-vien\\webquanli\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

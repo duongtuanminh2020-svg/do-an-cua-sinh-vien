@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("webquanli")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Release")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+82e70cbfd4aa376a74775897af6bde246d8f6b04")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7b9e5abc58dfb1e249fc2a76df737e4d93952031")]
 [assembly: System.Reflection.AssemblyProductAttribute("webquanli")]
 [assembly: System.Reflection.AssemblyTitleAttribute("webquanli")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

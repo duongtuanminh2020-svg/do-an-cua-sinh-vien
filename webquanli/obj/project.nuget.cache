@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "d+FSzNUqzgw=",
+  "dgSpecHash": "4Gp1Vx2dww8=",
   "success": true,
-  "projectFilePath": "D:\\Anh Tu\\dacs\\do-an-cua-sinh-vien\\webquanli\\webquanli.csproj",
+  "projectFilePath": "D:\\Anh Tu\\do-an-cua-sinh-vien\\webquanli\\webquanli.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Admin\\.nuget\\packages\\azure.core\\1.47.1\\azure.core.1.47.1.nupkg.sha512",
     "C:\\Users\\Admin\\.nuget\\packages\\azure.identity\\1.14.2\\azure.identity.1.14.2.nupkg.sha512",

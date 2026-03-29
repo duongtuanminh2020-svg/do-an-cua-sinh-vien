@@ -13,7 +13,7 @@
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Tổng Sinh Viên</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">120</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">@ViewBag.TongSinhVien</div>
                     </div>
                     <div class="col-auto">
                         <i class="fa-solid fa-users fa-2x text-secondary opacity-50"></i>
@@ -29,7 +29,7 @@
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Đề Tài Đã Duyệt</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">45</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">@ViewBag.TongDeTai</div>
                     </div>
                     <div class="col-auto">
                         <i class="fa-solid fa-book fa-2x text-secondary opacity-50"></i>
@@ -47,11 +47,11 @@
                         <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Tiến Độ Trung Bình</div>
                         <div class="row no-gutters align-items-center mt-2">
                             <div class="col-auto">
-                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800" style="margin-right: 15px;">65%</div>
+                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800" style="margin-right: 15px;">@ViewBag.TienDoTrungBinh%</div>
                             </div>
                             <div class="col">
                                 <div class="progress progress-sm" style="height: 10px;">
-                                    <div class="progress-bar bg-info" role="progressbar" style="width: 65%"></div>
+                                    <div class="progress-bar bg-info" role="progressbar" style="width: @(ViewBag.TienDoTrungBinh)%"></div>
                                 </div>
                             </div>
                         </div>
@@ -70,7 +70,7 @@
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Báo Cáo Chờ Duyệt</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">8</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">@ViewBag.TongBaoCao</div>
                     </div>
                     <div class="col-auto">
                         <i class="fa-solid fa-comments fa-2x text-secondary opacity-50"></i>
@@ -94,6 +94,7 @@
             </div>
         </div>
     </div>
+    
     <div class="col-xl-4 col-lg-5">
         <div class="card shadow mb-4">
             <div class="card-header py-3">
@@ -111,12 +112,11 @@
 @section Scripts {
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        // Cấu hình biểu đồ đường
         var ctxArea = document.getElementById("myAreaChart");
         var myLineChart = new Chart(ctxArea, {
         type: 'line',
         data: {
-        labels: ["Tuần 1", "Tuần 2", "Tuần 3", "Tuần 4", "Tuần 5", "Tuần 6"],
+        labels: ["5 tuần trước", "4 tuần trước", "3 tuần trước", "2 tuần trước", "Tuần trước", "Tuần này"],
         datasets: [{
         label: "Số báo cáo",
         lineTension: 0.3,
@@ -130,20 +130,19 @@
         pointHoverBorderColor: "rgba(78, 115, 223, 1)",
         pointHitRadius: 10,
         pointBorderWidth: 2,
-        data: [0, 5, 15, 10, 25, 20],
+        data: [@Html.Raw(ViewBag.DuLieuBaoCao)],
         }],
         },
         options: { maintainAspectRatio: false }
         });
 
-        // Cấu hình biểu đồ tròn
         var ctxPie = document.getElementById("myPieChart");
         var myPieChart = new Chart(ctxPie, {
         type: 'doughnut',
         data: {
-        labels: ["Hoàn thành", "Đang thực hiện", "Trễ hạn"],
+        labels: ["Hoàn thành", "Đang thực hiện", "Chưa bắt đầu"],
         datasets: [{
-        data: [55, 30, 15],
+        data: [@ViewBag.HoanThanh, @ViewBag.DangThucHien, @ViewBag.ChuaBatDau],
         backgroundColor: ['#1cc88a', '#36b9cc', '#e74a3b'],
         hoverBackgroundColor: ['#17a673', '#2c9faf', '#e02d1b'],
         hoverBorderColor: "rgba(234, 236, 244, 1)",

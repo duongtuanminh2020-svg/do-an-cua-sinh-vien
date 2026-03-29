@@ -5,6 +5,9 @@
 
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">Cập nhật Tiến độ</h1>
+    <a asp-action="Create" class="btn btn-info text-white shadow-sm fw-bold">
+        <i class="fa-solid fa-plus"></i> Thêm tiến độ mới
+    </a>
 </div>
 
 <div class="card shadow mb-4">
@@ -17,7 +20,8 @@
                 <thead class="table-light">
                     <tr>
                         <th>Nội dung công việc</th>
-                        <th style="width: 30%;">Tiến độ hoàn thành</th>
+                        <th style="width: 25%;">Tiến độ hoàn thành</th>
+                        <th style="width: 10%;" class="text-center">Thao tác</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -30,14 +34,18 @@
                                 <td class="align-middle">
                                     <div class="d-flex align-items-center">
                                         <span class="me-2 fw-bold text-gray-800">@td.PhanTram%</span>
-                                        <div>
-                                            <div class="progress progress-sm" style="width: 150px;">
-                                                <div class="progress-bar @(td.PhanTram == 100 ? "bg-success" : (td.PhanTram > 50 ? "bg-info" : "bg-warning"))"
-                                                     role="progressbar" style="width: @td.PhanTram%"
-                                                     aria-valuenow="@td.PhanTram" aria-valuemin="0" aria-valuemax="100"></div>
-                                            </div>
+                                        <div class="progress progress-sm" style="width: 120px;">
+                                            <div class="progress-bar @(td.PhanTram == 100 ? "bg-success" : (td.PhanTram > 50 ? "bg-info" : "bg-warning"))"
+                                                 role="progressbar" style="width: @td.PhanTram%"
+                                                 aria-valuenow="@td.PhanTram" aria-valuemin="0" aria-valuemax="100"></div>
                                         </div>
                                     </div>
+                                </td>
+                                <td class="text-center align-middle">
+                                    <a asp-action="Delete" asp-route-id="@td.Id" class="btn btn-danger btn-sm"
+                                           onclick="return confirm('Bạn có chắc chắn muốn xóa nhật ký tiến độ này không?')">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </a>
                                 </td>
                             </tr>
                         }
