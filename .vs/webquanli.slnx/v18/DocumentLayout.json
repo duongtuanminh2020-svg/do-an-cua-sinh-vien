@@ -3,24 +3,88 @@
   "WorkspaceRootPath": "D:\\Anh Tu\\do-an-cua-sinh-vien\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|d:\\anh tu\\do-an-cua-sinh-vien\\webquanli\\views\\sinhvien\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|solutionrelative:webquanli\\views\\sinhvien\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|d:\\anh tu\\do-an-cua-sinh-vien\\webquanli\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|solutionrelative:webquanli\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|d:\\anh tu\\do-an-cua-sinh-vien\\webquanli\\controllers\\sinhviencontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|solutionrelative:webquanli\\controllers\\sinhviencontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|d:\\anh tu\\do-an-cua-sinh-vien\\webquanli\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|solutionrelative:webquanli\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|d:\\anh tu\\do-an-cua-sinh-vien\\webquanli\\views\\tiendo\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|solutionrelative:webquanli\\views\\tiendo\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|d:\\anh tu\\do-an-cua-sinh-vien\\webquanli\\views\\tiendo\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|solutionrelative:webquanli\\views\\tiendo\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|d:\\anh tu\\do-an-cua-sinh-vien\\webquanli\\controllers\\tiendocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|solutionrelative:webquanli\\controllers\\tiendocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|d:\\anh tu\\do-an-cua-sinh-vien\\webquanli\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|solutionrelative:webquanli\\models\\user.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|d:\\anh tu\\do-an-cua-sinh-vien\\webquanli\\models\\tiendo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|solutionrelative:webquanli\\models\\tiendo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|d:\\anh tu\\do-an-cua-sinh-vien\\webquanli\\controllers\\baocaocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|solutionrelative:webquanli\\controllers\\baocaocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|d:\\anh tu\\do-an-cua-sinh-vien\\webquanli\\views\\baocao\\upload.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|solutionrelative:webquanli\\views\\baocao\\upload.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|d:\\anh tu\\do-an-cua-sinh-vien\\webquanli\\models\\baocao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|solutionrelative:webquanli\\models\\baocao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|d:\\anh tu\\do-an-cua-sinh-vien\\webquanli\\models\\dangkydetai.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|solutionrelative:webquanli\\models\\dangkydetai.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|d:\\anh tu\\do-an-cua-sinh-vien\\webquanli\\views\\detai\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|solutionrelative:webquanli\\views\\detai\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|d:\\anh tu\\do-an-cua-sinh-vien\\webquanli\\controllers\\detaicontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|solutionrelative:webquanli\\controllers\\detaicontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|d:\\anh tu\\do-an-cua-sinh-vien\\webquanli\\models\\giangvien.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|solutionrelative:webquanli\\models\\giangvien.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|d:\\anh tu\\do-an-cua-sinh-vien\\webquanli\\views\\detai\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|solutionrelative:webquanli\\views\\detai\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|d:\\anh tu\\do-an-cua-sinh-vien\\webquanli\\views\\detai\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|solutionrelative:webquanli\\views\\detai\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|d:\\anh tu\\do-an-cua-sinh-vien\\webquanli\\views\\sinhvien\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|solutionrelative:webquanli\\views\\sinhvien\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|d:\\anh tu\\do-an-cua-sinh-vien\\webquanli\\views\\sinhvien\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|solutionrelative:webquanli\\views\\sinhvien\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|d:\\anh tu\\do-an-cua-sinh-vien\\webquanli\\models\\sinhvien.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|solutionrelative:webquanli\\models\\sinhvien.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|d:\\anh tu\\do-an-cua-sinh-vien\\webquanli\\controllers\\sinhviencontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|solutionrelative:webquanli\\controllers\\sinhviencontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|d:\\anh tu\\do-an-cua-sinh-vien\\webquanli\\models\\detai.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|solutionrelative:webquanli\\models\\detai.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|d:\\anh tu\\do-an-cua-sinh-vien\\webquanli\\views\\sinhvien\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|solutionrelative:webquanli\\views\\sinhvien\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|d:\\anh tu\\do-an-cua-sinh-vien\\webquanli\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
@@ -35,60 +99,12 @@
       "RelativeMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|solutionrelative:webquanli\\views\\home\\privacy.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|D:\\Anh Tu\\do-an-cua-sinh-vien\\webquanli\\Migrations\\20260329143031_FixFKTienDo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:webquanli\\Migrations\\20260329143031_FixFKTienDo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|d:\\anh tu\\do-an-cua-sinh-vien\\webquanli\\models\\tiendo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|solutionrelative:webquanli\\models\\tiendo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|d:\\anh tu\\do-an-cua-sinh-vien\\webquanli\\views\\tiendo\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|solutionrelative:webquanli\\views\\tiendo\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|d:\\anh tu\\do-an-cua-sinh-vien\\webquanli\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|solutionrelative:webquanli\\controllers\\accountcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|d:\\anh tu\\do-an-cua-sinh-vien\\webquanli\\controllers\\baocaocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|solutionrelative:webquanli\\controllers\\baocaocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|d:\\anh tu\\do-an-cua-sinh-vien\\webquanli\\controllers\\detaicontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|solutionrelative:webquanli\\controllers\\detaicontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|d:\\anh tu\\do-an-cua-sinh-vien\\webquanli\\views\\detai\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|solutionrelative:webquanli\\views\\detai\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|d:\\anh tu\\do-an-cua-sinh-vien\\webquanli\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
       "RelativeMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|solutionrelative:webquanli\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|d:\\anh tu\\do-an-cua-sinh-vien\\webquanli\\views\\detai\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|solutionrelative:webquanli\\views\\detai\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|d:\\anh tu\\do-an-cua-sinh-vien\\webquanli\\views\\detai\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|solutionrelative:webquanli\\views\\detai\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|d:\\anh tu\\do-an-cua-sinh-vien\\webquanli\\views\\baocao\\upload.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|solutionrelative:webquanli\\views\\baocao\\upload.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|d:\\anh tu\\do-an-cua-sinh-vien\\webquanli\\views\\baocao\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|solutionrelative:webquanli\\views\\baocao\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|d:\\anh tu\\do-an-cua-sinh-vien\\webquanli\\models\\baocao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|solutionrelative:webquanli\\models\\baocao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|d:\\anh tu\\do-an-cua-sinh-vien\\webquanli\\models\\giangvien.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|solutionrelative:webquanli\\models\\giangvien.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|d:\\anh tu\\do-an-cua-sinh-vien\\webquanli\\models\\errorviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -111,18 +127,6 @@
       "RelativeMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|solutionrelative:webquanli\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|d:\\anh tu\\do-an-cua-sinh-vien\\webquanli\\models\\sinhvien.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|solutionrelative:webquanli\\models\\sinhvien.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|d:\\anh tu\\do-an-cua-sinh-vien\\webquanli\\views\\sinhvien\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|solutionrelative:webquanli\\views\\sinhvien\\edit.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|d:\\anh tu\\do-an-cua-sinh-vien\\webquanli\\views\\sinhvien\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|solutionrelative:webquanli\\views\\sinhvien\\create.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|d:\\anh tu\\do-an-cua-sinh-vien\\webquanli\\views\\_viewstart.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|solutionrelative:webquanli\\views\\_viewstart.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
@@ -139,14 +143,6 @@
       "RelativeMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|solutionrelative:webquanli\\views\\shared\\_validationscriptspartial.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|d:\\anh tu\\do-an-cua-sinh-vien\\webquanli\\models\\dangkydetai.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|solutionrelative:webquanli\\models\\dangkydetai.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|d:\\anh tu\\do-an-cua-sinh-vien\\webquanli\\models\\detai.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|solutionrelative:webquanli\\models\\detai.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|d:\\anh tu\\do-an-cua-sinh-vien\\webquanli\\migrations\\20260326102705_updatebaocao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|solutionrelative:webquanli\\migrations\\20260326102705_updatebaocao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -157,6 +153,10 @@
     {
       "AbsoluteMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|d:\\anh tu\\do-an-cua-sinh-vien\\webquanli\\migrations\\20260326090635_initdb.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|solutionrelative:webquanli\\migrations\\20260326090635_initdb.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|d:\\anh tu\\do-an-cua-sinh-vien\\webquanli\\migrations\\20260329143031_fixfktiendo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{01001850-828E-B507-32ED-484F9FDC0704}|webquanli\\webquanli.csproj|solutionrelative:webquanli\\migrations\\20260329143031_fixfktiendo.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -166,7 +166,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 35,
+          "SelectedChildIndex": 23,
           "Children": [
             {
               "$type": "Bookmark",
@@ -174,7 +174,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 38,
               "Title": "20260329143031_FixFKTienDo.cs",
               "DocumentMoniker": "D:\\Anh Tu\\do-an-cua-sinh-vien\\webquanli\\Migrations\\20260329143031_FixFKTienDo.cs",
               "RelativeDocumentMoniker": "webquanli\\Migrations\\20260329143031_FixFKTienDo.cs",
@@ -182,24 +182,24 @@
               "RelativeToolTip": "webquanli\\Migrations\\20260329143031_FixFKTienDo.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-29T14:30:32.13Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-29T14:30:32.13Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 13,
               "Title": "Edit.cshtml",
               "DocumentMoniker": "D:\\Anh Tu\\do-an-cua-sinh-vien\\webquanli\\Views\\DeTai\\Edit.cshtml",
               "RelativeDocumentMoniker": "webquanli\\Views\\DeTai\\Edit.cshtml",
               "ToolTip": "D:\\Anh Tu\\do-an-cua-sinh-vien\\webquanli\\Views\\DeTai\\Edit.cshtml",
               "RelativeToolTip": "webquanli\\Views\\DeTai\\Edit.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACUAAAAGAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACkAAAAGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-03-26T11:41:55.089Z"
+              "WhenOpened": "2026-03-26T11:41:55.089Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 36,
+              "DocumentIndex": 35,
               "Title": "20260326102705_UpdateBaoCao.cs",
               "DocumentMoniker": "D:\\Anh Tu\\do-an-cua-sinh-vien\\webquanli\\Migrations\\20260326102705_UpdateBaoCao.cs",
               "RelativeDocumentMoniker": "webquanli\\Migrations\\20260326102705_UpdateBaoCao.cs",
@@ -211,7 +211,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 30,
+              "DocumentIndex": 31,
               "Title": "_ViewStart.cshtml",
               "DocumentMoniker": "D:\\Anh Tu\\do-an-cua-sinh-vien\\webquanli\\Views\\_ViewStart.cshtml",
               "RelativeDocumentMoniker": "webquanli\\Views\\_ViewStart.cshtml",
@@ -223,7 +223,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 31,
+              "DocumentIndex": 32,
               "Title": "_ViewImports.cshtml",
               "DocumentMoniker": "D:\\Anh Tu\\do-an-cua-sinh-vien\\webquanli\\Views\\_ViewImports.cshtml",
               "RelativeDocumentMoniker": "webquanli\\Views\\_ViewImports.cshtml",
@@ -235,7 +235,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 33,
+              "DocumentIndex": 34,
               "Title": "_ValidationScriptsPartial.cshtml",
               "DocumentMoniker": "D:\\Anh Tu\\do-an-cua-sinh-vien\\webquanli\\Views\\Shared\\_ValidationScriptsPartial.cshtml",
               "RelativeDocumentMoniker": "webquanli\\Views\\Shared\\_ValidationScriptsPartial.cshtml",
@@ -247,7 +247,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 23,
               "Title": "Privacy.cshtml",
               "DocumentMoniker": "D:\\Anh Tu\\do-an-cua-sinh-vien\\webquanli\\Views\\Home\\Privacy.cshtml",
               "RelativeDocumentMoniker": "webquanli\\Views\\Home\\Privacy.cshtml",
@@ -255,12 +255,11 @@
               "RelativeToolTip": "webquanli\\Views\\Home\\Privacy.cshtml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-03-26T09:24:33.575Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-26T09:24:33.575Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 37,
+              "DocumentIndex": 36,
               "Title": "20260326092133_AddForeignKeys.cs",
               "DocumentMoniker": "D:\\Anh Tu\\do-an-cua-sinh-vien\\webquanli\\Migrations\\20260326092133_AddForeignKeys.cs",
               "RelativeDocumentMoniker": "webquanli\\Migrations\\20260326092133_AddForeignKeys.cs",
@@ -272,7 +271,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 38,
+              "DocumentIndex": 37,
               "Title": "20260326090635_InitDB.cs",
               "DocumentMoniker": "D:\\Anh Tu\\do-an-cua-sinh-vien\\webquanli\\Migrations\\20260326090635_InitDB.cs",
               "RelativeDocumentMoniker": "webquanli\\Migrations\\20260326090635_InitDB.cs",
@@ -284,7 +283,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 32,
+              "DocumentIndex": 33,
               "Title": "Error.cshtml",
               "DocumentMoniker": "D:\\Anh Tu\\do-an-cua-sinh-vien\\webquanli\\Views\\Shared\\Error.cshtml",
               "RelativeDocumentMoniker": "webquanli\\Views\\Shared\\Error.cshtml",
@@ -296,33 +295,33 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "TienDoController.cs",
               "DocumentMoniker": "D:\\Anh Tu\\do-an-cua-sinh-vien\\webquanli\\Controllers\\TienDoController.cs",
               "RelativeDocumentMoniker": "webquanli\\Controllers\\TienDoController.cs",
               "ToolTip": "D:\\Anh Tu\\do-an-cua-sinh-vien\\webquanli\\Controllers\\TienDoController.cs",
               "RelativeToolTip": "webquanli\\Controllers\\TienDoController.cs",
-              "ViewState": "AgIAACgAAAAAAAAAAAAzwDwAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAB0AAAAAAAAAAAAAAEUAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-03-14T17:22:36.335Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 6,
               "Title": "BaoCaoController.cs",
               "DocumentMoniker": "D:\\Anh Tu\\do-an-cua-sinh-vien\\webquanli\\Controllers\\BaoCaoController.cs",
               "RelativeDocumentMoniker": "webquanli\\Controllers\\BaoCaoController.cs",
               "ToolTip": "D:\\Anh Tu\\do-an-cua-sinh-vien\\webquanli\\Controllers\\BaoCaoController.cs",
               "RelativeToolTip": "webquanli\\Controllers\\BaoCaoController.cs",
-              "ViewState": "AgIAAFYAAAAAAAAAAAAgwHAAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAEgAAAAAAAAAAAAAAGMAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-03-14T17:22:44.913Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 26,
+              "DocumentIndex": 30,
               "Title": "ApplicationDbContext.cs",
               "DocumentMoniker": "D:\\Anh Tu\\do-an-cua-sinh-vien\\webquanli\\Data\\ApplicationDbContext.cs",
               "RelativeDocumentMoniker": "webquanli\\Data\\ApplicationDbContext.cs",
@@ -334,7 +333,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 25,
+              "DocumentIndex": 29,
               "Title": "Program.cs",
               "DocumentMoniker": "D:\\Anh Tu\\do-an-cua-sinh-vien\\webquanli\\Program.cs",
               "RelativeDocumentMoniker": "webquanli\\Program.cs",
@@ -346,7 +345,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 23,
+              "DocumentIndex": 27,
               "Title": "_Layout.cshtml",
               "DocumentMoniker": "D:\\Anh Tu\\do-an-cua-sinh-vien\\webquanli\\Views\\Shared\\_Layout.cshtml",
               "RelativeDocumentMoniker": "webquanli\\Views\\Shared\\_Layout.cshtml",
@@ -358,33 +357,33 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 18,
               "Title": "SinhVienController.cs",
               "DocumentMoniker": "D:\\Anh Tu\\do-an-cua-sinh-vien\\webquanli\\Controllers\\SinhVienController.cs",
               "RelativeDocumentMoniker": "webquanli\\Controllers\\SinhVienController.cs",
               "ToolTip": "D:\\Anh Tu\\do-an-cua-sinh-vien\\webquanli\\Controllers\\SinhVienController.cs",
               "RelativeToolTip": "webquanli\\Controllers\\SinhVienController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABQAAAAPAAAAAAAAAA==",
+              "ViewState": "AgIAACUAAAAAAAAAAADwv1AAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-03-14T17:10:43.293Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 11,
               "Title": "DeTaiController.cs",
               "DocumentMoniker": "D:\\Anh Tu\\do-an-cua-sinh-vien\\webquanli\\Controllers\\DeTaiController.cs",
               "RelativeDocumentMoniker": "webquanli\\Controllers\\DeTaiController.cs",
               "ToolTip": "D:\\Anh Tu\\do-an-cua-sinh-vien\\webquanli\\Controllers\\DeTaiController.cs",
               "RelativeToolTip": "webquanli\\Controllers\\DeTaiController.cs",
-              "ViewState": "AgIAAEIAAAAAAAAAAAAmwE0AAAABAAAAAAAAAA==",
+              "ViewState": "AgIAABYAAAAAAAAAAAAqwEQAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-03-14T17:22:27.736Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 22,
+              "DocumentIndex": 26,
               "Title": "ErrorViewModel.cs",
               "DocumentMoniker": "D:\\Anh Tu\\do-an-cua-sinh-vien\\webquanli\\Models\\ErrorViewModel.cs",
               "RelativeDocumentMoniker": "webquanli\\Models\\ErrorViewModel.cs",
@@ -396,7 +395,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 24,
               "Title": "appsettings.json",
               "DocumentMoniker": "D:\\Anh Tu\\do-an-cua-sinh-vien\\webquanli\\appsettings.json",
               "RelativeDocumentMoniker": "webquanli\\appsettings.json",
@@ -404,12 +403,11 @@
               "RelativeToolTip": "webquanli\\appsettings.json",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2026-03-14T17:48:33.923Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-14T17:48:33.923Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 22,
               "Title": "HomeController.cs",
               "DocumentMoniker": "D:\\Anh Tu\\do-an-cua-sinh-vien\\webquanli\\Controllers\\HomeController.cs",
               "RelativeDocumentMoniker": "webquanli\\Controllers\\HomeController.cs",
@@ -417,12 +415,11 @@
               "RelativeToolTip": "webquanli\\Controllers\\HomeController.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAADEAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-14T17:12:47.925Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-14T17:12:47.925Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 34,
+              "DocumentIndex": 9,
               "Title": "DangKyDeTai.cs",
               "DocumentMoniker": "D:\\Anh Tu\\do-an-cua-sinh-vien\\webquanli\\Models\\DangKyDeTai.cs",
               "RelativeDocumentMoniker": "webquanli\\Models\\DangKyDeTai.cs",
@@ -430,11 +427,12 @@
               "RelativeToolTip": "webquanli\\Models\\DangKyDeTai.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-14T17:51:53.425Z"
+              "WhenOpened": "2026-03-14T17:51:53.425Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 35,
+              "DocumentIndex": 19,
               "Title": "DeTai.cs",
               "DocumentMoniker": "D:\\Anh Tu\\do-an-cua-sinh-vien\\webquanli\\Models\\DeTai.cs",
               "RelativeDocumentMoniker": "webquanli\\Models\\DeTai.cs",
@@ -442,32 +440,34 @@
               "RelativeToolTip": "webquanli\\Models\\DeTai.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-14T17:10:54.446Z"
+              "WhenOpened": "2026-03-14T17:10:54.446Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 0,
               "Title": "AccountController.cs",
               "DocumentMoniker": "D:\\Anh Tu\\do-an-cua-sinh-vien\\webquanli\\Controllers\\AccountController.cs",
               "RelativeDocumentMoniker": "webquanli\\Controllers\\AccountController.cs",
               "ToolTip": "D:\\Anh Tu\\do-an-cua-sinh-vien\\webquanli\\Controllers\\AccountController.cs",
               "RelativeToolTip": "webquanli\\Controllers\\AccountController.cs",
-              "ViewState": "AgIAACcAAAAAAAAAAAAuwDsAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAywCcAAABFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-03-14T17:16:03.86Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 17,
+              "DocumentIndex": 10,
               "Title": "Index.cshtml",
               "DocumentMoniker": "D:\\Anh Tu\\do-an-cua-sinh-vien\\webquanli\\Views\\DeTai\\Index.cshtml",
               "RelativeDocumentMoniker": "webquanli\\Views\\DeTai\\Index.cshtml",
               "ToolTip": "D:\\Anh Tu\\do-an-cua-sinh-vien\\webquanli\\Views\\DeTai\\Index.cshtml",
               "RelativeToolTip": "webquanli\\Views\\DeTai\\Index.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAADUAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAABAAAAAAAAAAAAAqwD4AAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-03-14T18:07:54.662Z"
+              "WhenOpened": "2026-03-14T18:07:54.662Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -477,26 +477,27 @@
               "RelativeDocumentMoniker": "webquanli\\Views\\DeTai\\Create.cshtml",
               "ToolTip": "D:\\Anh Tu\\do-an-cua-sinh-vien\\webquanli\\Views\\DeTai\\Create.cshtml",
               "RelativeToolTip": "webquanli\\Views\\DeTai\\Create.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACMAAAAGAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACcAAAAGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2026-03-14T18:08:11.213Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 28,
+              "DocumentIndex": 15,
               "Title": "Edit.cshtml",
               "DocumentMoniker": "D:\\Anh Tu\\do-an-cua-sinh-vien\\webquanli\\Views\\SinhVien\\Edit.cshtml",
               "RelativeDocumentMoniker": "webquanli\\Views\\SinhVien\\Edit.cshtml",
               "ToolTip": "D:\\Anh Tu\\do-an-cua-sinh-vien\\webquanli\\Views\\SinhVien\\Edit.cshtml",
               "RelativeToolTip": "webquanli\\Views\\SinhVien\\Edit.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAC8AAAAGAAAAAAAAAA==",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAAC8AAAAGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-03-14T18:07:26.422Z"
+              "WhenOpened": "2026-03-14T18:07:26.422Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 24,
+              "DocumentIndex": 28,
               "Title": "Login.cshtml",
               "DocumentMoniker": "D:\\Anh Tu\\do-an-cua-sinh-vien\\webquanli\\Views\\Account\\Login.cshtml",
               "RelativeDocumentMoniker": "webquanli\\Views\\Account\\Login.cshtml",
@@ -508,7 +509,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 21,
               "Title": "Index.cshtml",
               "DocumentMoniker": "D:\\Anh Tu\\do-an-cua-sinh-vien\\webquanli\\Views\\Home\\Index.cshtml",
               "RelativeDocumentMoniker": "webquanli\\Views\\Home\\Index.cshtml",
@@ -516,20 +517,20 @@
               "RelativeToolTip": "webquanli\\Views\\Home\\Index.cshtml",
               "ViewState": "AgIAAEEAAAAAAAAAAAAIwJkAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-03-14T17:13:05.504Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-03-14T17:13:05.504Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 18,
+              "DocumentIndex": 7,
               "Title": "Upload.cshtml",
               "DocumentMoniker": "D:\\Anh Tu\\do-an-cua-sinh-vien\\webquanli\\Views\\BaoCao\\Upload.cshtml",
               "RelativeDocumentMoniker": "webquanli\\Views\\BaoCao\\Upload.cshtml",
               "ToolTip": "D:\\Anh Tu\\do-an-cua-sinh-vien\\webquanli\\Views\\BaoCao\\Upload.cshtml",
               "RelativeToolTip": "webquanli\\Views\\BaoCao\\Upload.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB8AAAAGAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAB4AAAAoAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-03-14T18:04:40.8Z"
+              "WhenOpened": "2026-03-14T18:04:40.8Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -539,27 +540,27 @@
               "RelativeDocumentMoniker": "webquanli\\Views\\TienDo\\Index.cshtml",
               "ToolTip": "D:\\Anh Tu\\do-an-cua-sinh-vien\\webquanli\\Views\\TienDo\\Index.cshtml",
               "RelativeToolTip": "webquanli\\Views\\TienDo\\Index.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAADwAAAAnAAAAAAAAAA==",
+              "ViewState": "AgIAABgAAAAAAAAAAAAiwDcAAAAVAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2026-03-14T18:09:18.385Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 3,
               "Title": "Create.cshtml",
               "DocumentMoniker": "D:\\Anh Tu\\do-an-cua-sinh-vien\\webquanli\\Views\\TienDo\\Create.cshtml",
               "RelativeDocumentMoniker": "webquanli\\Views\\TienDo\\Create.cshtml",
               "ToolTip": "D:\\Anh Tu\\do-an-cua-sinh-vien\\webquanli\\Views\\TienDo\\Create.cshtml",
               "RelativeToolTip": "webquanli\\Views\\TienDo\\Create.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACMAAAAGAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACkAAAAGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
               "WhenOpened": "2026-03-14T18:09:37.712Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 5,
               "Title": "TienDo.cs",
               "DocumentMoniker": "D:\\Anh Tu\\do-an-cua-sinh-vien\\webquanli\\Models\\TienDo.cs",
               "RelativeDocumentMoniker": "webquanli\\Models\\TienDo.cs",
@@ -572,7 +573,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 19,
+              "DocumentIndex": 25,
               "Title": "Index.cshtml",
               "DocumentMoniker": "D:\\Anh Tu\\do-an-cua-sinh-vien\\webquanli\\Views\\BaoCao\\Index.cshtml",
               "RelativeDocumentMoniker": "webquanli\\Views\\BaoCao\\Index.cshtml",
@@ -584,19 +585,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 20,
+              "DocumentIndex": 8,
               "Title": "BaoCao.cs",
               "DocumentMoniker": "D:\\Anh Tu\\do-an-cua-sinh-vien\\webquanli\\Models\\BaoCao.cs",
               "RelativeDocumentMoniker": "webquanli\\Models\\BaoCao.cs",
               "ToolTip": "D:\\Anh Tu\\do-an-cua-sinh-vien\\webquanli\\Models\\BaoCao.cs",
               "RelativeToolTip": "webquanli\\Models\\BaoCao.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABsAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-14T17:23:51.533Z"
+              "WhenOpened": "2026-03-14T17:23:51.533Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 20,
               "Title": "Index.cshtml",
               "DocumentMoniker": "D:\\Anh Tu\\do-an-cua-sinh-vien\\webquanli\\Views\\SinhVien\\Index.cshtml",
               "RelativeDocumentMoniker": "webquanli\\Views\\SinhVien\\Index.cshtml",
@@ -609,7 +611,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 29,
+              "DocumentIndex": 16,
               "Title": "Create.cshtml",
               "DocumentMoniker": "D:\\Anh Tu\\do-an-cua-sinh-vien\\webquanli\\Views\\SinhVien\\Create.cshtml",
               "RelativeDocumentMoniker": "webquanli\\Views\\SinhVien\\Create.cshtml",
@@ -617,35 +619,38 @@
               "RelativeToolTip": "webquanli\\Views\\SinhVien\\Create.cshtml",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAACsAAAAGAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2026-03-14T17:28:46.236Z"
+              "WhenOpened": "2026-03-14T17:28:46.236Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 21,
+              "DocumentIndex": 12,
               "Title": "GiangVien.cs",
               "DocumentMoniker": "D:\\Anh Tu\\do-an-cua-sinh-vien\\webquanli\\Models\\GiangVien.cs",
               "RelativeDocumentMoniker": "webquanli\\Models\\GiangVien.cs",
               "ToolTip": "D:\\Anh Tu\\do-an-cua-sinh-vien\\webquanli\\Models\\GiangVien.cs",
               "RelativeToolTip": "webquanli\\Models\\GiangVien.cs",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAowBIAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-14T17:23:29.101Z"
+              "WhenOpened": "2026-03-14T17:23:29.101Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 27,
+              "DocumentIndex": 17,
               "Title": "SinhVien.cs",
               "DocumentMoniker": "D:\\Anh Tu\\do-an-cua-sinh-vien\\webquanli\\Models\\SinhVien.cs",
               "RelativeDocumentMoniker": "webquanli\\Models\\SinhVien.cs",
               "ToolTip": "D:\\Anh Tu\\do-an-cua-sinh-vien\\webquanli\\Models\\SinhVien.cs",
               "RelativeToolTip": "webquanli\\Models\\SinhVien.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAApAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-03-14T17:08:00.661Z"
+              "WhenOpened": "2026-03-14T17:08:00.661Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 1,
               "Title": "User.cs",
               "DocumentMoniker": "D:\\Anh Tu\\do-an-cua-sinh-vien\\webquanli\\Models\\User.cs",
               "RelativeDocumentMoniker": "webquanli\\Models\\User.cs",

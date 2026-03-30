@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace webquanli.Models
 {
@@ -7,7 +8,11 @@ namespace webquanli.Models
     {
         public int Id { get; set; }
 
+        // Cột cũ trong SQL bắt buộc phải có dữ liệu
         public int DangKyId { get; set; }
+
+        // Cột khóa ngoại thực sự của SQL
+        public int DangKyDeTaiId { get; set; }
 
         [Required]
         public string TenFile { get; set; }
@@ -17,6 +22,7 @@ namespace webquanli.Models
 
         public DateTime NgayNop { get; set; } = DateTime.Now;
 
+        [ForeignKey("DangKyDeTaiId")]
         public virtual DangKyDeTai DangKyDeTai { get; set; }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using webquanli.Data;
 using webquanli.Models;
 using System.Linq;
@@ -17,21 +18,21 @@ namespace webquanli.Controllers
 
         public IActionResult Index()
         {
-            return View(_context.DeTais.ToList());
+            var danhSachDeTai = _context.DeTais.Include(d => d.GiangVien).ToList();
+            return View(danhSachDeTai);
         }
 
         public IActionResult Create()
         {
-            ViewBag.DanhSachGiangVien = new SelectList(_context.GiangViens.ToList(), "Id", "TenGV");
+            // Đã đổi "Id" thành "TenGV" để hiển thị tên trên giao diện
+            ViewBag.GiangVienId = new SelectList(_context.GiangViens, "Id", "TenGV");
             return View();
         }
 
         [HttpPost]
-        public IActionResult Create(DeTai dt)
+        public IActionResult Create(DeTai deTai)
         {
-            ModelState.Clear();
-
-            _context.DeTais.Add(dt);
+            _context.DeTais.Add(deTai);
             _context.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -39,27 +40,17 @@ namespace webquanli.Controllers
         public IActionResult Edit(int id)
         {
             var deTai = _context.DeTais.Find(id);
-            if (deTai == null)
-            {
-                return NotFound();
-            }
+            if (deTai == null) return NotFound();
 
-            ViewBag.DanhSachGiangVien = new SelectList(_context.GiangViens.ToList(), "Id", "TenGV");
-
+            // Đã đổi "Id" thành "TenGV" để hiển thị tên trên giao diện
+            ViewBag.GiangVienId = new SelectList(_context.GiangViens, "Id", "TenGV", deTai.GiangVienId);
             return View(deTai);
         }
 
         [HttpPost]
-        public IActionResult Edit(int id, DeTai dt)
+        public IActionResult Edit(DeTai deTai)
         {
-            if (id != dt.Id)
-            {
-                return NotFound();
-            }
-
-            ModelState.Clear();
-
-            _context.DeTais.Update(dt);
+            _context.DeTais.Update(deTai);
             _context.SaveChanges();
             return RedirectToAction("Index");
         }

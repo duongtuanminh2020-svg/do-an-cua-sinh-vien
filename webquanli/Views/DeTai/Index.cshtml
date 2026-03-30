@@ -1,27 +1,26 @@
 ﻿@model List<webquanli.Models.DeTai>
 @{
-    ViewData["Title"] = "Danh sách Đề tài";
+    ViewData["Title"] = "Danh sách Đề Tài";
 }
 
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Quản lý Đề tài</h1>
-    <a href="/DeTai/Create" class="btn btn-primary shadow-sm">
-        <i class="fa-solid fa-plus fa-sm text-white-50"></i> Thêm đề tài mới
+    <h1 class="h3 mb-0 text-gray-800">Danh sách Đề tài</h1>
+    <a asp-action="Create" class="btn btn-primary text-white shadow-sm fw-bold">
+        <i class="fa-solid fa-plus"></i> Thêm đề tài mới
     </a>
 </div>
 
 <div class="card shadow mb-4">
-    <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Danh mục Đề tài Đồ án/Luận văn</h6>
-    </div>
     <div class="card-body">
         <div class="table-responsive">
             <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
                 <thead class="table-light">
                     <tr>
-                        <th style="width: 30%;">Tên đề tài</th>
-                        <th>Mô tả tóm tắt</th>
-                        <th class="text-center" style="width: 150px;">Thao tác</th>
+                        <th style="width: 5%;">ID</th>
+                        <th style="width: 25%;">Tên Đề Tài</th>
+                        <th style="width: 45%;">Mô Tả</th>
+                        <th style="width: 15%;">Giảng Viên Phụ Trách</th>
+                        <th style="width: 10%;" class="text-center">Thao tác</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -30,11 +29,21 @@
                         foreach (var dt in Model)
                         {
                             <tr>
+                                <td class="fw-bold align-middle">@dt.Id</td>
                                 <td class="align-middle fw-bold text-primary">@dt.TenDeTai</td>
-                                <td class="align-middle text-muted">@dt.MoTa</td>
+                                <td class="align-middle">@dt.MoTa</td>
+                                <td class="align-middle text-center">
+                                    <span class="badge bg-secondary">
+                                        @(dt.GiangVien != null ? dt.GiangVien.TenGV : "Chưa phân công")
+                                    </span>
+                                </td>
                                 <td class="text-center align-middle">
-                                    <a class="btn btn-warning btn-sm" href="/DeTai/Edit/@dt.Id" title="Sửa"><i class="fa-solid fa-pen-to-square"></i></a>
-                                    <a class="btn btn-danger btn-sm" href="/DeTai/Delete/@dt.Id" title="Xóa"><i class="fa-solid fa-trash"></i></a>
+                                    <a asp-action="Edit" asp-route-id="@dt.Id" class="btn btn-warning btn-sm text-white">
+                                        <i class="fa-solid fa-pen-to-square"></i>
+                                    </a>
+                                    <a asp-action="Delete" asp-route-id="@dt.Id" class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc chắn muốn xóa đề tài này?')">
+                                        <i class="fa-solid fa-trash"></i>
+                                    </a>
                                 </td>
                             </tr>
                         }

@@ -1,26 +1,25 @@
 ﻿@model List<webquanli.Models.TienDo>
 @{
-    ViewData["Title"] = "Theo dõi Tiến độ";
+    ViewData["Title"] = "Quản lý Tiến Độ";
 }
 
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Cập nhật Tiến độ</h1>
-    <a asp-action="Create" class="btn btn-info text-white shadow-sm fw-bold">
-        <i class="fa-solid fa-plus"></i> Thêm tiến độ mới
+    <h1 class="h3 mb-0 text-gray-800">Theo dõi Tiến Độ Đồ Án</h1>
+    <a asp-action="Create" class="btn btn-primary text-white shadow-sm fw-bold">
+        Cập nhật tiến độ mới
     </a>
 </div>
 
 <div class="card shadow mb-4">
-    <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-info">Nhật ký thực hiện Đồ án</h6>
-    </div>
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
+            <table class="table table-bordered table-hover">
                 <thead class="table-light">
                     <tr>
-                        <th>Nội dung công việc</th>
-                        <th style="width: 25%;">Tiến độ hoàn thành</th>
+                        <th style="width: 25%;">Nhóm Sinh Viên</th>
+                        <th style="width: 30%;">Nội Dung Công Việc</th>
+                        <th style="width: 20%;">Mức Độ Hoàn Thành</th>
+                        <th style="width: 15%;">Ngày Cập Nhật</th>
                         <th style="width: 10%;" class="text-center">Thao tác</th>
                     </tr>
                 </thead>
@@ -30,36 +29,39 @@
                         foreach (var td in Model)
                         {
                             <tr>
+                                <td class="align-middle fw-bold">
+                                    <span class="text-primary">@td.DangKyDeTai.SinhVien.TenSV</span><br />
+                                    <small class="text-muted">@td.DangKyDeTai.DeTai.TenDeTai</small>
+                                </td>
                                 <td class="align-middle">@td.NoiDung</td>
                                 <td class="align-middle">
-                                    <div class="d-flex align-items-center">
-                                        <span class="me-2 fw-bold text-gray-800">@td.PhanTram%</span>
-                                        <div class="progress progress-sm" style="width: 120px;">
-                                            <div class="progress-bar @(td.PhanTram == 100 ? "bg-success" : (td.PhanTram > 50 ? "bg-info" : "bg-warning"))"
-                                                 role="progressbar" style="width: @td.PhanTram%"
-                                                 aria-valuenow="@td.PhanTram" aria-valuemin="0" aria-valuemax="100"></div>
-                                        </div>
+                                    <div class="d-flex justify-content-between align-items-center mb-1">
+                                        <span class="fw-bold text-dark">@td.PhanTram%</span>
+                                    </div>
+                                    <div class="progress" style="height: 10px;">
+                                        <div class="progress-bar bg-success" role="progressbar" style="width: @td.PhanTram%;" aria-valuenow="@td.PhanTram" aria-valuemin="0" aria-valuemax="100"></div>
                                     </div>
                                 </td>
+                                <td class="align-middle">@td.NgayCapNhat.ToString("dd/MM/yyyy")</td>
                                 <td class="text-center align-middle">
-                                    <a asp-action="Delete" asp-route-id="@td.Id" class="btn btn-danger btn-sm"
-                                           onclick="return confirm('Bạn có chắc chắn muốn xóa nhật ký tiến độ này không?')">
-                                        <i class="fa-solid fa-trash"></i>
+                                    <a asp-action="Create" asp-route-id="@td.Id" class="btn btn-warning btn-sm text-white mb-1">
+                                        Sửa
+                                    </a>
+                                    <a asp-action="Delete" asp-route-id="@td.Id" class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc chắn muốn xóa tiến độ này?')">
+                                        Xóa
                                     </a>
                                 </td>
                             </tr>
                         }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="5" class="text-center text-muted">Chưa có dữ liệu tiến độ.</td>
+                        </tr>
                     }
                 </tbody>
             </table>
         </div>
     </div>
 </div>
-
-@section Scripts {
-    <script>
-        $(document).ready(function () {
-            $('#dataTable').DataTable({ "language": { "url": "//cdn.datatables.net/plug-ins/1.13.6/i18n/vi.json" } });
-        });
-    </script>
-}

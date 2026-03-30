@@ -1,36 +1,40 @@
 ﻿@model webquanli.Models.DeTai
 @{
-    ViewData["Title"] = "Thêm mới Đề tài";
+    ViewData["Title"] = "Thêm Đề Tài";
 }
 
-<div class="card shadow mb-4" style="max-width: 800px; margin: auto; margin-top: 50px;">
-    <div class="card-header py-3 bg-primary text-center">
-        <h6 class="m-0 font-weight-bold text-white text-uppercase">Thêm Đề Tài Mới</h6>
-    </div>
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Thêm Đề Tài Mới</h1>
+    <a asp-action="Index" class="btn btn-secondary shadow-sm">
+        Quay lại danh sách
+    </a>
+</div>
+
+<div class="card shadow mb-4">
     <div class="card-body">
         <form asp-action="Create" method="post">
             <div class="mb-3">
-                <label class="form-label fw-bold">Tên đề tài</label>
+                <label class="form-label fw-bold">Tên Đề Tài</label>
                 <input asp-for="TenDeTai" class="form-control" required placeholder="Nhập tên đề tài..." />
             </div>
-
+            
             <div class="mb-3">
-                <label class="form-label fw-bold">Mô tả tóm tắt</label>
-                <textarea asp-for="MoTa" class="form-control" rows="4" placeholder="Nhập mô tả cho đề tài này..."></textarea>
+                <label class="form-label fw-bold">Mô Tả</label>
+                <textarea asp-for="MoTa" class="form-control" rows="4" placeholder="Nhập mô tả chi tiết..."></textarea>
             </div>
 
             <div class="mb-3">
-                <label class="form-label fw-bold">Chọn Giảng Viên Hướng Dẫn</label>
-                <select asp-for="GiangVienId" class="form-select" asp-items="ViewBag.DanhSachGiangVien" required>
-                    <option value="">-- Vui lòng chọn Giảng viên --</option>
+                <label class="form-label fw-bold">Giảng Viên Phụ Trách</label>
+                <select asp-for="GiangVienId" class="form-select" asp-items="ViewBag.GiangVienId" required>
+                    <option value="">-- Chọn Giảng Viên --</option>
                 </select>
             </div>
 
-            <hr />
-            <button type="submit" class="btn btn-primary w-100 fw-bold">
-                <i class="fa-solid fa-plus"></i> THÊM MỚI
-            </button>
-            <a asp-action="Index" class="btn btn-secondary w-100 mt-2">Quay lại danh sách</a>
+            <div class="mt-4">
+                <button type="submit" class="btn btn-primary fw-bold px-4">
+                    Lưu Đề Tài
+                </button>
+            </div>
         </form>
     </div>
 </div>

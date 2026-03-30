@@ -1,38 +1,42 @@
 ﻿@model webquanli.Models.DeTai
 @{
-    ViewData["Title"] = "Chỉnh sửa Đề tài";
+    ViewData["Title"] = "Chỉnh sửa Đề Tài";
 }
 
-<div class="card shadow mb-4" style="max-width: 800px; margin: auto; margin-top: 50px;">
-    <div class="card-header py-3 bg-warning text-center">
-        <h6 class="m-0 font-weight-bold text-dark text-uppercase">Chỉnh sửa Đề tài</h6>
-    </div>
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Cập nhật thông tin Đề Tài</h1>
+    <a asp-action="Index" class="btn btn-secondary shadow-sm">
+        Quay lại danh sách
+    </a>
+</div>
+
+<div class="card shadow mb-4">
     <div class="card-body">
         <form asp-action="Edit" method="post">
             <input type="hidden" asp-for="Id" />
 
             <div class="mb-3">
                 <label class="form-label fw-bold">Tên đề tài</label>
-                <input asp-for="TenDeTai" class="form-control" required placeholder="Nhập tên đề tài..." />
+                <input asp-for="TenDeTai" class="form-control" required />
             </div>
-
+            
             <div class="mb-3">
                 <label class="form-label fw-bold">Mô tả tóm tắt</label>
-                <textarea asp-for="MoTa" class="form-control" rows="4" placeholder="Nhập mô tả cho đề tài này..."></textarea>
+                <textarea asp-for="MoTa" class="form-control" rows="4"></textarea>
             </div>
 
             <div class="mb-3">
                 <label class="form-label fw-bold">Chọn Giảng Viên Hướng Dẫn</label>
-                <select asp-for="GiangVienId" class="form-select" asp-items="ViewBag.DanhSachGiangVien" required>
+                <select asp-for="GiangVienId" class="form-select" asp-items="ViewBag.GiangVienId" required>
                     <option value="">-- Vui lòng chọn Giảng viên --</option>
                 </select>
             </div>
 
-            <hr />
-            <button type="submit" class="btn btn-warning w-100 fw-bold">
-                <i class="fa-solid fa-save"></i> LƯU THAY ĐỔI
-            </button>
-            <a asp-action="Index" class="btn btn-secondary w-100 mt-2">Quay lại danh sách</a>
+            <div class="mt-4">
+                <button type="submit" class="btn btn-warning text-white fw-bold px-4">
+                    Lưu Thay Đổi
+                </button>
+            </div>
         </form>
     </div>
 </div>
