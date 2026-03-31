@@ -8,6 +8,7 @@ using webquanli.Models;
 using System.Linq;
 using System;
 using System.IO;
+using System.Security.Claims;
 
 namespace webquanli.Controllers
 {
@@ -24,18 +25,64 @@ namespace webquanli.Controllers
 
         public IActionResult Index()
         {
-            var danhSachBaoCao = _context.BaoCaos
+            var query = _context.BaoCaos
                 .Include(b => b.DangKyDeTai).ThenInclude(d => d.SinhVien)
                 .Include(b => b.DangKyDeTai).ThenInclude(d => d.DeTai)
-                .ToList();
+                .AsQueryable();
+
+            if (User.IsInRole("SinhVien"))
+            {
+                var claimSinhVienId = User.Claims.FirstOrDefault(c => c.Type == "SinhVienId")?.Value;
+                if (int.TryParse(claimSinhVienId, out int sinhVienId))
+                {
+                    query = query.Where(b => b.DangKyDeTai.SinhVienId == sinhVienId);
+                }
+            }
+            else if (User.IsInRole("GiangVien"))
+            {
+                var claimGiangVienId = User.Claims.FirstOrDefault(c => c.Type == "GiangVienId")?.Value;
+                if (int.TryParse(claimGiangVienId, out int gvId))
+                {
+                    var giangVien = _context.GiangViens.Find(gvId);
+                    if (giangVien != null && !string.IsNullOrEmpty(giangVien.LopQuanLy))
+                    {
+                        query = query.Where(b => b.DangKyDeTai.SinhVien.Lop == giangVien.LopQuanLy);
+                    }
+                }
+            }
+
+            var danhSachBaoCao = query.ToList();
             return View(danhSachBaoCao);
         }
 
         public IActionResult Upload()
         {
-            var danhSachDangKy = _context.DangKyDeTais
-                .Include(d => d.SinhVien)
-                .Include(d => d.DeTai)
+            var queryDangKy = _context.DangKyDeTais
+                .Include(d => d.SinhVien).Include(d => d.DeTai)
+                .AsQueryable();
+
+            if (User.IsInRole("SinhVien"))
+            {
+                var claimSinhVienId = User.Claims.FirstOrDefault(c => c.Type == "SinhVienId")?.Value;
+                if (int.TryParse(claimSinhVienId, out int sinhVienId))
+                {
+                    queryDangKy = queryDangKy.Where(d => d.SinhVienId == sinhVienId);
+                }
+            }
+            else if (User.IsInRole("GiangVien"))
+            {
+                var claimGiangVienId = User.Claims.FirstOrDefault(c => c.Type == "GiangVienId")?.Value;
+                if (int.TryParse(claimGiangVienId, out int gvId))
+                {
+                    var giangVien = _context.GiangViens.Find(gvId);
+                    if (giangVien != null && !string.IsNullOrEmpty(giangVien.LopQuanLy))
+                    {
+                        queryDangKy = queryDangKy.Where(d => d.SinhVien.Lop == giangVien.LopQuanLy);
+                    }
+                }
+            }
+
+            var danhSachDangKy = queryDangKy
                 .Select(d => new { Id = d.Id, TenHienThi = d.SinhVien.TenSV + " - " + d.DeTai.TenDeTai })
                 .ToList();
 
@@ -47,9 +94,8 @@ namespace webquanli.Controllers
         public IActionResult Upload(BaoCao baoCao, IFormFile fileUpload)
         {
             baoCao.NgayNop = DateTime.Now;
-            baoCao.DangKyDeTaiId = baoCao.DangKyId; // Giải quyết lỗi khóa ngoại
+            baoCao.DangKyDeTaiId = baoCao.DangKyId;
 
-            // PHẦN CODE MỚI: Xử lý lưu file THẬT vào máy tính
             if (fileUpload != null && fileUpload.Length > 0)
             {
                 string uploadsFolder = Path.Combine(_webHostEnvironment.WebRootPath, "uploads");
@@ -72,7 +118,6 @@ namespace webquanli.Controllers
             return RedirectToAction("Index");
         }
 
-        // PHẦN CODE MỚI: Xử lý nút Xóa (Sửa lỗi 404 Not Found)
         public IActionResult Delete(int id)
         {
             var baoCao = _context.BaoCaos.Find(id);
@@ -84,7 +129,6 @@ namespace webquanli.Controllers
             return RedirectToAction("Index");
         }
 
-        // PHẦN CODE MỚI: Xử lý nút Tải Về
         public IActionResult Download(int id)
         {
             var baoCao = _context.BaoCaos.Find(id);
@@ -95,6 +139,40 @@ namespace webquanli.Controllers
 
             byte[] fileBytes = System.IO.File.ReadAllBytes(filePath);
             return File(fileBytes, "application/octet-stream", baoCao.TenFile);
+        }
+
+        // ==========================================
+        // TÍNH NĂNG MỚI: CHẤM ĐIỂM (CHỈ GIẢNG VIÊN)
+        // ==========================================
+
+        // 1. Mở giao diện chấm điểm
+        public IActionResult ChamDiem(int id)
+        {
+            if (!User.IsInRole("GiangVien")) return Unauthorized(); // Chặn sinh viên lén vào sửa điểm
+
+            var baoCao = _context.BaoCaos
+                .Include(b => b.DangKyDeTai).ThenInclude(d => d.SinhVien)
+                .Include(b => b.DangKyDeTai).ThenInclude(d => d.DeTai)
+                .FirstOrDefault(b => b.Id == id);
+
+            if (baoCao == null) return NotFound();
+            return View(baoCao);
+        }
+
+        // 2. Lưu điểm xuống Database
+        [HttpPost]
+        public IActionResult ChamDiem(int id, double Diem, string NhanXet)
+        {
+            if (!User.IsInRole("GiangVien")) return Unauthorized();
+
+            var baoCao = _context.BaoCaos.Find(id);
+            if (baoCao != null)
+            {
+                baoCao.Diem = Diem;
+                baoCao.NhanXet = NhanXet;
+                _context.SaveChanges();
+            }
+            return RedirectToAction("Index");
         }
     }
 }

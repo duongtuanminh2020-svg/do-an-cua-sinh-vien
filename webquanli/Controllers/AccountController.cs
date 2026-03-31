@@ -21,7 +21,7 @@ namespace webquanli.Controllers
         [HttpGet]
         public IActionResult Login()
         {
-            // Nếu đã đăng nhập rồi thì không hiện trang Login nữa, đá thẳng vào Home
+            // Nếu đã đăng nhập rồi thì không hiện trang Login nữa
             if (User.Identity.IsAuthenticated)
             {
                 return RedirectToAction("Index", "Home");
@@ -41,8 +41,18 @@ namespace webquanli.Controllers
                 var claims = new List<Claim>
                 {
                     new Claim(ClaimTypes.Name, user.Username),
-                    new Claim(ClaimTypes.Role, user.Role) // Lưu quyền (Admin/SinhVien) để phân quyền sau này
+                    new Claim(ClaimTypes.Role, user.Role) // Lưu quyền (Admin/GiangVien/SinhVien)
                 };
+
+                // ĐIỂM NÂNG CẤP: Lưu thêm ID thực tế vào Cookie nếu có
+                if (user.GiangVienId.HasValue)
+                {
+                    claims.Add(new Claim("GiangVienId", user.GiangVienId.Value.ToString()));
+                }
+                if (user.SinhVienId.HasValue)
+                {
+                    claims.Add(new Claim("SinhVienId", user.SinhVienId.Value.ToString()));
+                }
 
                 var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
@@ -57,6 +67,20 @@ namespace webquanli.Controllers
                     CookieAuthenticationDefaults.AuthenticationScheme,
                     new ClaimsPrincipal(claimsIdentity),
                     authProperties);
+
+                // ĐIỂM NÂNG CẤP: Điều hướng người dùng dựa theo vai trò
+                if (user.Role == "Admin")
+                {
+                    return RedirectToAction("Index", "Home"); // Admin về trang tổng quan
+                }
+                else if (user.Role == "GiangVien")
+                {
+                    return RedirectToAction("Index", "TienDo"); // Giảng viên vào trang Tiến độ
+                }
+                else if (user.Role == "SinhVien")
+                {
+                    return RedirectToAction("Index", "TienDo"); // Sinh viên vào trang Tiến độ
+                }
 
                 return RedirectToAction("Index", "Home");
             }

@@ -2,14 +2,12 @@
 @{
     ViewData["Title"] = "Quản lý Tiến Độ";
 }
-
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">Theo dõi Tiến Độ Đồ Án</h1>
     <a asp-action="Create" class="btn btn-primary text-white shadow-sm fw-bold">
         Cập nhật tiến độ mới
     </a>
 </div>
-
 <div class="card shadow mb-4">
     <div class="card-body">
         <div class="table-responsive">
@@ -47,9 +45,12 @@
                                     <a asp-action="Create" asp-route-id="@td.Id" class="btn btn-warning btn-sm text-white mb-1">
                                         Sửa
                                     </a>
-                                    <a asp-action="Delete" asp-route-id="@td.Id" class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc chắn muốn xóa tiến độ này?')">
-                                        Xóa
-                                    </a>
+                                    @if (!User.IsInRole("SinhVien"))
+                                    {
+                                        <a asp-action="Delete" asp-route-id="@td.Id" class="btn btn-danger btn-sm" onclick="return confirm('Bạn có chắc chắn muốn xóa tiến độ này?')">
+                                            Xóa
+                                        </a>
+                                    }
                                 </td>
                             </tr>
                         }

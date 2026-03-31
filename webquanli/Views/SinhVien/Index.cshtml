@@ -1,19 +1,22 @@
-﻿@model List<webquanli.Models.SinhVien>
+﻿@model IEnumerable<webquanli.Models.SinhVien>
 @{
-    ViewData["Title"] = "Danh sách sinh viên";
+    ViewData["Title"] = "Danh sách Sinh Viên";
 }
 
-<div class="d-flex justify-content-between align-items-center mb-4">
-    <h3 class="m-0 text-gray-800">Danh sách Sinh Viên</h3>
-    <a class="btn btn-primary shadow-sm" href="/SinhVien/Create">
-        <i class="fa-solid fa-plus fa-sm text-white-50"></i> Thêm sinh viên mới
-    </a>
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">
+        @(User.IsInRole("GiangVien") ? "Danh sách Sinh Viên Lớp Quản Lý" : "Toàn bộ Sinh Viên")
+    </h1>
+
+    @if (User.IsInRole("Admin"))
+    {
+        <a asp-action="Create" class="btn btn-primary text-white shadow-sm fw-bold">
+            + Thêm sinh viên mới
+        </a>
+    }
 </div>
 
 <div class="card shadow mb-4">
-    <div class="card-header py-3">
-        <h6 class="m-0 font-weight-bold text-primary">Dữ liệu sinh viên khoa CNTT</h6>
-    </div>
     <div class="card-body">
         <div class="table-responsive">
             <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
@@ -23,25 +26,32 @@
                         <th>Họ và Tên</th>
                         <th>Lớp</th>
                         <th>Email</th>
-                        <th class="text-center" style="width: 150px;">Thao tác</th>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <th class="text-center">Thao tác</th>
+                        }
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var sv in Model)
+                    @foreach (var item in Model)
                     {
                         <tr>
-                            <td class="align-middle"><strong>@sv.MaSV</strong></td>
-                            <td class="align-middle">@sv.TenSV</td>
-                            <td class="align-middle"><span class="badge bg-info text-dark">@sv.Lop</span></td>
-                            <td class="align-middle">@sv.Email</td>
-                            <td class="text-center align-middle">
-                                <a class="btn btn-warning btn-sm" href="/SinhVien/Edit/@sv.Id" title="Sửa">
-                                    <i class="fa-solid fa-pen-to-square"></i>
-                                </a>
-                                <a class="btn btn-danger btn-sm" href="/SinhVien/Delete/@sv.Id" title="Xóa">
-                                    <i class="fa-solid fa-trash"></i>
-                                </a>
-                            </td>
+                            <td class="fw-bold">@item.MaSV</td>
+                            <td>@item.TenSV</td>
+                            <td><span class="badge bg-info">@item.Lop</span></td>
+                            <td>@item.Email</td>
+                            
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <td class="text-center">
+                                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-sm text-white">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm" onclick="return confirm('Xác nhận xóa sinh viên này?')">
+                                        <i class="fas fa-trash"></i>
+                                    </a>
+                                </td>
+                            }
                         </tr>
                     }
                 </tbody>
@@ -49,16 +59,3 @@
         </div>
     </div>
 </div>
-
-@section Scripts {
-    <script>
-        $(document).ready(function () {
-            // Kích hoạt DataTables với cấu hình tiếng Việt
-            $('#dataTable').DataTable({
-                "language": {
-                    "url": "//cdn.datatables.net/plug-ins/1.13.6/i18n/vi.json"
-                }
-            });
-        });
-    </script>
-}

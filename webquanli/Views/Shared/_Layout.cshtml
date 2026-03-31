@@ -32,9 +32,18 @@
             <i class="fa-solid fa-graduation-cap"></i> QUẢN LÝ ĐỒ ÁN
         </a>
         <div class="sidebar-menu">
-            <a asp-controller="Home" asp-action="Index"><i class="fa-solid fa-chart-pie"></i> Dashboard</a>
-            <a asp-controller="SinhVien" asp-action="Index"><i class="fa-solid fa-user-graduate"></i> Sinh viên</a>
-            <a asp-controller="DeTai" asp-action="Index"><i class="fa-solid fa-book"></i> Đề tài</a>
+            
+            @if (User.IsInRole("Admin"))
+            {
+                <a asp-controller="Home" asp-action="Index"><i class="fa-solid fa-chart-pie"></i> Dashboard</a>
+                <a asp-controller="DeTai" asp-action="Index"><i class="fa-solid fa-book"></i> Đề tài</a>
+            }
+
+            @if (User.IsInRole("Admin") || User.IsInRole("GiangVien"))
+            {
+                <a asp-controller="SinhVien" asp-action="Index"><i class="fa-solid fa-user-graduate"></i> Sinh viên</a>
+            }
+
             <a asp-controller="TienDo" asp-action="Index"><i class="fa-solid fa-tasks"></i> Tiến độ</a>
             <a asp-controller="BaoCao" asp-action="Index"><i class="fa-solid fa-file-arrow-up"></i> Báo cáo</a>
         </div>
@@ -51,7 +60,9 @@
                     <li class="px-3 py-2">
                         <small class="text-muted d-block text-uppercase fw-bold" style="font-size: 10px;">Vai trò</small>
                         <span class="badge bg-soft-primary text-primary border border-primary">
-                            @(User.IsInRole("Admin") ? "Quản trị viên" : "Sinh viên")
+                            @if (User.IsInRole("Admin")) { <span>Quản trị viên</span> }
+                            else if (User.IsInRole("GiangVien")) { <span>Giảng viên</span> }
+                            else { <span>Sinh viên</span> }
                         </span>
                     </li>
                     <li><hr class="dropdown-divider"></li>

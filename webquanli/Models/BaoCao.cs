@@ -24,5 +24,9 @@ namespace webquanli.Models
 
         [ForeignKey("DangKyDeTaiId")]
         public virtual DangKyDeTai DangKyDeTai { get; set; }
+
+        // Dấu ? ở chữ double? nghĩa là cho phép điểm bị trống (vì lúc mới nộp bài thì chưa có điểm)
+        public double? Diem { get; set; }
+        public string? NhanXet { get; set; }
     }
 }

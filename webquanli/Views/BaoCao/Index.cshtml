@@ -1,64 +1,93 @@
 ﻿@model IEnumerable<webquanli.Models.BaoCao>
 @{
-    ViewData["Title"] = "Danh sách báo cáo";
+    ViewData["Title"] = "Danh sách Báo Cáo";
 }
 
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Lịch sử nộp báo cáo</h1>
-    <a asp-action="Upload" class="btn btn-success shadow-sm">
-        <i class="fas fa-upload fa-sm text-white-50"></i> Upload Báo cáo mới
-    </a>
+    <h1 class="h3 mb-0 text-gray-800">Quản lý Báo cáo Đồ án</h1>
+
+    @if (User.IsInRole("SinhVien"))
+    {
+        <a asp-action="Upload" class="btn btn-primary shadow-sm fw-bold">
+            <i class="fa-solid fa-cloud-arrow-up"></i> Nộp báo cáo mới
+        </a>
+    }
 </div>
 
 <div class="card shadow mb-4">
     <div class="card-body">
         <div class="table-responsive">
-            <table class="table table-bordered table-hover" width="100%" cellspacing="0">
-                <thead class="table-light text-center">
+            <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
+                <thead class="table-light">
                     <tr>
-                        <th>Sinh Viên</th>
-                        <th>Đề Tài</th>
-                        <th>Tên File Nộp</th>
+                        <th>Nhóm Sinh Viên</th>
+                        <th>File Báo Cáo</th>
                         <th>Ngày Nộp</th>
-                        <th>Thao Tác</th>
+                        <th class="text-center">Điểm số</th>
+                        <th>Nhận xét của GV</th>
+                        <th class="text-center">Thao tác</th>
                     </tr>
                 </thead>
                 <tbody>
-                    @if (Model != null && Model.Any())
+                    @if (!Model.Any())
                     {
-                        foreach (var item in Model)
-                        {
-                            <tr class="align-middle">
-                                <td class="fw-bold text-primary">
-                                    @(item.DangKyDeTai?.SinhVien?.TenSV ?? "Không xác định")
-                                </td>
-                                <td class="text-secondary">
-                                    @(item.DangKyDeTai?.DeTai?.TenDeTai ?? "Không xác định")
-                                </td>
-                                
-                                <td>
-                                    <i class="fa-solid fa-file-pdf text-danger me-2"></i>
-                                    @item.TenFile
-                                </td>
-                                <td class="text-center">@item.NgayNop.ToString("dd/MM/yyyy HH:mm")</td>
-                                <td class="text-center">
-                                    <a href="@item.DuongDan" class="btn btn-outline-primary btn-sm" download="@item.TenFile">
-                                        <i class="fas fa-download"></i> Tải về
-                                    </a>
-                                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-outline-danger btn-sm ms-2" onclick="return confirm('Bạn có chắc chắn muốn xóa file này không?');">
-                                        <i class="fas fa-trash"></i> Xóa
-                                    </a>
-                                </td>
-                            </tr>
-                        }
+                        <tr>
+                            <td colspan="6" class="text-center text-muted fst-italic py-4">Chưa có báo cáo nào được nộp.</td>
+                        </tr>
                     }
                     else
                     {
-                        <tr>
-                            <td colspan="5" class="text-center text-muted py-4">
-                                Chưa có báo cáo nào được nộp.
-                            </td>
-                        </tr>
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    <strong class="text-primary">@item.DangKyDeTai.SinhVien.TenSV</strong><br />
+                                    <small class="text-muted">Đề tài: @item.DangKyDeTai.DeTai.TenDeTai</small>
+                                </td>
+                                <td>
+                                    <i class="fa-solid fa-file-word text-primary"></i> @item.TenFile
+                                </td>
+                                <td>@item.NgayNop.ToString("dd/MM/yyyy HH:mm")</td>
+                                
+                                <td class="text-center align-middle">
+                                    @if (item.Diem.HasValue)
+                                    {
+                                        <span class="badge bg-success fs-6">@item.Diem / 10</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-secondary">Chưa chấm</span>
+                                    }
+                                </td>
+
+                                <td>
+                                    @if (!string.IsNullOrEmpty(item.NhanXet))
+                                    {
+                                        <span class="fst-italic text-dark">"@item.NhanXet"</span>
+                                    }
+                                </td>
+                                
+                                <td class="text-center align-middle">
+                                    <a asp-action="Download" asp-route-id="@item.Id" class="btn btn-info btn-sm text-white mb-1" title="Tải về">
+                                        <i class="fa-solid fa-download"></i>
+                                    </a>
+
+                                    @if (User.IsInRole("GiangVien"))
+                                    {
+                                        <a asp-action="ChamDiem" asp-route-id="@item.Id" class="btn btn-warning btn-sm text-dark fw-bold mb-1" title="Chấm điểm">
+                                            <i class="fa-solid fa-star"></i> Chấm
+                                        </a>
+                                    }
+
+                                    @if ((User.IsInRole("Admin")) || (User.IsInRole("SinhVien") && !item.Diem.HasValue))
+                                    {
+                                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm mb-1" onclick="return confirm('Bạn có chắc chắn muốn xóa file này?');" title="Xóa">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </a>
+                                    }
+                                </td>
+                            </tr>
+                        }
                     }
                 </tbody>
             </table>

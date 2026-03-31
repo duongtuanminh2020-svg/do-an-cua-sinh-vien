@@ -1,0 +1,48 @@
+﻿@model webquanli.Models.BaoCao
+@{
+    ViewData["Title"] = "Chấm Điểm Báo Cáo";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card shadow mb-4 border-left-warning">
+            <div class="card-header bg-white py-3">
+                <h6 class="m-0 font-weight-bold text-warning"><i class="fa-solid fa-star"></i> Phiếu Chấm Điểm Đồ Án</h6>
+            </div>
+            <div class="card-body">
+                
+                <div class="alert alert-info">
+                    <strong>Sinh viên:</strong> @Model.DangKyDeTai.SinhVien.TenSV <br />
+                    <strong>Lớp:</strong> @Model.DangKyDeTai.SinhVien.Lop <br />
+                    <strong>Đề tài:</strong> @Model.DangKyDeTai.DeTai.TenDeTai <br />
+                    <strong>File báo cáo:</strong>
+                    <a asp-action="Download" asp-route-id="@Model.Id" class="text-decoration-none fw-bold">
+                        <i class="fa-solid fa-download"></i> Tải @Model.TenFile về xem
+                    </a>
+                </div>
+
+                <hr />
+
+                <form asp-action="ChamDiem" method="post">
+                    <input type="hidden" name="id" value="@Model.Id" />
+
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Điểm số (Hệ số 10):</label>
+                        <input type="number" step="0.1" min="0" max="10" name="Diem" class="form-control form-control-lg text-success fw-bold" value="@Model.Diem" placeholder="VD: 8.5" required />
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-bold">Lời nhận xét / Góp ý:</label>
+                        <textarea name="NhanXet" class="form-control" rows="5" placeholder="Nhập lời phê của giảng viên dành cho sinh viên...">@Model.NhanXet</textarea>
+                    </div>
+
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a asp-action="Index" class="btn btn-secondary"><i class="fa-solid fa-arrow-left"></i> Quay lại</a>
+                        <button type="submit" class="btn btn-warning text-dark fw-bold"><i class="fa-solid fa-floppy-disk"></i> Lưu Điểm Số</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>

@@ -36,12 +36,18 @@ namespace webquanli.Migrations
                     b.Property<int>("DangKyId")
                         .HasColumnType("int");
 
+                    b.Property<double?>("Diem")
+                        .HasColumnType("float");
+
                     b.Property<string>("DuongDan")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("NgayNop")
                         .HasColumnType("datetime2");
+
+                    b.Property<string>("NhanXet")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TenFile")
                         .IsRequired()
@@ -119,6 +125,10 @@ namespace webquanli.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Khoa")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LopQuanLy")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -200,6 +210,9 @@ namespace webquanli.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<int?>("GiangVienId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Password")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -208,11 +221,18 @@ namespace webquanli.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("SinhVienId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Username")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("GiangVienId");
+
+                    b.HasIndex("SinhVienId");
 
                     b.ToTable("Users");
                 });
@@ -267,6 +287,21 @@ namespace webquanli.Migrations
                         .IsRequired();
 
                     b.Navigation("DangKyDeTai");
+                });
+
+            modelBuilder.Entity("webquanli.Models.User", b =>
+                {
+                    b.HasOne("webquanli.Models.GiangVien", "GiangVien")
+                        .WithMany()
+                        .HasForeignKey("GiangVienId");
+
+                    b.HasOne("webquanli.Models.SinhVien", "SinhVien")
+                        .WithMany()
+                        .HasForeignKey("SinhVienId");
+
+                    b.Navigation("GiangVien");
+
+                    b.Navigation("SinhVien");
                 });
 #pragma warning restore 612, 618
         }
