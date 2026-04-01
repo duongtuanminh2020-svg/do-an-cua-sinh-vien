@@ -28,5 +28,8 @@ namespace webquanli.Models
         // Dấu ? ở chữ double? nghĩa là cho phép điểm bị trống (vì lúc mới nộp bài thì chưa có điểm)
         public double? Diem { get; set; }
         public string? NhanXet { get; set; }
+
+        public int? DotDoAnId { get; set; }
+        public DotDoAn? DotDoAn { get; set; }
     }
 }

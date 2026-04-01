@@ -28,6 +28,7 @@ namespace webquanli.Controllers
             var query = _context.BaoCaos
                 .Include(b => b.DangKyDeTai).ThenInclude(d => d.SinhVien)
                 .Include(b => b.DangKyDeTai).ThenInclude(d => d.DeTai)
+                .Include(b => b.DotDoAn) // Thêm dòng này để lấy thông tin hạn nộp
                 .AsQueryable();
 
             if (User.IsInRole("SinhVien"))
@@ -52,6 +53,10 @@ namespace webquanli.Controllers
             }
 
             var danhSachBaoCao = query.ToList();
+
+            // Thêm dòng này để truyền thông tin Đợt Đồ Án ra ngoài Giao diện
+            ViewBag.DotHienTai = _context.DotDoAns.FirstOrDefault(d => d.IsActive == true);
+
             return View(danhSachBaoCao);
         }
 
@@ -95,6 +100,13 @@ namespace webquanli.Controllers
         {
             baoCao.NgayNop = DateTime.Now;
             baoCao.DangKyDeTaiId = baoCao.DangKyId;
+
+            // Lấy ID đợt hiện tại lưu vào báo cáo luôn để sau này dễ quản lý
+            var dotHienTai = _context.DotDoAns.FirstOrDefault(d => d.IsActive == true);
+            if (dotHienTai != null)
+            {
+                baoCao.DotDoAnId = dotHienTai.Id;
+            }
 
             if (fileUpload != null && fileUpload.Length > 0)
             {
@@ -141,14 +153,9 @@ namespace webquanli.Controllers
             return File(fileBytes, "application/octet-stream", baoCao.TenFile);
         }
 
-        // ==========================================
-        // TÍNH NĂNG MỚI: CHẤM ĐIỂM (CHỈ GIẢNG VIÊN)
-        // ==========================================
-
-        // 1. Mở giao diện chấm điểm
         public IActionResult ChamDiem(int id)
         {
-            if (!User.IsInRole("GiangVien")) return Unauthorized(); // Chặn sinh viên lén vào sửa điểm
+            if (!User.IsInRole("GiangVien")) return Unauthorized();
 
             var baoCao = _context.BaoCaos
                 .Include(b => b.DangKyDeTai).ThenInclude(d => d.SinhVien)
@@ -159,7 +166,6 @@ namespace webquanli.Controllers
             return View(baoCao);
         }
 
-        // 2. Lưu điểm xuống Database
         [HttpPost]
         public IActionResult ChamDiem(int id, double Diem, string NhanXet)
         {

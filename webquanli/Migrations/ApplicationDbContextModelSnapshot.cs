@@ -39,6 +39,9 @@ namespace webquanli.Migrations
                     b.Property<double?>("Diem")
                         .HasColumnType("float");
 
+                    b.Property<int?>("DotDoAnId")
+                        .HasColumnType("int");
+
                     b.Property<string>("DuongDan")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -57,7 +60,26 @@ namespace webquanli.Migrations
 
                     b.HasIndex("DangKyDeTaiId");
 
+                    b.HasIndex("DotDoAnId");
+
                     b.ToTable("BaoCaos");
+                });
+
+            modelBuilder.Entity("webquanli.Models.BoMon", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("TenBoMon")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("BoMons");
                 });
 
             modelBuilder.Entity("webquanli.Models.DangKyDeTai", b =>
@@ -112,6 +134,32 @@ namespace webquanli.Migrations
                     b.ToTable("DeTais");
                 });
 
+            modelBuilder.Entity("webquanli.Models.DotDoAn", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("NgayBatDau")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime>("NgayKetThuc")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("TenDot")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("DotDoAns");
+                });
+
             modelBuilder.Entity("webquanli.Models.GiangVien", b =>
                 {
                     b.Property<int>("Id")
@@ -119,6 +167,12 @@ namespace webquanli.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Avatar")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("BoMonId")
+                        .HasColumnType("int");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -136,11 +190,16 @@ namespace webquanli.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("SDT")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("TenGV")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("BoMonId");
 
                     b.ToTable("GiangViens");
                 });
@@ -153,6 +212,9 @@ namespace webquanli.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
+                    b.Property<string>("Avatar")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -163,6 +225,12 @@ namespace webquanli.Migrations
 
                     b.Property<string>("MaSV")
                         .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Nganh")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SDT")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TenSV")
@@ -245,7 +313,13 @@ namespace webquanli.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("webquanli.Models.DotDoAn", "DotDoAn")
+                        .WithMany("BaoCaos")
+                        .HasForeignKey("DotDoAnId");
+
                     b.Navigation("DangKyDeTai");
+
+                    b.Navigation("DotDoAn");
                 });
 
             modelBuilder.Entity("webquanli.Models.DangKyDeTai", b =>
@@ -278,6 +352,13 @@ namespace webquanli.Migrations
                     b.Navigation("GiangVien");
                 });
 
+            modelBuilder.Entity("webquanli.Models.GiangVien", b =>
+                {
+                    b.HasOne("webquanli.Models.BoMon", null)
+                        .WithMany("GiangViens")
+                        .HasForeignKey("BoMonId");
+                });
+
             modelBuilder.Entity("webquanli.Models.TienDo", b =>
                 {
                     b.HasOne("webquanli.Models.DangKyDeTai", "DangKyDeTai")
@@ -302,6 +383,16 @@ namespace webquanli.Migrations
                     b.Navigation("GiangVien");
 
                     b.Navigation("SinhVien");
+                });
+
+            modelBuilder.Entity("webquanli.Models.BoMon", b =>
+                {
+                    b.Navigation("GiangViens");
+                });
+
+            modelBuilder.Entity("webquanli.Models.DotDoAn", b =>
+                {
+                    b.Navigation("BaoCaos");
                 });
 #pragma warning restore 612, 618
         }

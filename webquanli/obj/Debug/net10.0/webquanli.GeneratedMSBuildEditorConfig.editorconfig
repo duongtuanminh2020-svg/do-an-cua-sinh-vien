@@ -46,6 +46,14 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQmFvQ2FvXFVwbG9hZC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
+[D:/Anh Tu/do-an-cua-sinh-vien/webquanli/Views/BoMon/Create.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQm9Nb25cQ3JlYXRlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Anh Tu/do-an-cua-sinh-vien/webquanli/Views/BoMon/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQm9Nb25cSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [D:/Anh Tu/do-an-cua-sinh-vien/webquanli/Views/DeTai/Create.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRGVUYWlcQ3JlYXRlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -64,6 +72,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [D:/Anh Tu/do-an-cua-sinh-vien/webquanli/Views/Home/Privacy.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSG9tZVxQcml2YWN5LmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[D:/Anh Tu/do-an-cua-sinh-vien/webquanli/Views/Profile/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcUHJvZmlsZVxJbmRleC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
 [D:/Anh Tu/do-an-cua-sinh-vien/webquanli/Views/Shared/Error.cshtml]

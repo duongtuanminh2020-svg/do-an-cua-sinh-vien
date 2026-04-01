@@ -14,6 +14,10 @@
 
         public string Email { get; set; }
 
+        public string? Avatar { get; set; }
+        public string? SDT { get; set; }
+        public string? Nganh { get; set; }
+
     }
 
 }

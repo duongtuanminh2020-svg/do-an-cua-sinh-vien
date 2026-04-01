@@ -1,0 +1,26 @@
+﻿@model webquanli.Models.BoMon
+@{
+    ViewData["Title"] = "Thêm Bộ Môn";
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3 bg-white">
+                <h6 class="m-0 font-weight-bold text-primary">Thêm Bộ Môn Mới</h6>
+            </div>
+            <div class="card-body">
+                <form asp-action="Create" method="post">
+                    <div class="mb-4">
+                        <label class="form-label fw-bold">Tên Bộ Môn (VD: Công nghệ phần mềm):</label>
+                        <input type="text" asp-for="TenBoMon" class="form-control form-control-lg" required />
+                    </div>
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <a asp-action="Index" class="btn btn-secondary"><i class="fa-solid fa-arrow-left"></i> Quay lại</a>
+                        <button type="submit" class="btn btn-primary"><i class="fa-solid fa-floppy-disk"></i> Lưu lại</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

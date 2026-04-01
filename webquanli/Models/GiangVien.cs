@@ -14,5 +14,8 @@
 
         // DÒNG DUY NHẤT CẦN THÊM VÀO ĐỂ SỬA LỖI VÀ CHẠY PHÂN QUYỀN:
         public string LopQuanLy { get; set; }
+
+        public string? Avatar { get; set; }
+        public string? SDT { get; set; }
     }
 }

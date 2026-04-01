@@ -78,6 +78,8 @@ wwwroot\uploads\20260330180759_BÁO CÁO TIẾN ĐỘ TUẦN 3.pdf
 wwwroot\uploads\20260331183738_Giáo trình Thực hành Bảo mật thông tin nâng cao 2 (1).pdf
 wwwroot\uploads\20260331215059_Giáo trình Thực hành Bảo mật thông tin nâng cao 2 (1).pdf
 wwwroot\uploads\20260331215208_Giáo trình Thực hành Bảo mật thông tin nâng cao 2 (1).pdf
+wwwroot\uploads\20260331215517_Giáo trình Thực hành Bảo mật thông tin nâng cao 2 (1).pdf
+wwwroot\uploads\20260401184606_Giáo trình Thực hành Bảo mật thông tin nâng cao 2 (1).pdf
 D:\Anh Tu\do-an-cua-sinh-vien\webquanli\wwwroot\css\site.css
 D:\Anh Tu\do-an-cua-sinh-vien\webquanli\wwwroot\favicon.ico
 D:\Anh Tu\do-an-cua-sinh-vien\webquanli\wwwroot\js\site.js

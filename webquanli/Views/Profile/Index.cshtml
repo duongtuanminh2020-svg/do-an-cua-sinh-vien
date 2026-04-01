@@ -1,0 +1,128 @@
+﻿@{
+    ViewData["Title"] = "Hồ sơ cá nhân";
+    var role = ViewBag.Role as string;
+    
+    // Khởi tạo các giá trị mặc định
+    string ten = "", maSo = "", email = "", sdt = "", lop = "", nganh = "", avatar = "/img/default-avatar.png";
+    
+    if (role == "SinhVien")
+    {
+        var sv = Model as webquanli.Models.SinhVien;
+        ten = sv?.TenSV ?? "N/A";
+        maSo = sv?.MaSV ?? "N/A";
+        email = sv?.Email ?? "N/A";
+        sdt = sv?.SDT ?? "N/A";
+        lop = sv?.Lop ?? "N/A";
+        nganh = sv?.Nganh ?? "N/A";
+        if (!string.IsNullOrEmpty(sv?.Avatar)) avatar = sv.Avatar;
+    }
+    else if (role == "GiangVien")
+    {
+        var gv = Model as webquanli.Models.GiangVien;
+        ten = gv?.TenGV ?? "N/A";
+        maSo = gv?.MaGV ?? "N/A";
+        email = gv?.Email ?? "N/A";
+        sdt = gv?.SDT ?? "N/A";
+        lop = gv?.LopQuanLy ?? "N/A";
+        if (!string.IsNullOrEmpty(gv?.Avatar)) avatar = gv.Avatar;
+    }
+    else if (role == "Admin")
+    {
+        ten = "Quản trị viên";
+        maSo = "ADMIN_SYS";
+        email = "admin@hutech.edu.vn";
+        sdt = "0123.456.789";
+        lop = "Phòng Quản lý Đào tạo";
+        // Admin dùng ảnh mặc định
+    }
+}
+
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800"><i class="fa-solid fa-address-card text-primary"></i> Bàn làm việc: Hồ sơ</h1>
+</div>
+
+<div class="row">
+    <div class="col-xl-4 col-lg-5">
+        <div class="card shadow mb-4">
+            <div class="card-body text-center pt-5">
+                <img src="@avatar" alt="Avatar" class="img-profile rounded-circle mb-3 shadow" style="width: 180px; height: 180px; object-fit: cover; border: 4px solid #fff;">
+                
+                <h4 class="font-weight-bold text-primary mb-1">@ten</h4>
+                <p class="text-muted mb-4">
+                    @if (role == "Admin")
+                    {
+                        <span class="badge bg-danger">Hệ thống</span>
+                    }
+                    else
+                    {
+
+                        @(role == "SinhVien" ? "Sinh Viên" : "Giảng Viên")
+                    }
+                </p>
+
+                <hr>
+
+                @if (role != "Admin") // Tạm thời Admin không đổi ảnh theo cách này
+                {
+                    <button class="btn btn-outline-primary btn-sm w-100 mb-2 shadow-sm" type="button" data-bs-toggle="collapse" data-bs-target="#collapseUpload">
+                        <i class="fa-solid fa-camera"></i> Cập nhật ảnh đại diện
+                    </button>
+                    
+                    <div class="collapse mt-2" id="collapseUpload">
+                        <form asp-action="UploadAvatar" method="post" enctype="multipart/form-data" class="border p-3 bg-light rounded text-start shadow-sm">
+                            <div class="mb-2">
+                                <input class="form-control form-control-sm" type="file" name="fileUpload" accept="image/*" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-sm w-100"><i class="fa-solid fa-cloud-arrow-up"></i> Lưu ảnh</button>
+                        </form>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-8 col-lg-7">
+        <div class="card shadow mb-4 border-top-primary">
+            <div class="card-header py-3 bg-white">
+                <h6 class="m-0 font-weight-bold text-primary">Thông tin chi tiết</h6>
+            </div>
+            <div class="card-body">
+                
+                <h5 class="border-bottom pb-2 fw-bold"><i class="fa-solid fa-circle-info text-info"></i> Basic Information</h5>
+                <div class="row mb-4 mt-3">
+                    <div class="col-sm-4 text-muted">Họ và tên</div>
+                    <div class="col-sm-8 fw-bold text-dark">@ten</div>
+                </div>
+                <div class="row mb-4">
+                    <div class="col-sm-4 text-muted">Mã số</div>
+                    <div class="col-sm-8 fw-bold">@maSo</div>
+                </div>
+
+                <h5 class="border-bottom pb-2 fw-bold mt-4"><i class="fa-solid fa-address-book text-success"></i> Contact Information</h5>
+                <div class="row mb-4 mt-3">
+                    <div class="col-sm-4 text-muted">Email liên hệ</div>
+                    <div class="col-sm-8">@email</div>
+                </div>
+                <div class="row mb-4">
+                    <div class="col-sm-4 text-muted">Số điện thoại</div>
+                    <div class="col-sm-8">@sdt</div>
+                </div>
+
+                <h5 class="border-bottom pb-2 fw-bold mt-4"><i class="fa-solid fa-graduation-cap text-warning"></i> Academic Information</h5>
+                <div class="row mb-4 mt-3">
+                    <div class="col-sm-4 text-muted">
+                        @(role == "SinhVien" ? "Ngành học" : "Đơn vị")
+                    </div>
+                    <div class="col-sm-8">@(role == "SinhVien" ? nganh : (role == "Admin" ? "Ban Giám Hiệu" : "Khoa Công nghệ thông tin"))</div>
+                </div>
+                <div class="row mb-2">
+                    <div class="col-sm-4 text-muted">
+                        @(role == "SinhVien" ? "Lớp sinh hoạt" : "Lớp quản lý")
+                    </div>
+                    <div class="col-sm-8">@lop</div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

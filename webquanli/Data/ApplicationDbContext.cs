@@ -27,6 +27,10 @@ namespace webquanli.Data
 
         public DbSet<BaoCao> BaoCaos { get; set; }
 
+        public DbSet<DotDoAn> DotDoAns { get; set; }
+
+        public DbSet<BoMon> BoMons { get; set; }
+
     }
 
 }

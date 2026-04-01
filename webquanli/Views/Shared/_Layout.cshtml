@@ -33,9 +33,12 @@
         </a>
         <div class="sidebar-menu">
             
+            <a asp-controller="Profile" asp-action="Index"><i class="fa-solid fa-address-card"></i> Hồ sơ</a>
+
             @if (User.IsInRole("Admin"))
             {
                 <a asp-controller="Home" asp-action="Index"><i class="fa-solid fa-chart-pie"></i> Dashboard</a>
+                <a asp-controller="BoMon" asp-action="Index"><i class="fa-solid fa-hotel"></i> Bộ môn</a>
                 <a asp-controller="DeTai" asp-action="Index"><i class="fa-solid fa-book"></i> Đề tài</a>
             }
 
@@ -66,6 +69,11 @@
                         </span>
                     </li>
                     <li><hr class="dropdown-divider"></li>
+                    <li>
+                        <a class="dropdown-item" asp-controller="Profile" asp-action="Index">
+                            <i class="fa-solid fa-address-card me-2 text-primary"></i> Hồ sơ cá nhân
+                        </a>
+                    </li>
                     <li>
                         <a class="dropdown-item text-danger" asp-controller="Account" asp-action="Logout">
                             <i class="fa-solid fa-right-from-bracket me-2"></i> Đăng xuất

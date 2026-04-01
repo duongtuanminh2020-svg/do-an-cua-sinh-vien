@@ -8,9 +8,40 @@
 
     @if (User.IsInRole("SinhVien"))
     {
-        <a asp-action="Upload" class="btn btn-primary shadow-sm fw-bold">
-            <i class="fa-solid fa-cloud-arrow-up"></i> Nộp báo cáo mới
-        </a>
+        if (ViewBag.DotHienTai != null)
+        {
+            var dot = ViewBag.DotHienTai;
+            var now = DateTime.Now;
+
+            // KIỂM TRA LOGIC THỜI GIAN
+            if (now >= dot.NgayBatDau && now <= dot.NgayKetThuc)
+            {
+                <div class="text-end">
+                    <span class="badge bg-success mb-2"><i class="fa-solid fa-clock"></i> Đang mở: @dot.TenDot (Hạn chót: @dot.NgayKetThuc.ToString("dd/MM/yyyy"))</span><br />
+                    <a asp-action="Upload" class="btn btn-primary shadow-sm fw-bold">
+                        <i class="fa-solid fa-cloud-arrow-up"></i> Nộp báo cáo
+                    </a>
+                </div>
+            }
+            else if (now < dot.NgayBatDau)
+            {
+                <div class="alert alert-warning py-2 mb-0 border-left-warning shadow-sm">
+                    <strong><i class="fa-solid fa-lock"></i> Chưa mở cổng:</strong> @dot.TenDot sẽ mở vào @dot.NgayBatDau.ToString("dd/MM/yyyy").
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-danger py-2 mb-0 border-left-danger shadow-sm">
+                    <strong><i class="fa-solid fa-lock"></i> Đã đóng cổng:</strong> @dot.TenDot đã hết hạn vào @dot.NgayKetThuc.ToString("dd/MM/yyyy").
+                </div>
+            }
+        }
+        else
+        {
+            <div class="alert alert-secondary py-2 mb-0 shadow-sm">
+                <i class="fa-solid fa-circle-info"></i> Hiện chưa có đợt nộp báo cáo nào.
+            </div>
+        }
     }
 </div>
 
