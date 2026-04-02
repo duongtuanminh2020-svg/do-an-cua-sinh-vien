@@ -1,0 +1,58 @@
+﻿@model webquanli.Models.GiangVien
+@{
+    ViewData["Title"] = "Thêm Giảng Viên";
+}
+
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Thêm Giảng Viên Mới</h1>
+    <a asp-action="Index" class="btn btn-secondary shadow-sm fw-bold">
+        <i class="fa-solid fa-arrow-left"></i> Quay lại danh sách
+    </a>
+</div>
+
+<div class="card shadow mb-4">
+    <div class="card-body">
+        <form asp-action="Create" method="post">
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    <label class="form-label fw-bold">Mã GV <span class="text-danger">*</span></label>
+                    <input asp-for="MaGV" class="form-control" required placeholder="VD: GV01" />
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label fw-bold">Họ và Tên <span class="text-danger">*</span></label>
+                    <input asp-for="TenGV" class="form-control" required placeholder="Nhập tên giảng viên" />
+                </div>
+                
+                <div class="col-md-6 mb-3">
+                    <label class="form-label fw-bold">Email <span class="text-danger">*</span></label>
+                    <input asp-for="Email" type="email" class="form-control" required placeholder="email@gmail.com" />
+                </div>
+                <div class="col-md-6 mb-3">
+                    <label class="form-label fw-bold">Số điện thoại</label>
+                    <input asp-for="SDT" class="form-control" placeholder="Nhập SĐT" />
+                </div>
+
+                <div class="col-md-4 mb-3">
+                    <label class="form-label fw-bold">Khoa</label>
+                    <input asp-for="Khoa" class="form-control" value="Công nghệ thông tin" />
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label class="form-label fw-bold">Lớp quản lý (Tùy chọn)</label>
+                    <input asp-for="LopQuanLy" class="form-control" placeholder="VD: D1, D2..." />
+                </div>
+                <div class="col-md-4 mb-3">
+                    <label class="form-label fw-bold">Bộ môn (Chuyên ngành)</label>
+                    <select asp-for="BoMonId" class="form-control" asp-items="ViewBag.BoMonId">
+                        <option value="">-- Chọn bộ môn --</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="mt-4">
+                <button type="submit" class="btn btn-primary fw-bold px-4">
+                    <i class="fa-solid fa-save"></i> Lưu thông tin
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

@@ -1,0 +1,159 @@
+﻿@model List<webquanli.Models.DeTai>
+@using webquanli.Data
+@inject ApplicationDbContext _context
+@{
+    ViewData["Title"] = "Danh sách Đề Tài";
+    
+    // Lấy dữ liệu từ ViewBag để xử lý giao diện
+    var danhSachDaDangKy = ViewBag.DanhSachDaDangKy as List<int> ?? new List<int>();
+    int deTaiCuaToi = ViewBag.DeTaiCuaToi != null ? (int)ViewBag.DeTaiCuaToi : 0;
+
+    // ĐỌC QUYỀN TRỰC TIẾP TỪ SQL (CHỐNG LỖI MẤT NÚT)
+    string realRole = "";
+    if (User.Identity.IsAuthenticated)
+    {
+        var currentUser = _context.Users.FirstOrDefault(u => u.Username == User.Identity.Name);
+        if (currentUser != null && !string.IsNullOrEmpty(currentUser.Role))
+        {
+            realRole = currentUser.Role.Trim().ToLower();
+        }
+    }
+}
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show shadow-sm" role="alert">
+        <i class="fa-solid fa-circle-check"></i> <strong>Tuyệt vời!</strong> @TempData["Success"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show shadow-sm" role="alert">
+        <i class="fa-solid fa-triangle-exclamation"></i> <strong>Không thành công:</strong> @TempData["Error"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<div class="card shadow mb-4 border-0">
+    <div class="card-header py-3 bg-primary d-flex align-items-center">
+        <h6 class="m-0 font-weight-bold text-white">
+            <i class="fa-solid fa-book-open me-2"></i> DANH SÁCH ĐỀ TÀI ĐỒ ÁN
+        </h6>
+    </div>
+
+    <div class="card-body">
+        @if (realRole == "admin" || realRole == "giangvien")
+        {
+            <div class="mb-3">
+                <a asp-action="Create" class="btn btn-success shadow-sm fw-bold">
+                    <i class="fa-solid fa-plus"></i> Thêm đề tài +
+                </a>
+            </div>
+        }
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
+                <thead class="table-light">
+                    <tr>
+                        <th style="width: 5%;">ID</th>
+                        <th style="width: 25%;">Tên Đề Tài</th>
+                        <th style="width: 25%;">Mô Tả</th>
+                        <th>Giảng Viên Phụ Trách</th>
+                        <th class="text-center">Trạng thái</th>
+                        <th class="text-center" style="width: 15%;">Thao tác</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Any())
+                    {
+                        foreach (var dt in Model)
+                        {
+                            bool isTaken = danhSachDaDangKy.Contains(dt.Id);
+                            bool isMine = (dt.Id == deTaiCuaToi);
+
+                            <tr>
+                                <td class="fw-bold align-middle">@dt.Id</td>
+                                <td class="align-middle fw-bold text-primary">@dt.TenDeTai</td>
+                                <td class="align-middle">@dt.MoTa</td>
+                                <td class="align-middle">
+                                    <span class="badge bg-secondary">
+                                        @(dt.GiangVien != null ? dt.GiangVien.TenGV : "Chưa phân công")
+                                    </span><br />
+                                    <small class="text-muted">@(dt.GiangVien?.BoMon?.TenBoMon)</small>
+                                </td>
+                                
+                                <td class="align-middle text-center">
+                                    @if (isTaken)
+                                    {
+                                        <span class="badge bg-danger">Đã có chủ</span>
+                                    }
+                                    else
+                                    {
+                                        <span class="badge bg-success">Còn trống</span>
+                                    }
+                                </td>
+
+                                <td class="text-center align-middle">
+                                    @if (realRole == "sinhvien")
+                                    {
+                                        if (isMine)
+                                        {
+                                            <div class="d-flex flex-column align-items-center gap-2">
+                                                <span class="badge bg-primary px-3 py-2 shadow-sm"><i class="fa-solid fa-check"></i> Của bạn</span>
+                                                <form asp-action="HuyDangKy" asp-route-id="@dt.Id" method="post">
+                                                    <button type="submit" class="btn btn-outline-danger btn-sm fw-bold" onclick="return confirm('Bạn có chắc chắn muốn hủy đề tài này để chọn lại không?')">
+                                                        <i class="fa-solid fa-xmark"></i> Hủy đăng ký
+                                                    </button>
+                                                </form>
+                                            </div>
+                                        }
+                                        else if (!isTaken)
+                                        {
+                                            // Khóa nút nếu sinh viên đã có đề tài
+                                            if (deTaiCuaToi > 0)
+                                            {
+                                                <button class="btn btn-secondary btn-sm" disabled><i class="fa-solid fa-ban"></i> Đã chọn đề tài khác</button>
+                                            }
+                                            else
+                                            {
+                                                <form asp-action="DangKy" asp-route-id="@dt.Id" method="post">
+                                                    <button type="submit" class="btn btn-primary btn-sm fw-bold shadow-sm" onclick="return confirm('Xác nhận chốt đề tài này?')">
+                                                        <i class="fa-solid fa-hand-pointer"></i> Đăng ký
+                                                    </button>
+                                                </form>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <button class="btn btn-secondary btn-sm" disabled><i class="fa-solid fa-lock"></i> Đã đóng</button>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <a asp-action="Edit" asp-route-id="@dt.Id" class="btn btn-warning btn-sm text-white me-1">
+                                            <i class="fa-solid fa-pen-to-square"></i> Sửa
+                                        </a>
+                                        <a asp-action="Delete" asp-route-id="@dt.Id" class="btn btn-danger btn-sm text-white" onclick="return confirm('Bạn có chắc chắn muốn xóa đề tài này?')">
+                                            <i class="fa-solid fa-trash"></i> Xóa
+                                        </a>
+                                    }
+                                </td>
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#dataTable').DataTable({
+                "language": { "url": "//cdn.datatables.net/plug-ins/1.13.6/i18n/vi.json" }
+            });
+        });
+    </script>
+}

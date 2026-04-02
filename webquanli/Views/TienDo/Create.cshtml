@@ -1,0 +1,42 @@
+﻿@model webquanli.Models.TienDo
+@{
+    ViewData["Title"] = ViewBag.Title;
+}
+
+<div class="row justify-content-center mt-4">
+    <div class="col-lg-8">
+        <div class="card shadow-sm border-0">
+            <div class="card-header bg-primary text-white text-center py-3">
+                <h5 class="m-0 font-weight-bold text-uppercase">@ViewBag.Title</h5>
+            </div>
+            
+            <div class="card-body p-4">
+                <form asp-action="Create" method="post">
+                    <input type="hidden" asp-for="Id" />
+                    
+                    <div class="mb-4">
+                        <label class="form-label fw-bold text-dark">Nhóm Sinh viên</label>
+                        <select asp-for="DangKyId" class="form-select" asp-items="ViewBag.ListDangKy" required>
+                            <option value="">-- Chọn nhóm --</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-bold text-dark">Nội dung thực hiện</label>
+                        <textarea asp-for="NoiDung" class="form-control" rows="3" required></textarea>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-bold text-dark">Tiến độ (%)</label>
+                        <input asp-for="PhanTram" type="number" class="form-control" min="0" max="100" required />
+                    </div>
+
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary fw-bold">LƯU THÔNG TIN</button>
+                        <a asp-action="Index" class="btn btn-secondary">Quay lại</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,93 @@
+﻿@model IEnumerable<webquanli.Models.SinhVien>
+
+@{
+    ViewData["Title"] = "Danh sách Sinh Viên";
+}
+
+<div class="card shadow mb-4 border-0">
+    <div class="card-header py-3 bg-primary d-flex align-items-center">
+        <h6 class="m-0 font-weight-bold text-white">
+            <i class="fa-solid fa-user-graduate me-2"></i>
+            @(User.IsInRole("GiangVien") ? "DANH SÁCH SINH VIÊN LỚP QUẢN LÝ" : "DANH SÁCH SINH VIÊN")
+        </h6>
+    </div>
+
+    <div class="card-body">
+        @if (User.IsInRole("Admin"))
+        {
+            <div class="mb-3">
+                <a asp-action="Create" class="btn btn-success shadow-sm fw-bold">
+                    <i class="fa-solid fa-plus"></i> Thêm +
+                </a>
+            </div>
+        }
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
+                <thead class="table-light">
+                    <tr>
+                        <th class="text-center">Ảnh đại diện</th>
+                        <th>Mã SV</th>
+                        <th>Họ và Tên</th>
+                        <th>Lớp</th>
+                        <th>Email</th>
+                        <th>Bộ môn đăng ký</th>
+                        @if (User.IsInRole("Admin"))
+                        {
+                            <th class="text-center">Thao tác</th>
+                        }
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model != null && Model.Any())
+                    {
+                        foreach (var item in Model)
+                        {
+                            <tr>
+                                <td class="text-center align-middle">
+                                    <img src="@(string.IsNullOrEmpty(item.Avatar) ? "/img/default-avatar.png" : item.Avatar)"
+                                         alt="Avatar" class="rounded-circle shadow-sm"
+                                         style="width: 45px; height: 45px; object-fit: cover;" />
+                                </td>
+                                
+                                <td class="align-middle fw-bold">@item.MaSV</td>
+                                <td class="align-middle fw-bold text-dark">@item.TenSV</td>
+                                <td class="align-middle">
+                                    <span class="badge bg-info">@item.Lop</span>
+                                </td>
+                                <td class="align-middle">@item.Email</td>
+                                <td class="align-middle">
+                                    @(item.BoMon != null ? item.BoMon.TenBoMon : "Chưa đăng ký")
+                                </td>
+                                
+                                @if (User.IsInRole("Admin"))
+                                {
+                                    <td class="text-center align-middle">
+                                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-sm text-white">
+                                            <i class="fa-solid fa-pen-to-square"></i> Sửa
+                                        </a>
+                                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm text-white" onclick="return confirm('Xác nhận xóa sinh viên này?')">
+                                            <i class="fa-solid fa-trash"></i> Xóa
+                                        </a>
+                                    </td>
+                                }
+                            </tr>
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('#dataTable').DataTable({
+                "language": {
+                    "url": "//cdn.datatables.net/plug-ins/1.13.6/i18n/vi.json"
+                }
+            });
+        });
+    </script>
+}

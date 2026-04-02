@@ -1,0 +1,194 @@
+﻿@{
+    ViewData["Title"] = "Hồ sơ cá nhân";
+    var role = ViewBag.Role as string;
+
+    // Khởi tạo các giá trị mặc định, bổ sung thêm biến chuyên ngành
+    string ten = "", maSo = "", email = "", sdt = "", lop = "", nganh = "", chuyenNganh = "", avatar = "/img/default-avatar.png";
+
+    if (role == "SinhVien")
+    {
+        var sv = Model as webquanli.Models.SinhVien;
+        ten = sv?.TenSV ?? "N/A";
+        maSo = sv?.MaSV ?? "N/A";
+        email = sv?.Email ?? "N/A";
+        sdt = sv?.SDT ?? "N/A";
+        lop = sv?.Lop ?? "N/A";
+        nganh = sv?.Nganh ?? "N/A";
+        if (!string.IsNullOrEmpty(sv?.Avatar)) avatar = sv.Avatar;
+    }
+    else if (role == "GiangVien")
+    {
+        var gv = Model as webquanli.Models.GiangVien;
+        ten = gv?.TenGV ?? "N/A";
+        maSo = gv?.MaGV ?? "N/A";
+        email = gv?.Email ?? "N/A";
+        sdt = gv?.SDT ?? "N/A";
+        lop = gv?.LopQuanLy ?? "N/A";
+        // Lấy thông tin Tên Bộ Môn gán vào biến chuyên ngành
+        chuyenNganh = gv?.BoMon?.TenBoMon ?? "Chưa phân công";
+        if (!string.IsNullOrEmpty(gv?.Avatar)) avatar = gv.Avatar;
+    }
+    else if (role == "Admin")
+    {
+        ten = "Quản trị viên";
+        maSo = "ADMIN_SYS";
+        email = "admin@hutech.edu.vn";
+        sdt = "0123.456.789";
+        lop = "Phòng Quản lý Đào tạo";
+        // Admin dùng ảnh mặc định
+    }
+}
+
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800"><i class="fa-solid fa-address-card text-primary"></i> Bàn làm việc: Hồ sơ</h1>
+</div>
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show shadow-sm" role="alert">
+        <i class="fa-solid fa-circle-check"></i> <strong>Thành công!</strong> @TempData["Success"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show shadow-sm" role="alert">
+        <i class="fa-solid fa-triangle-exclamation"></i> <strong>Lỗi:</strong> @TempData["Error"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<div class="row">
+    <div class="col-xl-4 col-lg-5">
+        <div class="card shadow mb-4">
+            <div class="card-body text-center pt-5">
+                <img src="@avatar" alt="Avatar" class="img-profile rounded-circle mb-3 shadow" style="width: 180px; height: 180px; object-fit: cover; border: 4px solid #fff;">
+                
+                <h4 class="font-weight-bold text-primary mb-1">@ten</h4>
+                <p class="text-muted mb-4">
+                    @if (role == "Admin")
+                    {
+                        <span class="badge bg-danger">Hệ thống</span>
+                    }
+                    else
+                    {
+                        @(role == "SinhVien" ? "Sinh Viên" : "Giảng Viên")
+                    }
+                </p>
+
+                <hr>
+
+                <button class="btn btn-outline-warning btn-sm w-100 mb-2 shadow-sm text-dark fw-bold" type="button" data-bs-toggle="modal" data-bs-target="#changePasswordModal">
+                    <i class="fa-solid fa-key"></i> Đổi mật khẩu
+                </button>
+
+                @if (role != "Admin")
+                {
+                    <button class="btn btn-outline-primary btn-sm w-100 mb-2 shadow-sm" type="button" data-bs-toggle="collapse" data-bs-target="#collapseUpload">
+                        <i class="fa-solid fa-camera"></i> Cập nhật ảnh đại diện
+                    </button>
+                    
+                    <form asp-controller="Profile" asp-action="DeleteAvatar" method="post">
+                        <button type="submit" class="btn btn-outline-danger btn-sm w-100 mb-2 shadow-sm" onclick="return confirm('Bạn có chắc chắn muốn xóa ảnh đại diện này không?')">
+                            <i class="fa-solid fa-trash-can"></i> Xóa ảnh đại diện
+                        </button>
+                    </form>
+                    
+                    <div class="collapse mt-2" id="collapseUpload">
+                        <form asp-action="UploadAvatar" method="post" enctype="multipart/form-data" class="border p-3 bg-light rounded text-start shadow-sm">
+                            <div class="mb-2">
+                                <input class="form-control form-control-sm" type="file" name="fileUpload" accept="image/*" required>
+                            </div>
+                            <button type="submit" class="btn btn-primary btn-sm w-100"><i class="fa-solid fa-cloud-arrow-up"></i> Lưu ảnh</button>
+                        </form>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-8 col-lg-7">
+        <div class="card shadow mb-4 border-top-primary">
+            <div class="card-header py-3 bg-white">
+                <h6 class="m-0 font-weight-bold text-primary">Thông tin chi tiết</h6>
+            </div>
+            <div class="card-body">
+                
+                <h5 class="border-bottom pb-2 fw-bold"><i class="fa-solid fa-circle-info text-info"></i> Basic Information</h5>
+                <div class="row mb-4 mt-3">
+                    <div class="col-sm-4 text-muted">Họ và tên</div>
+                    <div class="col-sm-8 fw-bold text-dark">@ten</div>
+                </div>
+                <div class="row mb-4">
+                    <div class="col-sm-4 text-muted">Mã số</div>
+                    <div class="col-sm-8 fw-bold">@maSo</div>
+                </div>
+
+                <h5 class="border-bottom pb-2 fw-bold mt-4"><i class="fa-solid fa-address-book text-success"></i> Contact Information</h5>
+                <div class="row mb-4 mt-3">
+                    <div class="col-sm-4 text-muted">Email liên hệ</div>
+                    <div class="col-sm-8">@email</div>
+                </div>
+                <div class="row mb-4">
+                    <div class="col-sm-4 text-muted">Số điện thoại</div>
+                    <div class="col-sm-8">@sdt</div>
+                </div>
+
+                <h5 class="border-bottom pb-2 fw-bold mt-4"><i class="fa-solid fa-graduation-cap text-warning"></i> Academic Information</h5>
+                <div class="row mb-4 mt-3">
+                    <div class="col-sm-4 text-muted">
+                        @(role == "SinhVien" ? "Ngành học" : "Đơn vị")
+                    </div>
+                    <div class="col-sm-8">@(role == "SinhVien" ? nganh : (role == "Admin" ? "Ban Giám Hiệu" : "Khoa Công nghệ thông tin"))</div>
+                </div>
+
+                @if (role == "GiangVien")
+                {
+                    <div class="row mb-4">
+                        <div class="col-sm-4 text-muted">Chuyên ngành (Bộ môn)</div>
+                        <div class="col-sm-8 fw-bold text-dark">@chuyenNganh</div>
+                    </div>
+                }
+
+                <div class="row mb-2">
+                    <div class="col-sm-4 text-muted">
+                        @(role == "SinhVien" ? "Lớp sinh hoạt" : "Lớp quản lý")
+                    </div>
+                    <div class="col-sm-8">@lop</div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="changePasswordModal" tabindex="-1" aria-labelledby="changePasswordModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content border-0 shadow">
+            <form asp-controller="Profile" asp-action="ChangePassword" method="post">
+                <div class="modal-header bg-warning">
+                    <h5 class="modal-title fw-bold text-dark" id="changePasswordModalLabel"><i class="fa-solid fa-key"></i> Đổi mật khẩu</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-start">
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Mật khẩu cũ <span class="text-danger">*</span></label>
+                        <input type="password" name="oldPassword" class="form-control" required placeholder="Nhập mật khẩu hiện tại">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Mật khẩu mới <span class="text-danger">*</span></label>
+                        <input type="password" name="newPassword" class="form-control" required minlength="6" placeholder="Nhập mật khẩu mới (ít nhất 6 ký tự)">
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Xác nhận mật khẩu mới <span class="text-danger">*</span></label>
+                        <input type="password" name="confirmPassword" class="form-control" required minlength="6" placeholder="Nhập lại mật khẩu mới">
+                    </div>
+                </div>
+                <div class="modal-footer bg-light">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                    <button type="submit" class="btn btn-warning fw-bold text-dark"><i class="fa-solid fa-check"></i> Xác nhận đổi</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

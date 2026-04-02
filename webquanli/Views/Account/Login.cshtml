@@ -1,0 +1,56 @@
+﻿@{
+    Layout = null; // Trang login không dùng chung sidebar với Dashboard
+}
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8">
+    <title>Đăng nhập - Hệ thống Quản lý Đồ án</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        body { background: linear-gradient(120deg, #4e73df 0%, #224abe 100%); height: 100vh; display: flex; align-items: center; }
+        .card-login { border: none; border-radius: 1rem; box-shadow: 0 0.5rem 1rem 0 rgba(0, 0, 0, 0.1); }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-5">
+                <div class="card card-login p-4">
+                    <div class="text-center mb-4">
+                        <i class="fa-solid fa-graduation-cap fa-3x text-primary mb-3"></i>
+                        <h3 class="fw-bold">HỆ THỐNG ĐỒ ÁN</h3>
+                        <p class="text-muted">Vui lòng đăng nhập để tiếp tục</p>
+                    </div>
+                    <form action="/Account/Login" method="post">
+                        <div class="mb-3">
+                            <label class="form-label">Tên đăng nhập / Email</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fa-solid fa-user"></i></span>
+                                <input type="text" name="username" class="form-control" placeholder="admin@university.edu.vn" required>
+                            </div>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Mật khẩu</label>
+                            <div class="input-group">
+                                <span class="input-group-text"><i class="fa-solid fa-lock"></i></span>
+                                <input type="password" name="password" class="form-control" placeholder="••••••••" required>
+                            </div>
+                        </div>
+                        <div class="mb-3 form-check">
+                            <input type="checkbox" class="form-check-input" id="remember">
+                            <label class="form-check-label" for="remember">Ghi nhớ đăng nhập</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary w-100 py-2 fw-bold">ĐĂNG NHẬP</button>
+                    </form>
+                    <hr>
+                    <div class="text-center">
+                        <a class="small text-decoration-none" href="#">Quên mật khẩu?</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

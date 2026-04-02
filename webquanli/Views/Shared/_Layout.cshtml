@@ -1,0 +1,184 @@
+﻿@using webquanli.Data
+@inject ApplicationDbContext _context
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Quản Lý Đồ Án</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css" />
+
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8f9fa; margin: 0; overflow-x: hidden; }
+        .sidebar { width: 260px; height: 100vh; position: fixed; background: #212529; color: #fff; box-shadow: 4px 0 10px rgba(0,0,0,0.1); z-index: 1000; }
+        .sidebar-brand { padding: 20px; font-size: 1.25rem; font-weight: 700; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.1); color: #fff; text-decoration: none; display: block; }
+        .sidebar-menu { padding: 15px 0; }
+        .sidebar-menu a { display: flex; align-items: center; padding: 12px 25px; color: rgba(255,255,255,0.8); text-decoration: none; transition: 0.2s; }
+        .sidebar-menu a i { width: 25px; font-size: 1.1rem; margin-right: 10px; }
+        .sidebar-menu a:hover { background: #0d6efd; color: #fff; border-left: 4px solid #fff; }
+        .main-wrapper { margin-left: 260px; min-height: 100vh; display: flex; flex-direction: column; }
+        .topbar { height: 70px; background: #fff; box-shadow: 0 2px 10px rgba(0,0,0,0.05); display: flex; align-items: center; justify-content: flex-end; padding: 0 30px; }
+        .content { padding: 30px; flex-grow: 1; }
+        .card { border: none; box-shadow: 0 0.15rem 1.75rem 0 rgba(58, 59, 69, 0.15); border-radius: 0.5rem; }
+        .card-header { background-color: #f8f9fc; border-bottom: 1px solid #e3e6f0; font-weight: 600; color: #4e73df; }
+    </style>
+</head>
+<body>
+    @{
+        // CODE ĐỌC QUYỀN VÀ THÔNG BÁO TỪ SQL
+        string realRole = "";
+        var currentUsername = "";
+        var dsThongBao = new List<webquanli.Models.ThongBao>();
+        int soThongBaoChuaDoc = 0;
+
+        if (User.Identity.IsAuthenticated)
+        {
+            currentUsername = User.Identity.Name;
+            
+            // 1. Lấy quyền (Role)
+            var currentUser = _context.Users.FirstOrDefault(u => u.Username == currentUsername);
+            if (currentUser != null && !string.IsNullOrEmpty(currentUser.Role))
+            {
+                realRole = currentUser.Role.Trim().ToLower();
+            }
+
+            // 2. Lấy 10 thông báo mới nhất
+            dsThongBao = _context.ThongBaos
+                .Where(t => t.UsernameNhan == currentUsername)
+                .OrderByDescending(t => t.NgayTao)
+                .Take(10)
+                .ToList();
+
+            soThongBaoChuaDoc = dsThongBao.Count(t => t.DaDoc == false);
+        }
+    }
+
+    <div class="sidebar">
+        <a href="/" class="sidebar-brand">
+            <i class="fa-solid fa-graduation-cap"></i> QUẢN LÝ ĐỒ ÁN
+        </a>
+        <div class="sidebar-menu">
+            
+            <a asp-controller="Profile" asp-action="Index"><i class="fa-solid fa-address-card"></i> Hồ sơ</a>
+            <a asp-controller="DeTai" asp-action="Index"><i class="fa-solid fa-book"></i> Đề tài</a>
+
+            @if (realRole == "admin")
+            {
+                <a asp-controller="Home" asp-action="Index"><i class="fa-solid fa-chart-pie"></i> Dashboard</a>
+                <a asp-controller="BoMon" asp-action="Index"><i class="fa-solid fa-hotel"></i> Bộ môn</a>
+                <a asp-controller="GiangVien" asp-action="Index"><i class="fas fa-fw fa-chalkboard-teacher"></i> Giảng viên</a>
+            }
+
+            @if (realRole == "admin" || realRole == "giangvien")
+            {
+                <a asp-controller="SinhVien" asp-action="Index"><i class="fa-solid fa-user-graduate"></i> Sinh viên</a>
+            }
+
+            <a asp-controller="TienDo" asp-action="Index"><i class="fa-solid fa-tasks"></i> Tiến độ</a>
+            <a asp-controller="BaoCao" asp-action="Index"><i class="fa-solid fa-file-arrow-up"></i> Báo cáo</a>
+        </div>
+    </div>
+
+    <div class="main-wrapper">
+        <div class="topbar">
+            
+            <div class="dropdown me-4">
+                <button class="btn btn-light border shadow-sm position-relative d-flex align-items-center justify-content-center" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="width: 40px; height: 40px; border-radius: 50%;">
+                    <i class="fa-solid fa-bell text-warning fs-5"></i>
+                    
+                    @if (soThongBaoChuaDoc > 0)
+                    {
+                        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger shadow" style="font-size: 0.65rem;">
+                            @soThongBaoChuaDoc
+                        </span>
+                    }
+                </button>
+                
+                <ul class="dropdown-menu dropdown-menu-end shadow border-0" style="width: 360px; max-height: 450px; overflow-y: auto; padding: 0; z-index: 9999;">
+                    <li class="p-3 border-bottom d-flex justify-content-between align-items-center bg-primary text-white" style="border-radius: 5px 5px 0 0;">
+                        <span class="fw-bold"><i class="fa-solid fa-envelope-open-text me-2"></i> Thông báo</span>
+                        @if (soThongBaoChuaDoc > 0)
+                        {
+                            <form asp-controller="ThongBao" asp-action="DanhDauDaDoc" method="post" class="m-0">
+                                <button type="submit" class="btn btn-sm btn-light text-primary fw-bold" style="font-size: 11px;">Đánh dấu đã đọc</button>
+                            </form>
+                        }
+                    </li>
+                    
+                    @if (dsThongBao.Count == 0)
+                    {
+                        <li class="p-4 text-center text-muted">
+                            <i class="fa-regular fa-bell-slash fs-3 mb-2 opacity-50"></i><br>
+                            <small>Hiện tại không có thông báo nào.</small>
+                        </li>
+                    }
+                    else
+                    {
+                        foreach (var tb in dsThongBao)
+                        {
+                            string bgClass = tb.DaDoc ? "bg-white" : "bg-light border-start border-4 border-warning";
+                            string textClass = tb.DaDoc ? "text-muted" : "text-dark";
+
+                            <li class="p-3 border-bottom @bgClass position-relative">
+                                <div class="d-flex justify-content-between mb-1 pe-4">
+                                    <h6 class="mb-0 fw-bold @textClass" style="font-size: 13px;">@tb.TieuDe</h6>
+                                    <small class="text-secondary" style="font-size: 11px;">@tb.NgayTao.ToString("dd/MM HH:mm")</small>
+                                </div>
+                                <p class="mb-0 @textClass" style="font-size: 12px; line-height: 1.4; padding-right: 20px;">@tb.NoiDung</p>
+                                
+                                <form asp-controller="ThongBao" asp-action="Xoa" asp-route-id="@tb.Id" method="post" class="position-absolute" style="top: 12px; right: 12px;">
+                                    <button type="submit" class="btn btn-sm text-danger p-0 border-0 bg-transparent opacity-50 hover-opacity-100" title="Xóa thông báo">
+                                        <i class="fa-solid fa-xmark fs-5"></i>
+                                    </button>
+                                </form>
+                            </li>
+                        }
+                    }
+                </ul>
+            </div>
+            <div class="dropdown">
+                <button class="btn btn-light dropdown-toggle border shadow-sm" type="button" data-bs-toggle="dropdown">
+                    <i class="fa-solid fa-circle-user text-primary me-1"></i> 
+                    <strong>@User.Identity.Name</strong> 
+                </button>
+                <ul class="dropdown-menu dropdown-menu-end shadow border-0">
+                    <li class="px-3 py-2">
+                        <small class="text-muted d-block text-uppercase fw-bold" style="font-size: 10px;">Vai trò</small>
+                        <span class="badge bg-soft-primary text-primary border border-primary">
+                            @if (realRole == "admin") { <span>Quản trị viên</span> }
+                            else if (realRole == "giangvien") { <span>Giảng viên</span> }
+                            else { <span>Sinh viên</span> }
+                        </span>
+                    </li>
+                    <li><hr class="dropdown-divider"></li>
+                    <li>
+                        <a class="dropdown-item" asp-controller="Profile" asp-action="Index">
+                            <i class="fa-solid fa-address-card me-2 text-primary"></i> Hồ sơ cá nhân
+                        </a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item text-danger" asp-controller="Account" asp-action="Logout">
+                            <i class="fa-solid fa-right-from-bracket me-2"></i> Đăng xuất
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="content">
+            @RenderBody()
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
+
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

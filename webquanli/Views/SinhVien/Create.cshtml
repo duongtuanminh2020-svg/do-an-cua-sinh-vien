@@ -1,0 +1,52 @@
+﻿@model webquanli.Models.SinhVien
+@{
+    ViewData["Title"] = "Thêm Sinh Viên";
+}
+
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Quản lý Sinh Viên</h1>
+    <a href="/SinhVien/Index" class="btn btn-secondary btn-sm shadow-sm">
+        <i class="fa-solid fa-arrow-left"></i> Quay lại danh sách
+    </a>
+</div>
+
+<div class="card shadow mb-4" style="max-width: 600px; margin: auto;">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Thêm Sinh Viên Mới</h6>
+    </div>
+    <div class="card-body">
+        <form method="post">
+            <div class="mb-3">
+                <label class="form-label fw-bold">Mã Sinh Viên</label>
+                <input class="form-control" asp-for="MaSV" required placeholder="Nhập mã sinh viên..." />
+            </div>
+            
+            <div class="mb-3">
+                <label class="form-label fw-bold">Họ và Tên</label>
+                <input class="form-control" asp-for="TenSV" required placeholder="Nhập họ tên sinh viên..." />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-bold">Lớp</label>
+                <input class="form-control" asp-for="Lop" required placeholder="Ví dụ: CNTT K60..." />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-bold">Email</label>
+                <input class="form-control" type="email" asp-for="Email" required placeholder="Nhập địa chỉ email..." />
+            </div>
+
+            <div class="form-group mb-3">
+                <label class="control-label fw-bold">Bộ môn đăng ký</label>
+                <select asp-for="BoMonId" class="form-control" asp-items="ViewBag.BoMonId">
+                    <option value="">-- Chọn bộ môn (Không bắt buộc) --</option>
+                </select>
+                <span asp-validation-for="BoMonId" class="text-danger"></span>
+            </div>
+
+            <button class="btn btn-primary w-100 mt-3" type="submit">
+                <i class="fa-solid fa-floppy-disk"></i> Lưu thông tin
+            </button>
+        </form>
+    </div>
+</div>
