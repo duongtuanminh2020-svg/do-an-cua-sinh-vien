@@ -1,39 +1,81 @@
 ﻿@model IEnumerable<webquanli.Models.BoMon>
+@using webquanli.Data
+@inject ApplicationDbContext _context
+
 @{
     ViewData["Title"] = "Quản lý Bộ Môn";
 }
 
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Quản lý Bộ Môn (Khoa CNTT)</h1>
-    <a asp-action="Create" class="btn btn-primary shadow-sm fw-bold">
-        <i class="fa-solid fa-plus"></i> Thêm Bộ môn mới
+    <h1 class="h3 mb-0 text-gray-800 fw-bold">
+        <i class="fa-solid fa-building-columns text-primary me-2"></i> Quản lý Bộ Môn
+    </h1>
+    <a asp-action="Create" class="btn btn-primary shadow-sm fw-bold" style="border-radius: 8px;">
+        <i class="fa-solid fa-plus me-1"></i> Thêm Bộ môn mới
     </a>
 </div>
 
-<div class="card shadow mb-4 border-left-primary">
-    <div class="card-body">
-        <table class="table table-bordered table-hover">
-            <thead class="table-light">
-                <tr>
-                    <th class="text-center" style="width: 10%;">Mã số</th>
-                    <th>Tên Bộ Môn</th>
-                    <th class="text-center" style="width: 15%;">Thao tác</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
+<div class="card shadow mb-4 border-0">
+    <div class="card-header py-3 bg-white border-bottom">
+        <h6 class="m-0 font-weight-bold text-primary">DANH SÁCH BỘ MÔN (KHOA CNTT)</h6>
+    </div>
+    <div class="card-body p-0">
+        <div class="table-responsive p-3">
+            <table class="table table-bordered table-hover align-middle" width="100%" cellspacing="0">
+                <thead class="table-light text-muted" style="font-size: 0.85rem;">
                     <tr>
-                        <td class="text-center fw-bold">@item.Id</td>
-                        <td><span class="badge bg-info text-dark fs-6">@item.TenBoMon</span></td>
-                        <td class="text-center">
-                            <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm" onclick="return confirm('Xóa bộ môn này?');">
-                                <i class="fa-solid fa-trash"></i> Xóa
-                            </a>
-                        </td>
+                        <th class="text-center" style="width: 10%;">Mã số</th>
+                        <th>Tên Bộ Môn</th>
+                        <th class="text-center" style="width: 30%;">Thao tác</th>
                     </tr>
-                }
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        // LỚP BẢO VỆ GIAO DIỆN: Khám bệnh xem bộ môn này có ai ở không
+                        bool hasPeople = _context.SinhViens.Any(s => s.BoMonId == item.Id) || _context.GiangViens.Any(g => g.BoMonId == item.Id);
+
+                        <tr>
+                            <td class="text-center fw-bold text-muted">@item.Id</td>
+                            <td><span class="badge bg-info text-dark fs-6 shadow-sm">@item.TenBoMon</span></td>
+                            <td class="text-center">
+                                
+                                <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-outline-primary btn-sm me-2 fw-bold" style="border-radius: 6px;">
+                                    <i class="fa-solid fa-pen me-1"></i> Chỉnh sửa
+                                </a>
+
+                                @if (!hasPeople)
+                                {
+                                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm fw-bold shadow-sm" style="border-radius: 6px;" onclick="return confirm('Hành động này không thể hoàn tác. Xóa bộ môn này?');">
+                                        <i class="fa-solid fa-trash me-1"></i> Xóa
+                                    </a>
+                                }
+                                else
+                                {
+                                    <button type="button" class="btn btn-secondary btn-sm fw-bold" style="border-radius: 6px; opacity: 0.7; cursor: not-allowed;" onclick="alert('Bộ môn này đang có Sinh viên hoặc Giảng viên trực thuộc.\n\nBẢO MẬT: Hệ thống KHÔNG CHO PHÉP XÓA để bảo vệ an toàn dữ liệu! Hãy dùng chức năng Chỉnh sửa thay thế.')">
+                                        <i class="fa-solid fa-lock me-1"></i> Đã khóa
+                                    </button>
+                                }
+
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            // Hiển thị cảnh báo từ Backend nếu có người cố tình hack lệnh xóa
+            @if (TempData["ErrorMessage"] != null)
+            {
+                    <text>
+                        alert('@Html.Raw(TempData["ErrorMessage"])');
+                    </text>
+            }
+        });
+    </script>
+}

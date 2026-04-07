@@ -11,8 +11,30 @@ wwwroot\avatars\20260402184747_ảnh thầy 1.jpg
 wwwroot\avatars\20260402184942_ảnh thầy 2.jpg
 wwwroot\avatars\20260402192111_ảnh cô.webp
 wwwroot\avatars\20260402192150_ảnh cô.webp
+wwwroot\avatars\20260402231329_ảnh lộc.jfif
+wwwroot\avatars\20260404143128_ảnh nhtr.jfif
+wwwroot\avatars\20260404155628_loc.jfif
+wwwroot\avatars\20260407182050_ảnh nhtr.jfif
+wwwroot\avatars\20260407182115_ảnh thịnh.jfif
+wwwroot\avatars\20260407182331_dienhan.jfif
+wwwroot\avatars\20260407182347_tuanminh.jfif
+wwwroot\avatars\20260407182536_anhquanh.jfif
+wwwroot\avatars\20260407184255_anhmacdinh.jpg
+wwwroot\avatars\20260407184312_anhmacdinh.jpg
+wwwroot\avatars\20260407184349_huyvu.jfif
+wwwroot\avatars\20260407184424_nhathuy.jfif
+wwwroot\avatars\20260407184713_anh sv trung.jfif
+wwwroot\avatars\20260407184833_trongtin.jfif
+wwwroot\avatars\20260407191114_congthanh.jfif
+wwwroot\avatars\20260407191131_vanviet.jfif
+wwwroot\avatars\20260407191148_vannam.jfif
+wwwroot\avatars\20260407191204_minhtuan.jfif
+wwwroot\avatars\20260407191323_vohoangkhang.webp
+wwwroot\avatars\20260407191623_caotunganh.jpg
 wwwroot\css\site.css
 wwwroot\favicon.ico
+wwwroot\img\bgtruong.webp
+wwwroot\img\logotruong.jpg
 wwwroot\js\site.js
 wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css
 wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map
@@ -93,6 +115,17 @@ wwwroot\uploads\20260331215059_Giáo trình Thực hành Bảo mật tho�
 wwwroot\uploads\20260331215208_Giáo trình Thực hành Bảo mật thông tin nâng cao 2 (1).pdf
 wwwroot\uploads\20260331215517_Giáo trình Thực hành Bảo mật thông tin nâng cao 2 (1).pdf
 wwwroot\uploads\20260401184606_Giáo trình Thực hành Bảo mật thông tin nâng cao 2 (1).pdf
+wwwroot\uploads\20260404152704_DACS_Nhom36_DeCuong.docx.pdf
+wwwroot\uploads\20260404154316_DACS_Nhom36_DeCuong.docx.pdf
+wwwroot\uploads\20260404162147_DACS_Nhom36_DeCuong.docx.pdf
+wwwroot\uploads\20260404162507_bgtruong.web.webp
+wwwroot\uploads\20260404180047_DACS_Nhom36_DeCuong.docx.pdf
+wwwroot\uploads\20260404181031_DACS_Nhom36_DeCuong.docx.pdf
+wwwroot\uploads\20260404184103_DACS_Nhom36_DeCuong.docx.pdf
+wwwroot\uploads\20260404184824_DACS_Nhom36_DeCuong.docx.pdf
+wwwroot\uploads\20260405223359_DACS_Nhom36_DeCuong.docx.pdf
+wwwroot\uploads\20260406191559_DACS_Nhom36_DeCuong.docx.pdf
+wwwroot\uploads\20260406191610_DACS_Nhom36_DeCuong.docx.pdf
 D:\Anh Tu\do-an-cua-sinh-vien-main\do-an-cua-sinh-vien-main\webquanli\wwwroot\lib\jquery\LICENSE.txt
 D:\Anh Tu\do-an-cua-sinh-vien-main\do-an-cua-sinh-vien-main\webquanli\wwwroot\lib\jquery\dist\jquery.slim.min.map
 D:\Anh Tu\do-an-cua-sinh-vien-main\do-an-cua-sinh-vien-main\webquanli\wwwroot\lib\jquery\dist\jquery.slim.min.js

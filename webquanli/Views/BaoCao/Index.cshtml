@@ -1,127 +1,448 @@
 ﻿@model IEnumerable<webquanli.Models.BaoCao>
 @{
-    ViewData["Title"] = "Danh sách Báo Cáo";
+    ViewData["Title"] = "Quản lý Báo Cáo";
+    // ĐÃ SỬA: Gom tất cả các trường hợp gõ chữ hoa chữ thường
+    bool isSinhVien = User.IsInRole("SinhVien") || User.IsInRole("sinhvien");
+    bool isGiangVien = User.IsInRole("GiangVien") || User.IsInRole("giangvien");
+    bool isAdmin = User.IsInRole("Admin") || User.IsInRole("admin");
+    bool isGVOrAdmin = isAdmin || isGiangVien;
+}
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+
+@if (TempData["Success"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show shadow-sm border-0" role="alert" style="background-color: #e5f8ed; color: #00b050;">
+        <i class="fa-solid fa-circle-check"></i> <strong>Thành công!</strong> @TempData["Success"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show shadow-sm border-0" role="alert" style="background-color: #ffe8eb; color: #f1416c;">
+        <i class="fa-solid fa-triangle-exclamation"></i> <strong>Lưu ý:</strong> @TempData["Error"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
 }
 
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Quản lý Báo cáo Đồ án</h1>
+    <h1 class="h3 mb-0 text-gray-800 fw-bold">
+        <i class="fa-solid fa-file-signature me-2 text-primary"></i> Quản lý Báo cáo Đồ án
+    </h1>
 
-    @if (User.IsInRole("SinhVien"))
+    @if (isAdmin)
     {
-        if (ViewBag.DotHienTai != null)
-        {
-            var dot = ViewBag.DotHienTai;
-            var now = DateTime.Now;
-
-            // KIỂM TRA LOGIC THỜI GIAN
-            if (now >= dot.NgayBatDau && now <= dot.NgayKetThuc)
-            {
-                <div class="text-end">
-                    <span class="badge bg-success mb-2"><i class="fa-solid fa-clock"></i> Đang mở: @dot.TenDot (Hạn chót: @dot.NgayKetThuc.ToString("dd/MM/yyyy"))</span><br />
-                    <a asp-action="Upload" class="btn btn-primary shadow-sm fw-bold">
-                        <i class="fa-solid fa-cloud-arrow-up"></i> Nộp báo cáo
-                    </a>
-                </div>
-            }
-            else if (now < dot.NgayBatDau)
-            {
-                <div class="alert alert-warning py-2 mb-0 border-left-warning shadow-sm">
-                    <strong><i class="fa-solid fa-lock"></i> Chưa mở cổng:</strong> @dot.TenDot sẽ mở vào @dot.NgayBatDau.ToString("dd/MM/yyyy").
-                </div>
-            }
-            else
-            {
-                <div class="alert alert-danger py-2 mb-0 border-left-danger shadow-sm">
-                    <strong><i class="fa-solid fa-lock"></i> Đã đóng cổng:</strong> @dot.TenDot đã hết hạn vào @dot.NgayKetThuc.ToString("dd/MM/yyyy").
-                </div>
-            }
-        }
-        else
-        {
-            <div class="alert alert-secondary py-2 mb-0 shadow-sm">
-                <i class="fa-solid fa-circle-info"></i> Hiện chưa có đợt nộp báo cáo nào.
-            </div>
-        }
+        <button type="button" class="btn btn-primary shadow-sm fw-bold px-4 py-2" data-bs-toggle="modal" data-bs-target="#modalTaoDot" style="border-radius: 10px;">
+            <i class="fa-solid fa-calendar-plus me-2"></i> Thêm đợt báo cáo mới
+        </button>
     }
 </div>
 
-<div class="card shadow mb-4">
-    <div class="card-body">
-        <div class="table-responsive">
-            <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
-                <thead class="table-light">
-                    <tr>
-                        <th>Nhóm Sinh Viên</th>
-                        <th>File Báo Cáo</th>
-                        <th>Ngày Nộp</th>
-                        <th class="text-center">Điểm số</th>
-                        <th>Nhận xét của GV</th>
-                        <th class="text-center">Thao tác</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @if (!Model.Any())
-                    {
+@if (isSinhVien)
+{
+    var danhSachDot = ViewBag.DanhSachDot as List<webquanli.Models.DotDoAn> ?? new List<webquanli.Models.DotDoAn>();
+    var dictBaoCao = ViewBag.DictBaoCao as Dictionary<int, webquanli.Models.BaoCao> ?? new Dictionary<int, webquanli.Models.BaoCao>();
+
+    <div class="card shadow-sm border-0 mb-4" style="border-radius: 12px;">
+        <div class="card-header bg-white py-3 border-bottom d-flex justify-content-between align-items-center">
+            <h6 class="m-0 font-weight-bold text-primary"><i class="fa-solid fa-list-check me-2"></i> Danh sách Bài tập / Đợt báo cáo</h6>
+            <span class="badge bg-primary bg-opacity-10 text-primary border border-primary p-2">Xem thông tin @danhSachDot.Count mục</span>
+        </div>
+        <div class="card-body p-0">
+            <div class="table-responsive p-3">
+                <table class="table table-hover align-middle mb-0" width="100%" cellspacing="0">
+                    <thead class="table-light text-muted" style="font-size: 0.85rem; border-bottom: 2px solid #e9edf7;">
                         <tr>
-                            <td colspan="6" class="text-center text-muted fst-italic py-4">Chưa có báo cáo nào được nộp.</td>
+                            <th style="width: 25%;">Tiêu đề bài tập</th>
+                            <th style="width: 25%;">Tình trạng</th>
+                            <th style="width: 15%;">Mở</th>
+                            <th style="width: 15%;">Hạn</th>
+                            <th class="text-center" style="width: 20%;">Thao tác</th>
                         </tr>
-                    }
-                    else
-                    {
-                        foreach (var item in Model)
+                    </thead>
+                    <tbody class="border-top-0">
+                        @if (!danhSachDot.Any())
                         {
                             <tr>
-                                <td>
-                                    <strong class="text-primary">@item.DangKyDeTai.SinhVien.TenSV</strong><br />
-                                    <small class="text-muted">Đề tài: @item.DangKyDeTai.DeTai.TenDeTai</small>
-                                </td>
-                                <td>
-                                    <i class="fa-solid fa-file-word text-primary"></i> @item.TenFile
-                                </td>
-                                <td>@item.NgayNop.ToString("dd/MM/yyyy HH:mm")</td>
-                                
-                                <td class="text-center align-middle">
-                                    @if (item.Diem.HasValue)
-                                    {
-                                        <span class="badge bg-success fs-6">@item.Diem / 10</span>
-                                    }
-                                    else
-                                    {
-                                        <span class="badge bg-secondary">Chưa chấm</span>
-                                    }
-                                </td>
-
-                                <td>
-                                    @if (!string.IsNullOrEmpty(item.NhanXet))
-                                    {
-                                        <span class="fst-italic text-dark">"@item.NhanXet"</span>
-                                    }
-                                </td>
-                                
-                                <td class="text-center align-middle">
-                                    <a asp-action="Download" asp-route-id="@item.Id" class="btn btn-info btn-sm text-white mb-1" title="Tải về">
-                                        <i class="fa-solid fa-download"></i>
-                                    </a>
-
-                                    @if (User.IsInRole("GiangVien"))
-                                    {
-                                        <a asp-action="ChamDiem" asp-route-id="@item.Id" class="btn btn-warning btn-sm text-dark fw-bold mb-1" title="Chấm điểm">
-                                            <i class="fa-solid fa-star"></i> Chấm
-                                        </a>
-                                    }
-
-                                    @if ((User.IsInRole("Admin")) || (User.IsInRole("SinhVien") && !item.Diem.HasValue))
-                                    {
-                                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm mb-1" onclick="return confirm('Bạn có chắc chắn muốn xóa file này?');" title="Xóa">
-                                            <i class="fa-solid fa-trash"></i>
-                                        </a>
-                                    }
+                                <td colspan="5" class="text-center py-5">
+                                    <i class="fa-solid fa-calendar-xmark text-muted fs-1 mb-3 opacity-25"></i>
+                                    <h6 class="fw-bold text-secondary mb-0">Chưa có bài tập hay đợt báo cáo nào.</h6>
                                 </td>
                             </tr>
                         }
-                    }
-                </tbody>
-            </table>
+                        else
+                        {
+                            foreach (var dot in danhSachDot)
+                            {
+                                var now = DateTime.Now;
+                                bool isSubmitted = dictBaoCao.ContainsKey(dot.Id);
+                                var baoCao = isSubmitted ? dictBaoCao[dot.Id] : null;
+
+                                <tr style="border-bottom: 1px dashed #e9edf7;">
+                                    <td>
+                                        <div class="fw-bold text-primary fs-6"><i class="fa-solid fa-user-graduate text-secondary me-2"></i> @dot.TenDot</div>
+                                    </td>
+                                    <td>
+                                        @if (isSubmitted)
+                                        {
+                                            <div class="text-success fw-bold"><i class="fa-solid fa-check-circle me-1"></i> Gửi lên lúc</div>
+                                            <small class="text-muted fw-bold">@baoCao.NgayNop.ToString("HH:mm dd-MM-yyyy")</small>
+                                            <div class="mt-1">
+                                                <span class="badge bg-light text-dark border text-wrap" style="max-width: 200px;"><i class="fa-solid fa-paperclip me-1"></i> @baoCao.TenFile</span>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            if (now < dot.NgayBatDau)
+                                            {
+                                                <span class="text-secondary fw-bold"><i class="fa-solid fa-lock me-1"></i> Chưa mở</span>
+                                            }
+                                            else if (now > dot.NgayKetThuc)
+                                            {
+                                                <span class="text-danger fw-bold"><i class="fa-solid fa-circle-xmark me-1"></i> Quá hạn (Chưa nộp)</span>
+                                            }
+                                            else
+                                            {
+                                                <span class="text-warning fw-bold"><i class="fa-solid fa-circle-exclamation me-1"></i> Chưa nộp</span>
+                                            }
+                                        }
+                                    </td>
+                                    <td><span class="text-dark">@dot.NgayBatDau.ToString("dd-MM-yyyy")</span><br><small class="text-muted">@dot.NgayBatDau.ToString("HH:mm")</small></td>
+                                    <td><span class="text-danger fw-bold">@dot.NgayKetThuc.ToString("dd-MM-yyyy")</span><br><small class="text-danger">@dot.NgayKetThuc.ToString("HH:mm")</small></td>
+                                    <td class="text-center">
+                                        @if (isSubmitted)
+                                        {
+                                            <div class="d-flex justify-content-center align-items-center gap-2">
+                                                @if (baoCao.Diem.HasValue)
+                                                {
+                                                    <span class="badge bg-success bg-opacity-10 text-success border border-success p-2">Điểm: @baoCao.Diem / 10</span>
+                                                    @if (!string.IsNullOrEmpty(baoCao.NhanXet))
+                                                    {
+                                                        <i class="fa-solid fa-comment-dots text-warning fs-5" data-bs-toggle="tooltip" title="@baoCao.NhanXet"></i>
+                                                    }
+                                                }
+                                                else
+                                                {
+                                                    <span class="badge bg-secondary bg-opacity-10 text-secondary border border-secondary p-2">Chưa chấm</span>
+                                                    <a asp-action="Delete" asp-route-id="@baoCao.Id" class="btn btn-danger btn-sm shadow-sm opacity-75 hover-opacity-100" onclick="return confirm('Bạn có chắc muốn rút lại bài nộp này?');" title="Rút bài và nộp lại"><i class="fa-solid fa-trash"></i></a>
+                                                }
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            if (now >= dot.NgayBatDau && now <= dot.NgayKetThuc)
+                                            {
+                                                <a asp-action="Upload" asp-route-dotId="@dot.Id" class="btn btn-primary btn-sm fw-bold shadow-sm" style="border-radius: 6px;"><i class="fa-solid fa-upload me-1"></i> Nộp bài</a>
+                                            }
+                                        }
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
-</div>
+}
+else
+{
+    @if (isAdmin)
+    {
+        <div class="modal fade" id="modalTaoDot" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content" style="border-radius: 15px; border: none; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+                    <div class="modal-header border-bottom-0 pt-4 px-4">
+                        <h5 class="modal-title fw-bold text-primary"><i class="fa-solid fa-plus-circle me-2"></i> Tạo đợt báo cáo mới</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form asp-action="TaoDotBaoCao" method="post">
+                        <div class="modal-body px-4">
+                            <div class="mb-3">
+                                <label class="form-label fw-bold text-muted small">Tên đợt báo cáo</label>
+                                <input type="text" name="TenDot" class="form-control border-0 bg-light" placeholder="Nhập tên đợt (VD: Báo cáo đợt 2...)" required style="border-radius: 8px; padding: 12px;">
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-bold text-muted small">Ngày bắt đầu</label>
+                                    <div class="input-group">
+                                        <input type="text" name="NgayBatDau" class="form-control border-0 bg-light datepicker-new" required style="padding: 10px; background-color: #f8f9fa !important;" placeholder="Chọn ngày giờ...">
+                                        <span class="input-group-text border-0 bg-light text-primary" style="background-color: #f8f9fa !important; cursor: pointer;"><i class="fa-solid fa-calendar-days"></i></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-bold text-muted small">Ngày kết thúc</label>
+                                    <div class="input-group">
+                                        <input type="text" name="NgayKetThuc" class="form-control border-0 bg-light datepicker-new" required style="padding: 10px; background-color: #f8f9fa !important;" placeholder="Chọn ngày giờ...">
+                                        <span class="input-group-text border-0 bg-light text-primary" style="background-color: #f8f9fa !important; cursor: pointer;"><i class="fa-solid fa-calendar-days"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer border-top-0 pb-4 px-4">
+                            <button type="button" class="btn btn-light fw-bold" data-bs-dismiss="modal" style="border-radius: 8px;">Hủy bỏ</button>
+                            <button type="submit" class="btn btn-primary fw-bold px-4 shadow-sm" style="border-radius: 8px;">Kích hoạt ngay</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="modalSuaDot" tabindex="-1" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content" style="border-radius: 15px; border: none; box-shadow: 0 10px 30px rgba(0,0,0,0.1);">
+                    <div class="modal-header border-bottom-0 pt-4 px-4">
+                        <h5 class="modal-title fw-bold text-warning"><i class="fa-solid fa-pen me-2"></i> Chỉnh sửa đợt báo cáo</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <form asp-action="EditDotBaoCao" method="post">
+                        <input type="hidden" name="Id" id="editDotId" />
+                        <div class="modal-body px-4">
+                            <div class="mb-3">
+                                <label class="form-label fw-bold text-muted small">Tên đợt báo cáo</label>
+                                <input type="text" name="TenDot" id="editTenDot" class="form-control border-0 bg-light" required style="border-radius: 8px; padding: 12px;">
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-bold text-muted small">Ngày bắt đầu</label>
+                                    <div class="input-group">
+                                        <input type="text" name="NgayBatDau" id="editNgayBatDau" class="form-control border-0 bg-light" required style="padding: 10px; background-color: #f8f9fa !important;" placeholder="Chọn ngày giờ...">
+                                        <span class="input-group-text border-0 bg-light text-warning" style="background-color: #f8f9fa !important; cursor: pointer;"><i class="fa-solid fa-calendar-days"></i></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label fw-bold text-muted small">Ngày kết thúc</label>
+                                    <div class="input-group">
+                                        <input type="text" name="NgayKetThuc" id="editNgayKetThuc" class="form-control border-0 bg-light" required style="padding: 10px; background-color: #f8f9fa !important;" placeholder="Chọn ngày giờ...">
+                                        <span class="input-group-text border-0 bg-light text-warning" style="background-color: #f8f9fa !important; cursor: pointer;"><i class="fa-solid fa-calendar-days"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer border-top-0 pb-4 px-4">
+                            <button type="button" class="btn btn-light fw-bold" data-bs-dismiss="modal" style="border-radius: 8px;">Hủy bỏ</button>
+                            <button type="submit" class="btn btn-warning text-white fw-bold px-4 shadow-sm" style="border-radius: 8px;">Lưu thay đổi</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    }
+
+    <div class="card shadow-sm border-0 mb-4" style="border-radius: 12px;">
+        <div class="card-header bg-white py-3 border-bottom d-flex justify-content-end gap-3 flex-wrap">
+            @if (isAdmin)
+            {
+                <div class="d-flex align-items-center bg-light p-2 rounded-3 shadow-sm border">
+                    <label class="fw-bold text-muted me-2 mb-0 ms-2" style="font-size: 0.9rem;"><i class="fa-solid fa-building-columns text-primary"></i> Bộ môn:</label>
+                    <select id="filterBoMon" class="form-select form-select-sm border-0 shadow-none fw-bold text-dark" style="width: 220px; cursor: pointer;">
+                        <option value="">-- Tất cả bộ môn --</option>
+                        @if (ViewBag.ListBoMon != null)
+                        {
+                            foreach (var bm in ViewBag.ListBoMon)
+                            {
+                                <option value="@bm.TenBoMon">@bm.TenBoMon</option>
+                            }
+                        }
+                    </select>
+                </div>
+            }
+
+            <div class="d-flex align-items-center bg-light p-2 rounded-3 shadow-sm border">
+                <label class="fw-bold text-muted me-2 mb-0 ms-2" style="font-size: 0.9rem;"><i class="fa-solid fa-filter text-primary"></i> Chọn đợt:</label>
+                <select id="filterDot" class="form-select form-select-sm border-0 shadow-none fw-bold text-dark" style="width: 220px; cursor: pointer;">
+                    <option value="">-- Tất cả các đợt --</option>
+                    @if (ViewBag.ListDot != null)
+                    {
+                        foreach (var d in ViewBag.ListDot)
+                        {
+                            <option value="@d.TenDot" data-id="@d.Id" data-start="@d.NgayBatDau.ToString("yyyy-MM-ddTHH:mm")" data-end="@d.NgayKetThuc.ToString("yyyy-MM-ddTHH:mm")">@d.TenDot</option>
+                        }
+                    }
+                </select>
+                
+                @if (isAdmin)
+                {
+                    <button type="button" id="btnEditDot" class="btn btn-warning btn-sm ms-2 shadow-sm" data-bs-toggle="modal" data-bs-target="#modalSuaDot" style="display: none; border-radius: 6px;" title="Sửa ngày tháng của đợt này">
+                        <i class="fa-solid fa-pen text-white"></i>
+                    </button>
+                }
+            </div>
+        </div>
+
+        <div class="card-body p-0">
+            <div class="table-responsive p-3">
+                <table class="table table-hover align-middle mb-0" id="dataTable" width="100%" cellspacing="0">
+                    <thead class="table-light text-muted" style="font-size: 0.85rem; border-bottom: 2px solid #e9edf7;">
+                        <tr>
+                            <th style="width: 25%;" class="ps-3">Sinh Viên & Bộ Môn</th>
+                            <th style="width: 25%;">File Báo Cáo</th>
+                            <th style="width: 15%;">Đợt & Ngày Nộp</th>
+                            <th class="text-center" style="width: 10%;">Điểm số</th>
+                            <th style="width: 10%;">Nhận xét</th>
+                            <th class="text-center" style="width: 15%; padding-right: 15px;">Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody class="border-top-0">
+                        @if (!Model.Any())
+                        {
+                            <tr>
+                                <td colspan="6" class="text-center py-5">
+                                    <i class="fa-solid fa-folder-open text-muted fs-1 mb-3 opacity-25"></i>
+                                    <h6 class="fw-bold text-secondary mb-0">Chưa có báo cáo nào được nộp.</h6>
+                                </td>
+                            </tr>
+                        }
+                        else
+                        {
+                            foreach (var item in Model)
+                            {
+                                <tr style="border-bottom: 1px dashed #e9edf7;">
+                                    <td class="ps-3">
+                                        <div class="fw-bold text-primary" style="font-size: 1rem;">@item.DangKyDeTai.SinhVien.TenSV</div>
+                                        <div class="mt-1 mb-1">
+                                            <span class="badge bg-light text-info border"><i class="fa-solid fa-building-columns me-1"></i> @(item.DangKyDeTai.SinhVien.BoMon != null ? item.DangKyDeTai.SinhVien.BoMon.TenBoMon : "Chưa cập nhật")</span>
+                                        </div>
+                                        <small class="text-muted"><i class="fa-solid fa-book me-1"></i> @item.DangKyDeTai.DeTai.TenDeTai</small>
+                                    </td>
+                                    <td>
+                                        <div class="d-flex align-items-center">
+                                            <div class="bg-primary bg-opacity-10 p-2 rounded me-3 text-primary">
+                                                <i class="fa-solid fa-file-word fs-5"></i>
+                                            </div>
+                                            <span class="fw-bold text-dark text-wrap" style="max-width: 200px; word-break: break-all;">@item.TenFile</span>
+                                        </div>
+                                    </td>
+                                    <td>
+                                        <span class="badge bg-info bg-opacity-10 text-info border border-info mb-1 dot-text">@(item.DotDoAn != null ? item.DotDoAn.TenDot : "Ngoài đợt")</span><br />
+                                        <span class="fw-bold text-secondary">@item.NgayNop.ToString("dd/MM/yyyy HH:mm")</span>
+                                    </td>
+                                    <td class="text-center">
+                                        @if (item.Diem.HasValue)
+                                        {
+                                            <span class="badge bg-success bg-opacity-10 text-success border border-success p-2 fs-6" style="border-radius: 6px;">@item.Diem / 10</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-secondary bg-opacity-10 text-secondary border border-secondary p-2" style="border-radius: 6px;">Chưa chấm</span>
+                                        }
+                                    </td>
+                                    <td>
+                                        @if (!string.IsNullOrEmpty(item.NhanXet))
+                                        {
+                                            <i class="fa-solid fa-comment-dots text-warning fs-5" data-bs-toggle="tooltip" data-bs-placement="top" title="@item.NhanXet" style="cursor: pointer;"></i>
+                                        }
+                                        else
+                                        {
+                                            <span class="text-muted small">-</span>
+                                        }
+                                    </td>
+                                    <td class="text-center pe-3">
+                                        <div class="d-flex justify-content-center gap-1">
+                                            <a asp-action="Download" asp-route-id="@item.Id" class="btn btn-light btn-sm text-primary border shadow-sm" title="Tải về file" style="border-radius: 6px;">
+                                                <i class="fa-solid fa-download"></i>
+                                            </a>
+                                            @if (isGiangVien)
+                                            {
+                                                <a asp-action="ChamDiem" asp-route-id="@item.Id" class="btn btn-warning btn-sm text-white shadow-sm" title="Chấm điểm" style="border-radius: 6px;">
+                                                    <i class="fa-solid fa-star"></i>
+                                                </a>
+                                                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm shadow-sm opacity-75 hover-opacity-100" onclick="return confirm('Xóa file báo cáo này?');" title="Xóa báo cáo" style="border-radius: 6px;">
+                                                    <i class="fa-solid fa-trash"></i>
+                                                </a>
+                                            }
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+}
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://npmcdn.com/flatpickr/dist/l10n/vn.js"></script>
+
+    <script>
+        $(document).ready(function () {
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl)
+        });
+
+        var isSinhVienJS = @(isSinhVien.ToString().ToLower());
+        var isAdminJS = @(isAdmin.ToString().ToLower());
+
+        if (!isSinhVienJS) {
+        if ($('#dataTable tbody tr td').length > 1) {
+        var table = $('#dataTable').DataTable({
+        "language": {
+        "url": "//cdn.datatables.net/plug-ins/1.13.6/i18n/vi.json"
+        },
+        "pageLength": 10,
+        "order": [[2, "desc"]],
+        "dom": '<"row align-items-center mb-3"<"col-md-6"l><"col-md-6"f>>rt<"row align-items-center mt-3"<"col-md-5"i><"col-md-7"p>>'
+        });
+
+        if (isAdminJS) {
+                        
+        if (typeof flatpickr !== 'undefined' && flatpickr.l10ns && flatpickr.l10ns.vn) {
+        flatpickr.l10ns.vn.months.longhand = [
+        "Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4",
+        "Tháng 5", "Tháng 6", "Tháng 7", "Tháng 8",
+        "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12"
+        ];
+        }
+
+        var flatpickrConfig = {
+        enableTime: true,
+        time_24hr: true,
+        dateFormat: "Y-m-d\\TH:i",
+        altInput: true,
+        altFormat: "d/m/Y H:i",
+        locale: "vn"
+        };
+
+        flatpickr(".datepicker-new", flatpickrConfig);
+
+        var fpEditBatDau = flatpickr("#editNgayBatDau", flatpickrConfig);
+        var fpEditKetThuc = flatpickr("#editNgayKetThuc", flatpickrConfig);
+
+        $('#filterBoMon').on('change', function() {
+        var val = $(this).val();
+        table.column(0).search(val).draw();
+        });
+
+        $('#filterDot').on('change', function() {
+        var val = $(this).val();
+        table.column(2).search(val, false, false).draw();
+
+        var selectedOption = $(this).find('option:selected');
+        var dotId = selectedOption.data('id');
+                            
+        if (dotId) {
+        $('#btnEditDot').fadeIn();
+        $('#editDotId').val(dotId);
+        $('#editTenDot').val(val);
+        fpEditBatDau.setDate(selectedOption.data('start'));
+        fpEditKetThuc.setDate(selectedOption.data('end'));
+        } else {
+        $('#btnEditDot').fadeOut();
+        }
+        });
+        } else {
+        $('#filterDot').on('change', function() {
+        var val = $(this).val();
+        table.column(2).search(val, false, false).draw();
+        });
+        }
+        }
+        }
+        });
+    </script>
+}

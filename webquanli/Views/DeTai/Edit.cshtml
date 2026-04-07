@@ -1,6 +1,7 @@
 ﻿@model webquanli.Models.DeTai
 @{
     ViewData["Title"] = "Chỉnh sửa Đề Tài";
+    bool isGiangVien = User.IsInRole("GiangVien");
 }
 
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
@@ -26,14 +27,22 @@
             </div>
 
             <div class="mb-3">
-                <label class="form-label fw-bold">Chọn Giảng Viên Hướng Dẫn</label>
-                <select asp-for="GiangVienId" class="form-select" asp-items="ViewBag.GiangVienId" required>
-                    <option value="">-- Vui lòng chọn Giảng viên --</option>
-                </select>
+                <label class="form-label fw-bold">Giảng viên hướng dẫn</label>
+                @if (isGiangVien)
+                {
+                    <input type="text" class="form-control bg-light text-muted fw-bold" value="@Model.GiangVien?.TenGV" readonly />
+                    <input type="hidden" asp-for="GiangVienId" />
+                }
+                else
+                {
+                    <select asp-for="GiangVienId" class="form-select" asp-items="ViewBag.GiangVienId" required>
+                        <option value="">-- Vui lòng chọn Giảng viên --</option>
+                    </select>
+                }
             </div>
 
             <div class="mt-4">
-                <button type="submit" class="btn btn-warning text-white fw-bold px-4">
+                <button type="submit" class="btn btn-warning text-dark fw-bold px-4">
                     Lưu Thay Đổi
                 </button>
             </div>

@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using webquanli.Data;
 using webquanli.Models;
 using System.Linq;
+using System.Collections.Generic;
 
 namespace webquanli.Controllers
 {
@@ -19,8 +20,8 @@ namespace webquanli.Controllers
         public IActionResult Index()
         {
             var query = _context.SinhViens.Include(s => s.BoMon).AsQueryable();
+            ViewBag.ListBoMon = _context.BoMons.ToList();
 
-            // ĐỌC QUYỀN TRỰC TIẾP TỪ DATABASE
             var username = User.Identity.Name;
             var userAcc = _context.Users.FirstOrDefault(u => u.Username == username);
 
@@ -28,26 +29,46 @@ namespace webquanli.Controllers
             {
                 string role = userAcc.Role?.Trim().ToLower() ?? "";
 
-                // NGHIỆP VỤ: Nếu là Giảng viên, chỉ hiện sinh viên cùng ngành
+                // NGHIỆP VỤ: Nếu là Giảng viên, áp dụng bộ lọc chia tải
                 if (role == "giangvien" && userAcc.GiangVienId.HasValue)
                 {
-                    var giangVien = _context.GiangViens
-                        .Include(g => g.BoMon)
-                        .FirstOrDefault(g => g.Id == userAcc.GiangVienId.Value);
+                    var giangVien = _context.GiangViens.FirstOrDefault(g => g.Id == userAcc.GiangVienId.Value);
 
-                    if (giangVien?.BoMon != null)
+                    if (giangVien != null && giangVien.BoMonId.HasValue)
                     {
-                        string tenBoMon = giangVien.BoMon.TenBoMon.Trim().ToLower();
-                        query = query.Where(sv => sv.Nganh != null && sv.Nganh.ToLower().Contains(tenBoMon));
+                        // LỌC LẦN 1: Bắt buộc phải cùng chuyên ngành (Bộ môn)
+                        query = query.Where(sv => sv.BoMonId == giangVien.BoMonId);
+
+                        // Lấy dữ liệu lên RAM để tiến hành cắt chuỗi lớp
+                        var listSv = query.ToList();
+
+                        // LỌC LẦN 2: Chia tải theo Lớp quản lý (VD: "D2, D3, D4")
+                        if (!string.IsNullOrWhiteSpace(giangVien.LopQuanLy) && giangVien.LopQuanLy != "Chưa phân công")
+                        {
+                            // Tách chuỗi thành một danh sách các lớp và xóa khoảng trắng thừa
+                            var dsLopCuaGiangVien = giangVien.LopQuanLy.Split(',')
+                                                                       .Select(l => l.Trim().ToLower())
+                                                                       .ToList();
+
+                            // Chỉ giữ lại những sinh viên mà lớp của họ có trong danh sách trên
+                            listSv = listSv.Where(sv => !string.IsNullOrEmpty(sv.Lop) &&
+                                                        dsLopCuaGiangVien.Contains(sv.Lop.Trim().ToLower())).ToList();
+                        }
+                        else
+                        {
+                            // Nếu Thầy/Cô chưa được phân công lớp nào thì danh sách trống trơn
+                            listSv = new List<SinhVien>();
+                        }
+
+                        return View(listSv);
                     }
                 }
             }
 
-            var list = query.ToList();
-            return View(list);
+            // Dành cho Admin: Thấy tất cả
+            return View(query.ToList());
         }
 
-        // GET: SinhVien/Create
         public IActionResult Create()
         {
             ViewData["BoMonId"] = new SelectList(_context.BoMons, "Id", "TenBoMon");
@@ -62,7 +83,6 @@ namespace webquanli.Controllers
             return RedirectToAction("Index");
         }
 
-        // GET: SinhVien/Edit/5
         public IActionResult Edit(int id)
         {
             var sv = _context.SinhViens.Find(id);
@@ -75,7 +95,17 @@ namespace webquanli.Controllers
         [HttpPost]
         public IActionResult Edit(SinhVien sv)
         {
-            _context.SinhViens.Update(sv);
+            var existingSv = _context.SinhViens.Find(sv.Id);
+            if (existingSv == null) return NotFound();
+
+            existingSv.TenSV = sv.TenSV;
+            existingSv.Email = sv.Email;
+
+            if (existingSv.BoMonId == null && sv.BoMonId != null)
+            {
+                existingSv.BoMonId = sv.BoMonId;
+            }
+
             _context.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -85,11 +115,16 @@ namespace webquanli.Controllers
             var sv = _context.SinhViens.Find(id);
             if (sv == null) return NotFound();
 
+            if (sv.BoMonId != null)
+            {
+                TempData["ErrorMessage"] = "BẢO MẬT HỆ THỐNG: Sinh viên này đã có dữ liệu ràng buộc (Đã đăng ký Bộ môn). Không được phép xóa!";
+                return RedirectToAction("Index");
+            }
+
             var userLienQuan = _context.Users.FirstOrDefault(u => u.SinhVienId == id);
             if (userLienQuan != null)
             {
                 _context.Users.Remove(userLienQuan);
-                _context.SaveChanges();
             }
 
             _context.SinhViens.Remove(sv);

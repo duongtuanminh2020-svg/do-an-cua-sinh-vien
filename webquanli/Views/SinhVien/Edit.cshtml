@@ -15,41 +15,50 @@
     <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-primary">Cập nhật Thông tin Sinh Viên</h6>
     </div>
-    <div class="card-body">
+    <div class="card-body p-4">
         <form method="post">
             
             <input type="hidden" asp-for="Id" />
             
             <div class="mb-3">
-                <label class="form-label fw-bold">Mã Sinh Viên</label>
+                <label class="form-label fw-bold text-muted">
+                    Mã Sinh Viên <i class="fa-solid fa-lock ms-1" style="font-size: 0.8rem;"></i>
+                </label>
                 <input class="form-control bg-light text-muted" asp-for="MaSV" readonly />
             </div>
             
             <div class="mb-3">
                 <label class="form-label fw-bold">Họ và Tên</label>
-                <input class="form-control" asp-for="TenSV" required />
+                <input class="form-control" asp-for="TenSV" required placeholder="Nhập họ và tên..." />
             </div>
 
             <div class="mb-3">
-                <label class="form-label fw-bold">Lớp</label>
-                <input class="form-control" asp-for="Lop" required />
+                <label class="form-label fw-bold text-muted">
+                    Lớp <i class="fa-solid fa-lock ms-1" style="font-size: 0.8rem;"></i>
+                </label>
+                <input class="form-control bg-light text-muted" asp-for="Lop" readonly />
             </div>
 
             <div class="mb-3">
                 <label class="form-label fw-bold">Email</label>
-                <input class="form-control" type="email" asp-for="Email" required />
+                <input class="form-control" type="email" asp-for="Email" required placeholder="example@gmail.com" />
             </div>
 
-            <div class="form-group mb-3">
-                <label class="control-label fw-bold">Bộ môn đăng ký</label>
-                <select asp-for="BoMonId" class="form-control" asp-items="ViewBag.BoMonId">
+            <div class="form-group mb-4">
+                <label class="control-label fw-bold text-muted">
+                    Bộ môn đăng ký <i class="fa-solid fa-lock ms-1" style="font-size: 0.8rem;"></i>
+                </label>
+                <select asp-for="BoMonId" class="form-select bg-light text-muted" asp-items="ViewBag.BoMonId" disabled>
                     <option value="">-- Chọn bộ môn (Không bắt buộc) --</option>
                 </select>
-                <span asp-validation-for="BoMonId" class="text-danger"></span>
+                <input type="hidden" asp-for="BoMonId" />
+                <small class="text-danger mt-1 d-block" style="font-size: 0.8rem; font-style: italic;">
+                    * Lưu ý: Liên hệ trực tiếp với Phòng Đào tạo nếu có yêu cầu thay đổi Lớp hoặc Chuyên ngành.
+                </small>
             </div>
 
-            <button class="btn btn-primary w-100 mt-3" type="submit">
-                <i class="fa-solid fa-floppy-disk"></i> Lưu thay đổi
+            <button class="btn btn-primary w-100 py-2 fw-bold" type="submit">
+                <i class="fa-solid fa-floppy-disk me-2"></i> Lưu thay đổi
             </button>
         </form>
     </div>

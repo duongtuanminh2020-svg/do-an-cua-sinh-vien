@@ -17,17 +17,15 @@ namespace webquanli.Controllers
             _context = context;
         }
 
-        // --- 1. HIỂN THỊ DANH SÁCH ---
         public async Task<IActionResult> Index()
         {
             var giangViens = await _context.GiangViens.Include(g => g.BoMon).ToListAsync();
+            ViewBag.ListBoMon = await _context.BoMons.ToListAsync();
             return View(giangViens);
         }
 
-        // --- 2. THÊM MỚI ---
         public IActionResult Create()
         {
-            // Truyền danh sách bộ môn ra View để làm Dropdown (danh sách thả xuống)
             ViewBag.BoMonId = new SelectList(_context.BoMons, "Id", "TenBoMon");
             return View();
         }
@@ -35,12 +33,12 @@ namespace webquanli.Controllers
         [HttpPost]
         public IActionResult Create(GiangVien gv)
         {
+            if (string.IsNullOrWhiteSpace(gv.LopQuanLy)) gv.LopQuanLy = "Chưa phân công";
             _context.GiangViens.Add(gv);
             _context.SaveChanges();
             return RedirectToAction("Index");
         }
 
-        // --- 3. CẬP NHẬT (SỬA) ---
         public IActionResult Edit(int id)
         {
             var gv = _context.GiangViens.Find(id);
@@ -53,20 +51,56 @@ namespace webquanli.Controllers
         [HttpPost]
         public IActionResult Edit(GiangVien gv)
         {
-            _context.GiangViens.Update(gv);
+            var existingGv = _context.GiangViens.Find(gv.Id);
+            if (existingGv == null) return NotFound();
+
+            existingGv.TenGV = gv.TenGV;
+            existingGv.Email = gv.Email;
+            existingGv.SDT = gv.SDT;
+
+            // Xử lý chống văng lỗi DB và chuẩn hóa đầu vào Lớp quản lý
+            if (string.IsNullOrWhiteSpace(gv.LopQuanLy))
+            {
+                existingGv.LopQuanLy = "Chưa phân công";
+            }
+            else
+            {
+                // Chỉ cho phép cập nhật nếu trước đó chưa phân công (bảo vệ khi đã khóa)
+                if (existingGv.LopQuanLy == "Chưa phân công" || string.IsNullOrWhiteSpace(existingGv.LopQuanLy))
+                {
+                    existingGv.LopQuanLy = gv.LopQuanLy.Trim();
+                }
+            }
+
+            if (existingGv.BoMonId == null && gv.BoMonId != null)
+            {
+                existingGv.BoMonId = gv.BoMonId;
+            }
+
             _context.SaveChanges();
             return RedirectToAction("Index");
         }
 
-        // --- 4. XÓA ---
         public IActionResult Delete(int id)
         {
             var gv = _context.GiangViens.Find(id);
-            if (gv != null)
+            if (gv == null) return NotFound();
+
+            if (gv.BoMonId != null)
             {
-                _context.GiangViens.Remove(gv);
-                _context.SaveChanges();
+                TempData["ErrorMessage"] = "BẢO MẬT HỆ THỐNG: Giảng viên này đã được phân bổ về Bộ môn (có thể đang hướng dẫn đề tài). Không được phép xóa!";
+                return RedirectToAction("Index");
             }
+
+            var userLienQuan = _context.Users.FirstOrDefault(u => u.GiangVienId == id);
+            if (userLienQuan != null)
+            {
+                _context.Users.Remove(userLienQuan);
+            }
+
+            _context.GiangViens.Remove(gv);
+            _context.SaveChanges();
+
             return RedirectToAction("Index");
         }
     }

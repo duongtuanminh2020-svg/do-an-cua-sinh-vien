@@ -900,3 +900,4 @@ D:\Anh Tu\do-an-cua-sinh-vien-main\do-an-cua-sinh-vien-main\webquanli\obj\Debug\
 D:\Anh Tu\do-an-cua-sinh-vien-main\do-an-cua-sinh-vien-main\webquanli\obj\Debug\net10.0\webquanli.pdb
 D:\Anh Tu\do-an-cua-sinh-vien-main\do-an-cua-sinh-vien-main\webquanli\obj\Debug\net10.0\webquanli.genruntimeconfig.cache
 D:\Anh Tu\do-an-cua-sinh-vien-main\do-an-cua-sinh-vien-main\webquanli\obj\Debug\net10.0\ref\webquanli.dll
+D:\Anh Tu\do-an-cua-sinh-vien-main\do-an-cua-sinh-vien-main\webquanli\obj\Debug\net10.0\webquanli.sourcelink.json
