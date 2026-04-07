@@ -93,6 +93,9 @@ namespace webquanli.Migrations
                     b.Property<int>("DeTaiId")
                         .HasColumnType("int");
 
+                    b.Property<bool>("IsApproved")
+                        .HasColumnType("bit");
+
                     b.Property<DateTime>("NgayDangKy")
                         .HasColumnType("datetime2");
 
@@ -262,7 +265,6 @@ namespace webquanli.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("NoiDung")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("TieuDe")

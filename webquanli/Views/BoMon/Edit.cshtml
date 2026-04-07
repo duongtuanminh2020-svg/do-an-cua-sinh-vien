@@ -1,0 +1,47 @@
+﻿@model webquanli.Models.BoMon
+
+@{
+    ViewData["Title"] = "Chỉnh sửa Bộ Môn";
+}
+
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800 fw-bold">
+        <i class="fa-solid fa-pen-to-square text-primary me-2"></i> Chỉnh sửa Bộ Môn
+    </h1>
+    <a asp-action="Index" class="btn btn-secondary shadow-sm fw-bold" style="border-radius: 8px;">
+        <i class="fa-solid fa-arrow-left me-1"></i> Quay lại danh sách
+    </a>
+</div>
+
+<div class="row">
+    <div class="col-xl-6 col-lg-8">
+        <div class="card shadow mb-4 border-0">
+            <div class="card-header py-3 bg-white border-bottom">
+                <h6 class="m-0 font-weight-bold text-primary">Thông tin Bộ môn</h6>
+            </div>
+            <div class="card-body p-4">
+                <form asp-action="Edit" method="post">
+                    <input type="hidden" asp-for="Id" />
+
+                    <div class="mb-4">
+                        <label asp-for="TenBoMon" class="form-label fw-bold text-muted">Tên Bộ Môn <span class="text-danger">*</span></label>
+                        <input asp-for="TenBoMon" class="form-control form-control-lg border-0 bg-light shadow-sm" placeholder="Nhập tên bộ môn (VD: Công nghệ phần mềm)..." required />
+                        <span asp-validation-for="TenBoMon" class="text-danger small mt-1"></span>
+                    </div>
+
+                    <div class="d-grid gap-2 mt-4">
+                        <button type="submit" class="btn btn-primary btn-lg fw-bold shadow-sm" style="border-radius: 8px;">
+                            <i class="fa-solid fa-floppy-disk me-2"></i> Lưu thay đổi
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

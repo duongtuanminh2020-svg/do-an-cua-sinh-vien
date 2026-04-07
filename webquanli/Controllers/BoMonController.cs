@@ -2,7 +2,6 @@
 using System.Linq;
 using webquanli.Data;
 using webquanli.Models;
-using static Azure.Core.HttpHeader;
 
 namespace webquanli.Controllers
 {
@@ -41,15 +40,53 @@ namespace webquanli.Controllers
             return View(boMon);
         }
 
-        // 4. Xóa bộ môn
+        // ==========================================
+        // TÍNH NĂNG MỚI: CHỈNH SỬA BỘ MÔN
+        // ==========================================
+        public IActionResult Edit(int id)
+        {
+            var boMon = _context.BoMons.Find(id);
+            if (boMon == null) return NotFound();
+            return View(boMon);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(BoMon boMon)
+        {
+            if (ModelState.IsValid)
+            {
+                var existingBoMon = _context.BoMons.Find(boMon.Id);
+                if (existingBoMon != null)
+                {
+                    // Chỉ cập nhật tên, ID giữ nguyên để không ảnh hưởng SV/GV
+                    existingBoMon.TenBoMon = boMon.TenBoMon;
+                    _context.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+            }
+            return View(boMon);
+        }
+
+        // ==========================================
+        // 4. XÓA BỘ MÔN (CÓ LỚP BẢO VỆ CHỐNG HACK)
+        // ==========================================
         public IActionResult Delete(int id)
         {
             var boMon = _context.BoMons.Find(id);
-            if (boMon != null)
+            if (boMon == null) return NotFound();
+
+            // LỚP BẢO VỆ BACKEND: Kiểm tra xem có ai đang ở trong bộ môn này không
+            bool hasSinhVien = _context.SinhViens.Any(s => s.BoMonId == id);
+            bool hasGiangVien = _context.GiangViens.Any(g => g.BoMonId == id);
+
+            if (hasSinhVien || hasGiangVien)
             {
-                _context.BoMons.Remove(boMon);
-                _context.SaveChanges();
+                TempData["ErrorMessage"] = "BẢO MẬT HỆ THỐNG: Bộ môn này đang có Sinh viên hoặc Giảng viên trực thuộc. Không được phép xóa để bảo vệ an toàn dữ liệu!";
+                return RedirectToAction("Index");
             }
+
+            _context.BoMons.Remove(boMon);
+            _context.SaveChanges();
             return RedirectToAction("Index");
         }
     }

@@ -1,58 +1,95 @@
 ﻿@model webquanli.Models.GiangVien
 @{
-    ViewData["Title"] = "Cập nhật Giảng Viên";
+    ViewData["Title"] = "Cập nhật Giảng Viên - Khoa CNTT";
+    
+    // Kiểm tra xem Giảng viên này đã được phân công lớp cứng chưa
+    bool isLopLocked = !string.IsNullOrWhiteSpace(Model.LopQuanLy) && Model.LopQuanLy != "Chưa phân công";
 }
 
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Cập nhật thông tin Giảng Viên</h1>
-    <a asp-action="Index" class="btn btn-secondary shadow-sm fw-bold">
+    <h1 class="h3 mb-0 text-gray-800">Quản lý Giảng Viên</h1>
+    <a asp-action="Index" class="btn btn-secondary shadow-sm fw-bold btn-sm">
         <i class="fa-solid fa-arrow-left"></i> Quay lại danh sách
     </a>
 </div>
 
 <div class="card shadow mb-4">
-    <div class="card-body">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Cập nhật thông tin Giảng Viên</h6>
+    </div>
+    <div class="card-body p-4">
         <form asp-action="Edit" method="post">
             <input type="hidden" asp-for="Id" />
             
             <div class="row">
                 <div class="col-md-6 mb-3">
-                    <label class="form-label fw-bold">Mã GV <span class="text-danger">*</span></label>
-                    <input asp-for="MaGV" class="form-control" required />
+                    <label class="form-label fw-bold text-muted">
+                        Mã GV <i class="fa-solid fa-lock ms-1" style="font-size: 0.8rem;"></i>
+                    </label>
+                    <input asp-for="MaGV" class="form-control bg-light text-muted" readonly />
                 </div>
+                
                 <div class="col-md-6 mb-3">
                     <label class="form-label fw-bold">Họ và Tên <span class="text-danger">*</span></label>
-                    <input asp-for="TenGV" class="form-control" required />
+                    <input asp-for="TenGV" class="form-control" required placeholder="Nhập họ tên giảng viên..." />
                 </div>
                 
                 <div class="col-md-6 mb-3">
                     <label class="form-label fw-bold">Email <span class="text-danger">*</span></label>
-                    <input asp-for="Email" type="email" class="form-control" required />
+                    <input asp-for="Email" type="email" class="form-control" required placeholder="example@university.edu.vn" />
                 </div>
+
                 <div class="col-md-6 mb-3">
                     <label class="form-label fw-bold">Số điện thoại</label>
-                    <input asp-for="SDT" class="form-control" />
+                    <input asp-for="SDT" class="form-control" placeholder="Nhập số điện thoại..." />
                 </div>
 
                 <div class="col-md-4 mb-3">
-                    <label class="form-label fw-bold">Khoa</label>
-                    <input asp-for="Khoa" class="form-control" />
+                    <label class="form-label fw-bold text-muted">
+                        Khoa <i class="fa-solid fa-lock ms-1" style="font-size: 0.8rem;"></i>
+                    </label>
+                    <input asp-for="Khoa" class="form-control bg-light text-muted" readonly />
                 </div>
+
                 <div class="col-md-4 mb-3">
-                    <label class="form-label fw-bold">Lớp quản lý (Tùy chọn)</label>
-                    <input asp-for="LopQuanLy" class="form-control" />
+                    <label class="form-label fw-bold @(isLopLocked ? "text-muted" : "")">
+                        Lớp quản lý (Phân công tải)
+                        @if (isLopLocked)
+                        {
+                            <i class="fa-solid fa-lock ms-1" style="font-size: 0.8rem;"></i>
+                        }
+                    </label>
+                    
+                    @if (isLopLocked)
+                    {
+                        <input asp-for="LopQuanLy" class="form-control bg-light text-muted" readonly />
+                    }
+                    else
+                    {
+                        <input asp-for="LopQuanLy" class="form-control" placeholder="Ví dụ: D2, D3, D4..." />
+                    }
                 </div>
+
                 <div class="col-md-4 mb-3">
-                    <label class="form-label fw-bold">Bộ môn (Chuyên ngành)</label>
-                    <select asp-for="BoMonId" class="form-control" asp-items="ViewBag.BoMonId">
+                    <label class="form-label fw-bold text-muted">
+                        Bộ môn (Chuyên ngành) <i class="fa-solid fa-lock ms-1" style="font-size: 0.8rem;"></i>
+                    </label>
+                    <select asp-for="BoMonId" class="form-select bg-light text-muted" asp-items="ViewBag.BoMonId" disabled>
                         <option value="">-- Chọn bộ môn --</option>
                     </select>
+                    <input type="hidden" asp-for="BoMonId" />
+                </div>
+                
+                <div class="col-12 mt-2">
+                    <small class="text-danger d-block" style="font-size: 0.85rem; font-style: italic;">
+                        * Lưu ý: Không thể tự ý thay đổi Khoa, Bộ môn hoặc Lớp quản lý của Giảng viên khi đã được chốt trên hệ thống.
+                    </small>
                 </div>
             </div>
 
-            <div class="mt-4">
-                <button type="submit" class="btn btn-warning fw-bold px-4 text-white">
-                    <i class="fa-solid fa-check"></i> Cập nhật thông tin
+            <div class="mt-4 border-top pt-4">
+                <button type="submit" class="btn btn-primary fw-bold px-5 py-2">
+                    <i class="fa-solid fa-floppy-disk me-2"></i> Lưu thay đổi
                 </button>
             </div>
         </form>

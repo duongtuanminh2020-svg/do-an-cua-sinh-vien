@@ -21,8 +21,7 @@ namespace webquanli.Controllers
         public IActionResult Index()
         {
             var query = _context.DeTais
-                .Include(d => d.GiangVien)
-                    .ThenInclude(g => g.BoMon)
+                .Include(d => d.GiangVien).ThenInclude(g => g.BoMon)
                 .AsQueryable();
 
             var username = User.Identity.Name;
@@ -54,7 +53,11 @@ namespace webquanli.Controllers
             }
 
             var danhSachDeTai = query.ToList();
-            ViewBag.DanhSachDaDangKy = _context.DangKyDeTais.Select(d => d.DeTaiId).ToList();
+
+            var dictDangKy = _context.DangKyDeTais
+                .Include(d => d.SinhVien)
+                .ToDictionary(d => d.DeTaiId, d => d);
+            ViewBag.DictDangKy = dictDangKy;
 
             return View(danhSachDeTai);
         }
@@ -64,103 +67,35 @@ namespace webquanli.Controllers
         {
             var username = User.Identity.Name;
             var userAcc = _context.Users.FirstOrDefault(u => u.Username == username);
-
-            string role = userAcc?.Role?.Trim().ToLower() ?? "";
-
-            if (userAcc == null || role != "sinhvien" || !userAcc.SinhVienId.HasValue)
+            if (userAcc == null || userAcc.Role?.Trim().ToLower() != "sinhvien" || !userAcc.SinhVienId.HasValue)
                 return Unauthorized();
 
             int svId = userAcc.SinhVienId.Value;
 
-            bool daCoDeTai = _context.DangKyDeTais.Any(d => d.SinhVienId == svId);
-            if (daCoDeTai)
+            if (_context.DangKyDeTais.Any(d => d.SinhVienId == svId))
             {
                 TempData["Error"] = "Bạn đã đăng ký một đề tài rồi!";
                 return RedirectToAction("Index");
             }
-
-            bool deTaiDaBiChon = _context.DangKyDeTais.Any(d => d.DeTaiId == id);
-            if (deTaiDaBiChon)
+            if (_context.DangKyDeTais.Any(d => d.DeTaiId == id))
             {
                 TempData["Error"] = "Đề tài này vừa bị người khác đăng ký mất!";
                 return RedirectToAction("Index");
             }
 
-            var deTaiMuonDangKy = _context.DeTais.Include(d => d.GiangVien).ThenInclude(g => g.BoMon).FirstOrDefault(d => d.Id == id);
+            var deTai = _context.DeTais.Include(d => d.GiangVien).ThenInclude(g => g.BoMon).FirstOrDefault(d => d.Id == id);
             var sinhVien = _context.SinhViens.Find(svId);
 
-            if (deTaiMuonDangKy?.GiangVien?.BoMon?.TenBoMon != sinhVien.Nganh)
-            {
-                TempData["Error"] = "Đề tài không thuộc chuyên ngành của bạn!";
-                return RedirectToAction("Index");
-            }
-
-            var dangKyMoi = new DangKyDeTai
+            _context.DangKyDeTais.Add(new DangKyDeTai
             {
                 SinhVienId = svId,
                 DeTaiId = id,
-                NgayDangKy = DateTime.Now
-            };
+                NgayDangKy = DateTime.Now,
+                IsApproved = false // Mặc định là chờ duyệt
+            });
+            _context.SaveChanges();
 
-            _context.DangKyDeTais.Add(dangKyMoi);
-            _context.SaveChanges(); // Lưu đăng ký vào cơ sở dữ liệu
-
-            // =============== THÊM MỚI: BẮN THÔNG BÁO (VÀ EMAIL) TỰ ĐỘNG ===============
-            try
-            {
-                // 1. TẠO THÔNG BÁO CHO GIẢNG VIÊN VÀ ADMIN
-                var taiKhoanGV = _context.Users.FirstOrDefault(u => u.GiangVienId == deTaiMuonDangKy.GiangVienId);
-                if (taiKhoanGV != null)
-                {
-                    _context.ThongBaos.Add(new ThongBao
-                    {
-                        UsernameNhan = taiKhoanGV.Username,
-                        TieuDe = "Sinh viên đăng ký đề tài",
-                        NoiDung = $"Sinh viên {sinhVien.TenSV} (Mã SV: {sinhVien.MaSV}) vừa chốt đề tài '{deTaiMuonDangKy.TenDeTai}' của bạn.",
-                        NgayTao = DateTime.Now,
-                        DaDoc = false
-                    });
-                }
-
-                // Báo cho Admin biết
-                var adminUser = _context.Users.FirstOrDefault(u => u.Role != null && u.Role.Trim().ToLower() == "admin");
-                if (adminUser != null)
-                {
-                    _context.ThongBaos.Add(new ThongBao
-                    {
-                        UsernameNhan = adminUser.Username,
-                        TieuDe = "Hệ thống: Có đăng ký đề tài mới",
-                        NoiDung = $"Sinh viên {sinhVien.TenSV} vừa đăng ký đề tài '{deTaiMuonDangKy.TenDeTai}'.",
-                        NgayTao = DateTime.Now,
-                        DaDoc = false
-                    });
-                }
-                _context.SaveChanges(); // Chốt lưu thông báo xuống SQL
-
-                // 2. GỬI EMAIL CHO GIẢNG VIÊN (Nếu bạn đã tạo file EmailSender ở Bước 1)
-                // (Nếu chưa làm file EmailSender thì cứ để nguyên code này không sao cả, try-catch sẽ tự bỏ qua lỗi)
-                string emailGiangVien = deTaiMuonDangKy?.GiangVien?.Email;
-                if (!string.IsNullOrEmpty(emailGiangVien))
-                {
-                    string tieuDe = $"[Thông báo] Sinh viên đăng ký đề tài: {deTaiMuonDangKy.TenDeTai}";
-                    string noiDung = $@"
-                        <h3>Xin chào {deTaiMuonDangKy.GiangVien.TenGV},</h3>
-                        <p>Hệ thống xin thông báo: Sinh viên <b>{sinhVien.TenSV}</b> (Mã SV: {sinhVien.MaSV}) vừa đăng ký thực hiện đề tài <b>{deTaiMuonDangKy.TenDeTai}</b> của thầy/cô.</p>
-                        <p>Vui lòng đăng nhập vào hệ thống để kiểm tra và theo dõi tiến độ.</p>
-                        <br>
-                        <p>Trân trọng,<br><b>Hệ thống Quản lý Đồ án</b></p>";
-
-                    // Nhớ đổi chữ 'webquanli' thành tên project của bạn nếu bị gạch đỏ
-                    _ = webquanli.Models.EmailSender.SendEmailAsync(emailGiangVien, tieuDe, noiDung);
-                }
-            }
-            catch (Exception)
-            {
-                // Bỏ qua lỗi ngầm nếu gửi email/thông báo xịt, không làm đứt mạch của sinh viên
-            }
-            // ===========================================================================
-
-            TempData["Success"] = "Chốt đề tài thành công!";
+            TempData["Success"] = "Đã gửi yêu cầu đăng ký đề tài! Vui lòng chờ giảng viên phê duyệt.";
             return RedirectToAction("Index");
         }
 
@@ -169,47 +104,64 @@ namespace webquanli.Controllers
         {
             var username = User.Identity.Name;
             var userAcc = _context.Users.FirstOrDefault(u => u.Username == username);
-            string role = userAcc?.Role?.Trim().ToLower() ?? "";
-
-            if (userAcc == null || role != "sinhvien" || !userAcc.SinhVienId.HasValue)
+            if (userAcc == null || userAcc.Role?.Trim().ToLower() != "sinhvien" || !userAcc.SinhVienId.HasValue)
                 return Unauthorized();
 
-            int svId = userAcc.SinhVienId.Value;
-
-            var dangKy = _context.DangKyDeTais.FirstOrDefault(d => d.SinhVienId == svId && d.DeTaiId == id);
-
+            var dangKy = _context.DangKyDeTais.FirstOrDefault(d => d.SinhVienId == userAcc.SinhVienId.Value && d.DeTaiId == id);
             if (dangKy != null)
             {
+                if (dangKy.IsApproved)
+                {
+                    TempData["Error"] = "Đề tài đã được giảng viên chốt, bạn không thể tự ý hủy. Vui lòng liên hệ giảng viên!";
+                    return RedirectToAction("Index");
+                }
+
                 _context.DangKyDeTais.Remove(dangKy);
                 _context.SaveChanges();
-                TempData["Success"] = "Đã hủy đăng ký đề tài thành công! Bây giờ bạn có thể chọn đề tài khác.";
+                TempData["Success"] = "Đã rút lại yêu cầu đăng ký thành công!";
             }
-            else
-            {
-                TempData["Error"] = "Lỗi: Không tìm thấy thông tin đăng ký của bạn!";
-            }
-
             return RedirectToAction("Index");
         }
 
-        // GET: DeTai/Create
+        [HttpPost]
+        public IActionResult PheDuyet(int id)
+        {
+            if (!User.IsInRole("GiangVien")) return Unauthorized();
+            var dangKy = _context.DangKyDeTais.Include(d => d.SinhVien).FirstOrDefault(d => d.DeTaiId == id);
+            if (dangKy != null)
+            {
+                dangKy.IsApproved = true;
+                _context.SaveChanges();
+                TempData["Success"] = $"Đã chốt đề tài cho sinh viên {dangKy.SinhVien.TenSV}. Sinh viên này sẽ không thể tự hủy đề tài nữa.";
+            }
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public IActionResult GoDuyet(int id)
+        {
+            if (!User.IsInRole("GiangVien") && !User.IsInRole("Admin")) return Unauthorized();
+            var dangKy = _context.DangKyDeTais.Include(d => d.SinhVien).FirstOrDefault(d => d.DeTaiId == id);
+            if (dangKy != null)
+            {
+                string tenSV = dangKy.SinhVien.TenSV;
+                _context.DangKyDeTais.Remove(dangKy);
+                _context.SaveChanges();
+                TempData["Success"] = $"Đã gỡ đề tài của {tenSV}. Đề tài hiện đã trống và sinh viên này có thể đăng ký đề tài khác.";
+            }
+            return RedirectToAction("Index");
+        }
+
         public IActionResult Create()
         {
-            var username = User.Identity.Name;
-            var userAcc = _context.Users.FirstOrDefault(u => u.Username == username);
-            string role = userAcc?.Role?.Trim().ToLower() ?? "";
-
+            var userAcc = _context.Users.FirstOrDefault(u => u.Username == User.Identity.Name);
             var query = _context.GiangViens.AsQueryable();
 
-            if (role == "giangvien" && userAcc.GiangVienId.HasValue)
+            if (userAcc?.Role?.Trim().ToLower() == "giangvien" && userAcc.GiangVienId.HasValue)
             {
                 var currentGV = _context.GiangViens.Find(userAcc.GiangVienId.Value);
-                if (currentGV != null)
-                {
-                    query = query.Where(g => g.BoMonId == currentGV.BoMonId);
-                }
+                if (currentGV != null) query = query.Where(g => g.BoMonId == currentGV.BoMonId);
             }
-
             ViewBag.GiangVienId = new SelectList(query.ToList(), "Id", "TenGV");
             return View();
         }
@@ -217,42 +169,52 @@ namespace webquanli.Controllers
         [HttpPost]
         public IActionResult Create(DeTai deTai)
         {
-            if (string.IsNullOrWhiteSpace(deTai.MoTa))
-            {
-                deTai.MoTa = "Chưa có mô tả cho đề tài này.";
-            }
-
+            if (string.IsNullOrWhiteSpace(deTai.MoTa)) deTai.MoTa = "Chưa có mô tả cho đề tài này.";
             _context.DeTais.Add(deTai);
             _context.SaveChanges();
-
             TempData["Success"] = "Đã thêm đề tài mới thành công!";
             return RedirectToAction("Index");
         }
 
+        // ==============================================================
+        // ĐÃ NÂNG CẤP BẢO MẬT: Hàm Edit (GET) - Truyền tên Giảng Viên ra View
+        // ==============================================================
         public IActionResult Edit(int id)
         {
-            var deTai = _context.DeTais.Find(id);
+            var deTai = _context.DeTais.Include(d => d.GiangVien).FirstOrDefault(d => d.Id == id);
             if (deTai == null) return NotFound();
             ViewBag.GiangVienId = new SelectList(_context.GiangViens, "Id", "TenGV", deTai.GiangVienId);
             return View(deTai);
         }
 
+        // ==============================================================
+        // ĐÃ NÂNG CẤP BẢO MẬT: Hàm Edit (POST) - Khóa quyền đổi Giảng Viên
+        // ==============================================================
         [HttpPost]
         public IActionResult Edit(DeTai deTai)
         {
-            _context.DeTais.Update(deTai);
+            var existingDeTai = _context.DeTais.Find(deTai.Id);
+            if (existingDeTai == null) return NotFound();
+
+            // Cập nhật các trường được phép
+            existingDeTai.TenDeTai = deTai.TenDeTai;
+            existingDeTai.MoTa = string.IsNullOrWhiteSpace(deTai.MoTa) ? "Chưa có mô tả cho đề tài này." : deTai.MoTa;
+
+            // Khóa chốt: Chỉ Admin mới được can thiệp đổi người hướng dẫn
+            if (User.IsInRole("Admin"))
+            {
+                existingDeTai.GiangVienId = deTai.GiangVienId;
+            }
+
             _context.SaveChanges();
+            TempData["Success"] = "Cập nhật đề tài thành công!";
             return RedirectToAction("Index");
         }
 
         public IActionResult Delete(int id)
         {
             var deTai = _context.DeTais.Find(id);
-            if (deTai != null)
-            {
-                _context.DeTais.Remove(deTai);
-                _context.SaveChanges();
-            }
+            if (deTai != null) { _context.DeTais.Remove(deTai); _context.SaveChanges(); }
             return RedirectToAction("Index");
         }
     }

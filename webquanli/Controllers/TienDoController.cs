@@ -1,11 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using webquanli.Data;
-using webquanli.Models;
 using System.Linq;
 using System;
-using System.Security.Claims;
+using System.Collections.Generic;
 
 namespace webquanli.Controllers
 {
@@ -20,147 +18,71 @@ namespace webquanli.Controllers
 
         public IActionResult Index()
         {
-            var query = _context.TienDos
-                .Include(t => t.DangKyDeTai).ThenInclude(d => d.SinhVien)
-                .Include(t => t.DangKyDeTai).ThenInclude(d => d.DeTai)
+            // Bắt lỗi hoa thường cho phân quyền
+            bool isSinhVien = User.IsInRole("SinhVien") || User.IsInRole("sinhvien");
+            bool isGiangVien = User.IsInRole("GiangVien") || User.IsInRole("giangvien");
+            bool isAdmin = User.IsInRole("Admin") || User.IsInRole("admin");
+
+            int tongSoDot = _context.DotDoAns.Count(d => d.IsActive);
+            ViewBag.TongSoDot = tongSoDot;
+
+            var query = _context.DangKyDeTais
+                .Include(d => d.SinhVien).ThenInclude(s => s.BoMon)
+                .Include(d => d.DeTai)
                 .AsQueryable();
 
-            if (User.IsInRole("SinhVien"))
+            if (isSinhVien)
             {
                 var claimSinhVienId = User.Claims.FirstOrDefault(c => c.Type == "SinhVienId")?.Value;
                 if (int.TryParse(claimSinhVienId, out int sinhVienId))
                 {
-                    query = query.Where(t => t.DangKyDeTai.SinhVienId == sinhVienId);
+                    query = query.Where(d => d.SinhVienId == sinhVienId);
+
+                    int soBaoCaoDaCham = _context.BaoCaos.Count(b => b.DangKyDeTai.SinhVienId == sinhVienId && b.Diem != null);
+                    ViewBag.SoBaoCaoDaCham = soBaoCaoDaCham;
+                    ViewBag.PhanTramTong = (tongSoDot > 0) ? (int)Math.Round((double)soBaoCaoDaCham / tongSoDot * 100) : 0;
+
+                    // MỚI: Lấy danh sách toàn bộ đợt để vẽ Timeline
+                    var danhSachDot = _context.DotDoAns.OrderBy(d => d.NgayBatDau).ToList();
+                    ViewBag.DanhSachDot = danhSachDot;
+
+                    var now = DateTime.Now;
+                    // Lọc ra đợt ĐANG MỞ (Hiện tại nằm giữa Bắt đầu và Kết thúc)
+                    ViewBag.DotHienTai = danhSachDot.FirstOrDefault(d => d.NgayBatDau <= now && d.NgayKetThuc >= now);
+                    // Lọc ra đợt SẮP MỞ (Tương lai)
+                    ViewBag.DotSapToi = danhSachDot.FirstOrDefault(d => d.NgayBatDau > now);
+
+                    // Lấy ID các đợt mà sinh viên này ĐÃ NỘP để bôi xanh trên Timeline
+                    ViewBag.SubmittedDotIds = _context.BaoCaos
+                        .Where(b => b.DangKyDeTai.SinhVienId == sinhVienId && b.DotDoAnId != null)
+                        .Select(b => b.DotDoAnId.Value)
+                        .ToList();
                 }
             }
-            else if (User.IsInRole("GiangVien"))
+            else if (isGiangVien)
             {
                 var claimGiangVienId = User.Claims.FirstOrDefault(c => c.Type == "GiangVienId")?.Value;
                 if (int.TryParse(claimGiangVienId, out int gvId))
                 {
-                    // Lấy thông tin giảng viên để biết họ quản lý lớp nào
-                    var giangVien = _context.GiangViens.Find(gvId);
-                    if (giangVien != null && !string.IsNullOrEmpty(giangVien.LopQuanLy))
-                    {
-                        // Lọc Tiến độ: Chỉ lấy nhóm có sinh viên thuộc Lớp của giảng viên này
-                        query = query.Where(t => t.DangKyDeTai.SinhVien.Lop == giangVien.LopQuanLy);
-                    }
+                    query = query.Where(d => d.DeTai.GiangVienId == gvId);
                 }
             }
-
-            var danhSachTienDo = query.OrderByDescending(t => t.NgayCapNhat).ToList();
-            return View(danhSachTienDo);
-        }
-
-        public IActionResult Create(int? id)
-        {
-            var queryDangKy = _context.DangKyDeTais
-                .Include(d => d.SinhVien).Include(d => d.DeTai)
-                .AsQueryable();
-
-            if (User.IsInRole("SinhVien"))
+            else if (isAdmin)
             {
-                var claimSinhVienId = User.Claims.FirstOrDefault(c => c.Type == "SinhVienId")?.Value;
-                if (int.TryParse(claimSinhVienId, out int sinhVienId))
-                {
-                    queryDangKy = queryDangKy.Where(d => d.SinhVienId == sinhVienId);
-                }
-            }
-            else if (User.IsInRole("GiangVien"))
-            {
-                var claimGiangVienId = User.Claims.FirstOrDefault(c => c.Type == "GiangVienId")?.Value;
-                if (int.TryParse(claimGiangVienId, out int gvId))
-                {
-                    var giangVien = _context.GiangViens.Find(gvId);
-                    if (giangVien != null && !string.IsNullOrEmpty(giangVien.LopQuanLy))
-                    {
-                        queryDangKy = queryDangKy.Where(d => d.SinhVien.Lop == giangVien.LopQuanLy);
-                    }
-                }
+                ViewBag.ListBoMon = _context.BoMons.ToList();
             }
 
-            var danhSachDangKy = queryDangKy
-                .Select(d => new { Id = d.Id, TenHienThi = d.SinhVien.TenSV + " - " + d.DeTai.TenDeTai })
-                .ToList();
+            var danhSachDangKy = query.ToList();
 
-            TienDo model = new TienDo();
-            if (id.HasValue)
+            var dictPhanTram = new Dictionary<int, int>();
+            foreach (var dk in danhSachDangKy)
             {
-                model = _context.TienDos.Find(id.Value);
-                if (model == null) return NotFound();
-                ViewBag.Title = "Chỉnh sửa tiến độ";
+                int soBaoCao = _context.BaoCaos.Count(b => b.DangKyDeTaiId == dk.Id && b.Diem != null);
+                dictPhanTram[dk.Id] = (tongSoDot > 0) ? (int)Math.Round((double)soBaoCao / tongSoDot * 100) : 0;
             }
-            else { ViewBag.Title = "Cập nhật tiến độ mới"; }
+            ViewBag.DictPhanTram = dictPhanTram;
 
-            ViewBag.ListDangKy = new SelectList(danhSachDangKy, "Id", "TenHienThi", model.DangKyId);
-            return View(model);
-        }
-
-        [HttpPost]
-        public IActionResult Create(TienDo tienDo)
-        {
-            bool isNew = (tienDo.Id == 0);
-            tienDo.NgayCapNhat = DateTime.Now;
-            if (tienDo.PhanTram < 0) tienDo.PhanTram = 0;
-            if (tienDo.PhanTram > 100) tienDo.PhanTram = 100;
-
-            if (isNew) { _context.TienDos.Add(tienDo); }
-            else { _context.TienDos.Update(tienDo); }
-
-            _context.SaveChanges();
-
-            // =============== BẮN THÔNG BÁO TỰ ĐỘNG ===============
-            try
-            {
-                var dangKy = _context.DangKyDeTais
-                    .Include(d => d.SinhVien).Include(d => d.DeTai)
-                    .FirstOrDefault(d => d.Id == tienDo.DangKyId);
-
-                if (dangKy != null && dangKy.DeTai != null && dangKy.SinhVien != null)
-                {
-                    string hanhDong = isNew ? "thêm mới" : "cập nhật";
-
-                    // 1. Gửi cho Giảng viên
-                    var gvUser = _context.Users.FirstOrDefault(u => u.GiangVienId == dangKy.DeTai.GiangVienId);
-                    if (gvUser != null)
-                    {
-                        _context.ThongBaos.Add(new ThongBao
-                        {
-                            UsernameNhan = gvUser.Username,
-                            TieuDe = "Cập nhật tiến độ đồ án",
-                            NoiDung = $"Sinh viên {dangKy.SinhVien.TenSV} vừa {hanhDong} tiến độ lên {tienDo.PhanTram}% cho đề tài '{dangKy.DeTai.TenDeTai}'.",
-                            NgayTao = DateTime.Now,
-                            DaDoc = false
-                        });
-                    }
-
-                    // 2. Gửi cho Admin
-                    var adminUser = _context.Users.FirstOrDefault(u => u.Role != null && u.Role.Trim().ToLower() == "admin");
-                    if (adminUser != null)
-                    {
-                        _context.ThongBaos.Add(new ThongBao
-                        {
-                            UsernameNhan = adminUser.Username,
-                            TieuDe = "Hệ thống: Cập nhật tiến độ",
-                            NoiDung = $"Nhóm của {dangKy.SinhVien.TenSV} vừa {hanhDong} tiến độ ({tienDo.PhanTram}%) - Đề tài: '{dangKy.DeTai.TenDeTai}'.",
-                            NgayTao = DateTime.Now,
-                            DaDoc = false
-                        });
-                    }
-                    _context.SaveChanges();
-                }
-            }
-            catch (Exception) { /* Bỏ qua lỗi để không sập web */ }
-            // =====================================================
-
-            return RedirectToAction("Index");
-        }
-
-        public IActionResult Delete(int id)
-        {
-            var tienDo = _context.TienDos.Find(id);
-            if (tienDo != null) { _context.TienDos.Remove(tienDo); _context.SaveChanges(); }
-            return RedirectToAction("Index");
+            return View(danhSachDangKy);
         }
     }
 }

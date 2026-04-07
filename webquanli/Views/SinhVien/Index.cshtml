@@ -2,92 +2,227 @@
 
 @{
     ViewData["Title"] = "Danh sách Sinh Viên";
+    bool isAdmin = User.IsInRole("Admin");
 }
 
 <div class="card shadow mb-4 border-0">
-    <div class="card-header py-3 bg-primary d-flex align-items-center">
-        <h6 class="m-0 font-weight-bold text-white">
+    <div class="card-header py-3 bg-white border-bottom d-flex align-items-center justify-content-between">
+        <h6 class="m-0 font-weight-bold text-primary">
             <i class="fa-solid fa-user-graduate me-2"></i>
             @(User.IsInRole("GiangVien") ? "DANH SÁCH SINH VIÊN LỚP QUẢN LÝ" : "DANH SÁCH SINH VIÊN")
         </h6>
     </div>
 
-    <div class="card-body">
-        @if (User.IsInRole("Admin"))
-        {
-            <div class="mb-3">
-                <a asp-action="Create" class="btn btn-success shadow-sm fw-bold">
-                    <i class="fa-solid fa-plus"></i> Thêm +
-                </a>
+    <div class="card-body bg-light border-bottom" style="border-radius: 0; padding-bottom: 15px;">
+        <div class="row align-items-center">
+            <div class="col-md-4 mb-2 mb-md-0">
+                @if (isAdmin)
+                {
+                    <a asp-action="Create" class="btn btn-success shadow-sm fw-bold btn-sm" style="border-radius: 8px;">
+                        <i class="fa-solid fa-plus me-1"></i> Thêm sinh viên
+                    </a>
+                }
             </div>
-        }
 
-        <div class="table-responsive">
-            <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
-                <thead class="table-light">
-                    <tr>
-                        <th class="text-center">Ảnh đại diện</th>
-                        <th>Mã SV</th>
-                        <th>Họ và Tên</th>
-                        <th>Lớp</th>
-                        <th>Email</th>
-                        <th>Bộ môn đăng ký</th>
-                        @if (User.IsInRole("Admin"))
+            <div class="col-md-8 d-flex justify-content-md-end gap-2 align-items-center">
+                <label class="d-none d-md-inline fw-bold text-muted me-1" style="font-size: 0.85rem;"><i class="fa-solid fa-filter"></i> Lọc nhanh:</label>
+                
+                <select id="filterLop" class="form-select shadow-sm border-0" style="width: 150px; font-size: 0.9rem; border-radius: 8px;">
+                    <option value="">-- Tất cả Lớp --</option>
+                </select>
+
+                @if (isAdmin)
+                {
+                    <select id="filterBoMon" class="form-select shadow-sm border-0" style="width: 250px; font-size: 0.9rem; border-radius: 8px;">
+                        <option value="none" selected>-- Vui lòng chọn Bộ môn --</option>
+                        <option value="">Hiển thị tất cả (Rất dài)</option>
+
+                        @if (ViewBag.ListBoMon != null)
                         {
-                            <th class="text-center">Thao tác</th>
+                            foreach (var bm in ViewBag.ListBoMon)
+                            {
+                                <option value="@bm.TenBoMon">@bm.TenBoMon</option>
+                            }
                         }
-                    </tr>
-                </thead>
-                <tbody>
-                    @if (Model != null && Model.Any())
-                    {
-                        foreach (var item in Model)
-                        {
-                            <tr>
-                                <td class="text-center align-middle">
-                                    <img src="@(string.IsNullOrEmpty(item.Avatar) ? "/img/default-avatar.png" : item.Avatar)"
-                                         alt="Avatar" class="rounded-circle shadow-sm"
-                                         style="width: 45px; height: 45px; object-fit: cover;" />
-                                </td>
-                                
-                                <td class="align-middle fw-bold">@item.MaSV</td>
-                                <td class="align-middle fw-bold text-dark">@item.TenSV</td>
-                                <td class="align-middle">
-                                    <span class="badge bg-info">@item.Lop</span>
-                                </td>
-                                <td class="align-middle">@item.Email</td>
-                                <td class="align-middle">
-                                    @(item.BoMon != null ? item.BoMon.TenBoMon : "Chưa đăng ký")
-                                </td>
-                                
-                                @if (User.IsInRole("Admin"))
-                                {
-                                    <td class="text-center align-middle">
-                                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-sm text-white">
-                                            <i class="fa-solid fa-pen-to-square"></i> Sửa
-                                        </a>
-                                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm text-white" onclick="return confirm('Xác nhận xóa sinh viên này?')">
-                                            <i class="fa-solid fa-trash"></i> Xóa
-                                        </a>
-                                    </td>
-                                }
-                            </tr>
-                        }
-                    }
-                </tbody>
-            </table>
+                    </select>
+                }
+            </div>
         </div>
+    </div>
+
+    @if (isAdmin)
+    {
+        <div id="emptyState" class="text-center" style="padding: 80px 20px;">
+            <i class="fa-solid fa-users text-primary" style="font-size: 4rem; opacity: 0.2; margin-bottom: 15px;"></i>
+            <h5 class="fw-bold text-secondary">Vui lòng chọn Bộ môn hoặc Lớp</h5>
+            <p class="text-muted mb-0">Hệ thống có thể chứa hàng trăm sinh viên, chúng tôi đang tạm ẩn để tránh làm bạn rối mắt.<br>Hãy click vào thanh chọn lọc ở góc trên bên phải để hiển thị danh sách cụ thể nhé!</p>
+        </div>
+    }
+
+    <div id="noDataState" class="text-center" style="display: none; padding: 80px 20px;">
+        <i class="fa-solid fa-folder-open text-warning" style="font-size: 4rem; opacity: 0.5; margin-bottom: 15px;"></i>
+        <h5 class="fw-bold text-secondary">Không tìm thấy sinh viên</h5>
+        <p class="text-muted mb-0">Hiện không có sinh viên nào đăng ký chuyên ngành hoặc lớp này.<br>Vui lòng thử đổi bộ lọc khác.</p>
+    </div>
+
+    <div class="table-responsive" id="tableWrapper" style="@(isAdmin ? "display: none;" : "") padding: 15px;">
+        <table class="table table-bordered table-hover align-middle" id="dataTable" width="100%" cellspacing="0">
+            <thead class="table-light text-muted" style="font-size: 0.85rem;">
+                <tr>
+                    <th class="text-center" style="width: 10%;">Ảnh đại diện</th>
+                    <th style="width: 12%;">Mã SV</th>
+                    <th style="width: 20%;">Họ và Tên</th>
+                    <th style="width: 10%;">Lớp</th>
+                    <th>Email</th>
+                    <th>Bộ môn đăng ký</th>
+                    @if (isAdmin)
+                    {
+                        <th class="text-center" style="width: 10%;">Thao tác</th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Any())
+                {
+                    foreach (var item in Model)
+                    {
+                        <tr>
+                            <td class="text-center align-middle">
+                                <img src="@(string.IsNullOrEmpty(item.Avatar) ? "/img/default-avatar.png" : item.Avatar)"
+                                     alt="Avatar" class="rounded-circle shadow-sm border"
+                                     style="width: 45px; height: 45px; object-fit: cover;" />
+                            </td>
+                            
+                            <td class="align-middle fw-bold text-muted">@item.MaSV</td>
+                            <td class="align-middle fw-bold text-primary">@item.TenSV</td>
+                            <td class="align-middle">
+                                <span class="badge bg-info lop-text">@item.Lop</span>
+                            </td>
+                            <td class="align-middle text-muted">@item.Email</td>
+                            <td class="align-middle fw-bold text-secondary bomon-text">
+                                @(item.BoMon != null ? item.BoMon.TenBoMon : "Chưa đăng ký")
+                            </td>
+                            
+                            @if (isAdmin)
+                            {
+                                <td class="text-center align-middle">
+                                    <div class="dropdown">
+                                        <button class="btn btn-light btn-sm shadow-sm border" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="border-radius: 8px;">
+                                            <i class="fa-solid fa-ellipsis-vertical px-1"></i>
+                                        </button>
+                                        <ul class="dropdown-menu dropdown-menu-end shadow-sm border-0" style="border-radius: 10px;">
+                                            <li>
+                                                <a class="dropdown-item text-primary fw-bold py-2" asp-action="Edit" asp-route-id="@item.Id">
+                                                    <i class="fa-solid fa-pen text-center me-2" style="width: 20px;"></i> Chỉnh sửa
+                                                </a>
+                                            </li>
+                                            <li><hr class="dropdown-divider"></li>
+                                            
+                                            @if (item.BoMonId == null)
+                                            {
+                                                <li>
+                                                    <a class="dropdown-item text-danger fw-bold py-2" asp-action="Delete" asp-route-id="@item.Id" onclick="return confirm('Hành động này không thể hoàn tác. Bạn có chắc chắn xóa sinh viên này?')">
+                                                        <i class="fa-solid fa-trash text-center me-2" style="width: 20px;"></i> Xóa sinh viên
+                                                    </a>
+                                                </li>
+                                            }
+                                            else
+                                            {
+                                                <li>
+                                                    <a class="dropdown-item text-muted py-2" href="javascript:void(0)" onclick="alert('SV này đã đăng ký Bộ môn (hoặc đã có dữ liệu đồ án).\n\nBẢO MẬT: Hệ thống KHÔNG CHO PHÉP XÓA để bảo vệ an toàn dữ liệu!')" style="cursor: not-allowed; background-color: #f8f9fa;">
+                                                        <i class="fa-solid fa-lock text-center me-2" style="width: 20px;"></i> Đã khóa xóa
+                                                    </a>
+                                                </li>
+                                            }
+                                        </ul>
+                                    </div>
+                                </td>
+                            }
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
     </div>
 </div>
 
 @section Scripts {
     <script>
         $(document).ready(function () {
-            $('#dataTable').DataTable({
+            
+            // Xử lý hiện thông báo lỗi từ tầng Backend (nếu có ai đó cố tình hack)
+            @if (TempData["ErrorMessage"] != null)
+            {
+                    <text>
+                        alert('@Html.Raw(TempData["ErrorMessage"])');
+                    </text>
+            }
+
+            var table = $('#dataTable').DataTable({
                 "language": {
                     "url": "//cdn.datatables.net/plug-ins/1.13.6/i18n/vi.json"
-                }
+                },
+                "pageLength": 10,
+                "dom": '<"row"<"col-sm-12 col-md-6"l><"col-sm-12 col-md-6"f>>rt<"row"<"col-sm-12 col-md-5"i><"col-sm-12 col-md-7"p>>'
             });
+
+            var dsLop = new Set();
+            $('.lop-text').each(function() {
+                var txt = $(this).text().trim();
+                if(txt) dsLop.add(txt);
+            });
+
+            Array.from(dsLop).sort().forEach(function(l) {
+                $('#filterLop').append('<option value="'+l+'">'+l+'</option>');
+            });
+
+            @if (isAdmin)
+            {
+                    <text>
+                        function checkDisplay() {
+                            var valBM = $('#filterBoMon').val();
+                            var valLop = $('#filterLop').val();
+
+                            $('#emptyState').hide();
+                            $('#noDataState').hide();
+                            $('#tableWrapper').hide();
+
+                            if (valBM === "none" && valLop === "") {
+                                $('#emptyState').fadeIn();
+                            } else {
+                                var count = table.rows({ search: 'applied' }).count();
+                                if (count === 0) {
+                                    $('#noDataState').fadeIn();
+                                } else {
+                                    $('#tableWrapper').fadeIn();
+                                }
+                            }
+                        }
+
+                        $('#filterBoMon').on('change', function() {
+                            var val = $(this).val();
+                            if (val === "none") {
+                                table.column(5).search("").draw();
+                            } else {
+                                table.column(5).search(val).draw();
+                            }
+                            checkDisplay();
+                        });
+
+                        $('#filterLop').on('change', function() {
+                            table.column(3).search($(this).val()).draw();
+                            checkDisplay();
+                        });
+                    </text>
+            }
+            else
+            {
+                    <text>
+                        $('#filterLop').on('change', function() {
+                            table.column(3).search($(this).val()).draw();
+                        });
+                    </text>
+            }
         });
     </script>
 }
