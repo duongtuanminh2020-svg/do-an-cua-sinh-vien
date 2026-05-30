@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using webquanli.Data;
 
@@ -11,9 +12,11 @@ using webquanli.Data;
 namespace webquanli.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260524132357_ThemTenDeTaiSinhVien")]
+    partial class ThemTenDeTaiSinhVien
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -229,14 +232,8 @@ namespace webquanli.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("LyDoTuChoi")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("MaSV")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("MoTaDeTai")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Nganh")
@@ -250,9 +247,6 @@ namespace webquanli.Migrations
 
                     b.Property<string>("TenSV")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("TrangThaiDeTai")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

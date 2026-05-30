@@ -1,7 +1,6 @@
 ﻿@model IEnumerable<webquanli.Models.BaoCao>
 @{
     ViewData["Title"] = "Quản lý Báo Cáo";
-    // ĐÃ SỬA: Gom tất cả các trường hợp gõ chữ hoa chữ thường
     bool isSinhVien = User.IsInRole("SinhVien") || User.IsInRole("sinhvien");
     bool isGiangVien = User.IsInRole("GiangVien") || User.IsInRole("giangvien");
     bool isAdmin = User.IsInRole("Admin") || User.IsInRole("admin");
@@ -17,7 +16,6 @@
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 }
-
 @if (TempData["Error"] != null)
 {
     <div class="alert alert-danger alert-dismissible fade show shadow-sm border-0" role="alert" style="background-color: #ffe8eb; color: #f1416c;">
@@ -30,7 +28,6 @@
     <h1 class="h3 mb-0 text-gray-800 fw-bold">
         <i class="fa-solid fa-file-signature me-2 text-primary"></i> Quản lý Báo cáo Đồ án
     </h1>
-
     @if (isAdmin)
     {
         <button type="button" class="btn btn-primary shadow-sm fw-bold px-4 py-2" data-bs-toggle="modal" data-bs-target="#modalTaoDot" style="border-radius: 10px;">
@@ -43,108 +40,104 @@
 {
     var danhSachDot = ViewBag.DanhSachDot as List<webquanli.Models.DotDoAn> ?? new List<webquanli.Models.DotDoAn>();
     var dictBaoCao = ViewBag.DictBaoCao as Dictionary<int, webquanli.Models.BaoCao> ?? new Dictionary<int, webquanli.Models.BaoCao>();
+    var now = DateTime.Now;
 
-    <div class="card shadow-sm border-0 mb-4" style="border-radius: 12px;">
-        <div class="card-header bg-white py-3 border-bottom d-flex justify-content-between align-items-center">
-            <h6 class="m-0 font-weight-bold text-primary"><i class="fa-solid fa-list-check me-2"></i> Danh sách Bài tập / Đợt báo cáo</h6>
-            <span class="badge bg-primary bg-opacity-10 text-primary border border-primary p-2">Xem thông tin @danhSachDot.Count mục</span>
-        </div>
-        <div class="card-body p-0">
-            <div class="table-responsive p-3">
-                <table class="table table-hover align-middle mb-0" width="100%" cellspacing="0">
-                    <thead class="table-light text-muted" style="font-size: 0.85rem; border-bottom: 2px solid #e9edf7;">
-                        <tr>
-                            <th style="width: 25%;">Tiêu đề bài tập</th>
-                            <th style="width: 25%;">Tình trạng</th>
-                            <th style="width: 15%;">Mở</th>
-                            <th style="width: 15%;">Hạn</th>
-                            <th class="text-center" style="width: 20%;">Thao tác</th>
-                        </tr>
-                    </thead>
-                    <tbody class="border-top-0">
-                        @if (!danhSachDot.Any())
-                        {
-                            <tr>
-                                <td colspan="5" class="text-center py-5">
-                                    <i class="fa-solid fa-calendar-xmark text-muted fs-1 mb-3 opacity-25"></i>
-                                    <h6 class="fw-bold text-secondary mb-0">Chưa có bài tập hay đợt báo cáo nào.</h6>
-                                </td>
-                            </tr>
-                        }
-                        else
-                        {
-                            foreach (var dot in danhSachDot)
-                            {
-                                var now = DateTime.Now;
-                                bool isSubmitted = dictBaoCao.ContainsKey(dot.Id);
-                                var baoCao = isSubmitted ? dictBaoCao[dot.Id] : null;
+    <div class="mb-3 d-flex align-items-center justify-content-between">
+        <h6 class="text-muted fw-bold mb-0"><i class="fa-solid fa-list-check me-2"></i> Danh sách đợt báo cáo</h6>
+        <span class="badge bg-primary bg-opacity-10 text-primary border border-primary p-2">@danhSachDot.Count đợt</span>
+    </div>
 
-                                <tr style="border-bottom: 1px dashed #e9edf7;">
-                                    <td>
-                                        <div class="fw-bold text-primary fs-6"><i class="fa-solid fa-user-graduate text-secondary me-2"></i> @dot.TenDot</div>
-                                    </td>
-                                    <td>
-                                        @if (isSubmitted)
-                                        {
-                                            <div class="text-success fw-bold"><i class="fa-solid fa-check-circle me-1"></i> Gửi lên lúc</div>
-                                            <small class="text-muted fw-bold">@baoCao.NgayNop.ToString("HH:mm dd-MM-yyyy")</small>
-                                            <div class="mt-1">
-                                                <span class="badge bg-light text-dark border text-wrap" style="max-width: 200px;"><i class="fa-solid fa-paperclip me-1"></i> @baoCao.TenFile</span>
-                                            </div>
-                                        }
-                                        else
-                                        {
-                                            if (now < dot.NgayBatDau)
-                                            {
-                                                <span class="text-secondary fw-bold"><i class="fa-solid fa-lock me-1"></i> Chưa mở</span>
-                                            }
-                                            else if (now > dot.NgayKetThuc)
-                                            {
-                                                <span class="text-danger fw-bold"><i class="fa-solid fa-circle-xmark me-1"></i> Quá hạn (Chưa nộp)</span>
-                                            }
-                                            else
-                                            {
-                                                <span class="text-warning fw-bold"><i class="fa-solid fa-circle-exclamation me-1"></i> Chưa nộp</span>
-                                            }
-                                        }
-                                    </td>
-                                    <td><span class="text-dark">@dot.NgayBatDau.ToString("dd-MM-yyyy")</span><br><small class="text-muted">@dot.NgayBatDau.ToString("HH:mm")</small></td>
-                                    <td><span class="text-danger fw-bold">@dot.NgayKetThuc.ToString("dd-MM-yyyy")</span><br><small class="text-danger">@dot.NgayKetThuc.ToString("HH:mm")</small></td>
-                                    <td class="text-center">
-                                        @if (isSubmitted)
-                                        {
-                                            <div class="d-flex justify-content-center align-items-center gap-2">
-                                                @if (baoCao.Diem.HasValue)
-                                                {
-                                                    <span class="badge bg-success bg-opacity-10 text-success border border-success p-2">Điểm: @baoCao.Diem / 10</span>
-                                                    @if (!string.IsNullOrEmpty(baoCao.NhanXet))
-                                                    {
-                                                        <i class="fa-solid fa-comment-dots text-warning fs-5" data-bs-toggle="tooltip" title="@baoCao.NhanXet"></i>
-                                                    }
-                                                }
-                                                else
-                                                {
-                                                    <span class="badge bg-secondary bg-opacity-10 text-secondary border border-secondary p-2">Chưa chấm</span>
-                                                    <a asp-action="Delete" asp-route-id="@baoCao.Id" class="btn btn-danger btn-sm shadow-sm opacity-75 hover-opacity-100" onclick="return confirm('Bạn có chắc muốn rút lại bài nộp này?');" title="Rút bài và nộp lại"><i class="fa-solid fa-trash"></i></a>
-                                                }
-                                            </div>
-                                        }
-                                        else
-                                        {
-                                            if (now >= dot.NgayBatDau && now <= dot.NgayKetThuc)
-                                            {
-                                                <a asp-action="Upload" asp-route-dotId="@dot.Id" class="btn btn-primary btn-sm fw-bold shadow-sm" style="border-radius: 6px;"><i class="fa-solid fa-upload me-1"></i> Nộp bài</a>
-                                            }
-                                        }
-                                    </td>
-                                </tr>
-                            }
-                        }
-                    </tbody>
-                </table>
+    @if (!danhSachDot.Any())
+    {
+        <div class="card border-0 shadow-sm" style="border-radius: 12px;">
+            <div class="card-body text-center py-5">
+                <i class="fa-solid fa-calendar-xmark text-muted mb-3" style="font-size: 3rem; opacity: 0.2;"></i>
+                <h6 class="fw-bold text-secondary mb-0">Chưa có đợt báo cáo nào.</h6>
             </div>
         </div>
-    </div>
+    }
+    else
+    {
+        <div class="d-flex flex-column gap-3">
+            @foreach (var dot in danhSachDot)
+            {
+                bool isSubmitted = dictBaoCao.ContainsKey(dot.Id);
+                var baoCao = isSubmitted ? dictBaoCao[dot.Id] : null;
+                bool isOpen = now >= dot.NgayBatDau && now <= dot.NgayKetThuc;
+                bool isQuaHan = now > dot.NgayKetThuc;
+                bool isChuaMo = now < dot.NgayBatDau;
+
+                string borderLeft = isSubmitted ? "#16a34a" : (isOpen ? "#3b82f6" : (isQuaHan ? "#dc2626" : "#9ca3af"));
+                string statusBg = isSubmitted ? "#dcfce7" : (isOpen ? "#dbeafe" : (isQuaHan ? "#fee2e2" : "#f3f4f6"));
+                string statusColor = isSubmitted ? "#16a34a" : (isOpen ? "#3b82f6" : (isQuaHan ? "#dc2626" : "#6b7280"));
+                string statusText = isSubmitted ? "Đã nộp" : (isOpen ? "Đang mở" : (isQuaHan ? "Quá hạn" : "Chưa mở"));
+                string statusIcon = isSubmitted ? "fa-check-circle" : (isOpen ? "fa-door-open" : (isQuaHan ? "fa-circle-xmark" : "fa-lock"));
+
+                <div class="card border-0 shadow-sm" style="border-radius: 12px; border-left: 4px solid @borderLeft !important;">
+                    <div class="card-body p-4">
+                        <div class="d-flex justify-content-between align-items-start mb-3">
+                            <div>
+                                <h6 class="fw-bold mb-1" style="color: #1e293b;">
+                                    <i class="fa-solid fa-user-graduate text-secondary me-2"></i>@dot.TenDot
+                                </h6>
+                                <div class="d-flex gap-3" style="font-size: 0.8rem; color: #94a3b8;">
+                                    <span><i class="fa-regular fa-calendar me-1"></i> Mở: @dot.NgayBatDau.ToString("dd/MM/yyyy HH:mm")</span>
+                                    <span><i class="fa-regular fa-clock me-1"></i> Hạn: <strong style="color: @(isQuaHan && !isSubmitted ? "#dc2626" : "#94a3b8")">@dot.NgayKetThuc.ToString("dd/MM/yyyy HH:mm")</strong></span>
+                                </div>
+                            </div>
+                            <span style="font-size: 0.78rem; background: @statusBg; color: @statusColor; padding: 4px 12px; border-radius: 20px; font-weight: 600; white-space: nowrap;">
+                                <i class="fa-solid @statusIcon me-1"></i>@statusText
+                            </span>
+                        </div>
+
+                        @if (isSubmitted)
+                        {
+                            <div class="p-3 rounded-3 mb-3" style="background: #f8fafc; border: 1px solid #e2e8f0;">
+                                <div class="d-flex align-items-center gap-3">
+                                    <div style="width: 36px; height: 36px; background: #dbeafe; border-radius: 8px; display: flex; align-items: center; justify-content: center;">
+                                        <i class="fa-solid fa-file-word text-primary"></i>
+                                    </div>
+                                    <div>
+                                        <p style="font-size: 0.85rem; font-weight: 600; margin: 0; color: #374151;">@baoCao.TenFile</p>
+                                        <p style="font-size: 0.75rem; color: #94a3b8; margin: 0;">Nộp lúc @baoCao.NgayNop.ToString("HH:mm dd/MM/yyyy")</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            @if (!string.IsNullOrEmpty(baoCao.NhanXet))
+                            {
+                                <div class="p-3 rounded-3 mb-3" style="background: #fffbeb; border: 1px solid #fcd34d;">
+                                    <p style="font-size: 0.8rem; font-weight: 600; color: #92400e; margin: 0 0 4px;">
+                                        <i class="fa-solid fa-comment-dots me-1"></i> Nhận xét của giảng viên:
+                                    </p>
+                                    <p style="font-size: 0.85rem; color: #78350f; margin: 0;">@baoCao.NhanXet</p>
+                                </div>
+                            }
+                            else
+                            {
+                                <p style="font-size: 0.8rem; color: #94a3b8; margin-bottom: 12px;">
+                                    <i class="fa-solid fa-hourglass-half me-1"></i> Chưa có nhận xét từ giảng viên
+                                </p>
+                            }
+
+                            @if (!baoCao.Diem.HasValue)
+                            {
+                                <a asp-action="Delete" asp-route-id="@baoCao.Id" class="btn btn-outline-danger btn-sm" onclick="return confirm('Bạn có chắc muốn rút lại bài nộp này?');" style="border-radius: 6px;">
+                                    <i class="fa-solid fa-rotate-left me-1"></i> Rút bài và nộp lại
+                                </a>
+                            }
+                        }
+                        else if (isOpen)
+                        {
+                            <a asp-action="Upload" asp-route-dotId="@dot.Id" class="btn btn-primary btn-sm fw-bold shadow-sm" style="border-radius: 6px;">
+                                <i class="fa-solid fa-upload me-1"></i> Nộp bài ngay
+                            </a>
+                        }
+                    </div>
+                </div>
+            }
+        </div>
+    }
 }
 else
 {
@@ -167,15 +160,15 @@ else
                                 <div class="col-md-6 mb-3">
                                     <label class="form-label fw-bold text-muted small">Ngày bắt đầu</label>
                                     <div class="input-group">
-                                        <input type="text" name="NgayBatDau" class="form-control border-0 bg-light datepicker-new" required style="padding: 10px; background-color: #f8f9fa !important;" placeholder="Chọn ngày giờ...">
-                                        <span class="input-group-text border-0 bg-light text-primary" style="background-color: #f8f9fa !important; cursor: pointer;"><i class="fa-solid fa-calendar-days"></i></span>
+                                        <input type="text" name="NgayBatDau" id="newNgayBatDau" class="form-control border-0 bg-light datepicker-new" required style="padding: 10px;" placeholder="Chọn ngày giờ...">
+                                        <span class="input-group-text border-0 bg-light text-primary" style="cursor: pointer;" onclick="document.getElementById('newNgayBatDau')._flatpickr.open()"><i class="fa-solid fa-calendar-days"></i></span>
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label class="form-label fw-bold text-muted small">Ngày kết thúc</label>
                                     <div class="input-group">
-                                        <input type="text" name="NgayKetThuc" class="form-control border-0 bg-light datepicker-new" required style="padding: 10px; background-color: #f8f9fa !important;" placeholder="Chọn ngày giờ...">
-                                        <span class="input-group-text border-0 bg-light text-primary" style="background-color: #f8f9fa !important; cursor: pointer;"><i class="fa-solid fa-calendar-days"></i></span>
+                                        <input type="text" name="NgayKetThuc" id="newNgayKetThuc" class="form-control border-0 bg-light datepicker-new" required style="padding: 10px;" placeholder="Chọn ngày giờ...">
+                                        <span class="input-group-text border-0 bg-light text-primary" style="cursor: pointer;" onclick="document.getElementById('newNgayKetThuc')._flatpickr.open()"><i class="fa-solid fa-calendar-days"></i></span>
                                     </div>
                                 </div>
                             </div>
@@ -207,15 +200,15 @@ else
                                 <div class="col-md-6 mb-3">
                                     <label class="form-label fw-bold text-muted small">Ngày bắt đầu</label>
                                     <div class="input-group">
-                                        <input type="text" name="NgayBatDau" id="editNgayBatDau" class="form-control border-0 bg-light" required style="padding: 10px; background-color: #f8f9fa !important;" placeholder="Chọn ngày giờ...">
-                                        <span class="input-group-text border-0 bg-light text-warning" style="background-color: #f8f9fa !important; cursor: pointer;"><i class="fa-solid fa-calendar-days"></i></span>
+                                        <input type="text" name="NgayBatDau" id="editNgayBatDau" class="form-control border-0 bg-light" required style="padding: 10px;" placeholder="Chọn ngày giờ...">
+                                        <span class="input-group-text border-0 bg-light text-warning" style="cursor: pointer;" onclick="document.getElementById('editNgayBatDau')._flatpickr.open()"><i class="fa-solid fa-calendar-days"></i></span>
                                     </div>
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label class="form-label fw-bold text-muted small">Ngày kết thúc</label>
                                     <div class="input-group">
-                                        <input type="text" name="NgayKetThuc" id="editNgayKetThuc" class="form-control border-0 bg-light" required style="padding: 10px; background-color: #f8f9fa !important;" placeholder="Chọn ngày giờ...">
-                                        <span class="input-group-text border-0 bg-light text-warning" style="background-color: #f8f9fa !important; cursor: pointer;"><i class="fa-solid fa-calendar-days"></i></span>
+                                        <input type="text" name="NgayKetThuc" id="editNgayKetThuc" class="form-control border-0 bg-light" required style="padding: 10px;" placeholder="Chọn ngày giờ...">
+                                        <span class="input-group-text border-0 bg-light text-warning" style="cursor: pointer;" onclick="document.getElementById('editNgayKetThuc')._flatpickr.open()"><i class="fa-solid fa-calendar-days"></i></span>
                                     </div>
                                 </div>
                             </div>
@@ -248,7 +241,6 @@ else
                     </select>
                 </div>
             }
-
             <div class="d-flex align-items-center bg-light p-2 rounded-3 shadow-sm border">
                 <label class="fw-bold text-muted me-2 mb-0 ms-2" style="font-size: 0.9rem;"><i class="fa-solid fa-filter text-primary"></i> Chọn đợt:</label>
                 <select id="filterDot" class="form-select form-select-sm border-0 shadow-none fw-bold text-dark" style="width: 220px; cursor: pointer;">
@@ -261,10 +253,9 @@ else
                         }
                     }
                 </select>
-                
                 @if (isAdmin)
                 {
-                    <button type="button" id="btnEditDot" class="btn btn-warning btn-sm ms-2 shadow-sm" data-bs-toggle="modal" data-bs-target="#modalSuaDot" style="display: none; border-radius: 6px;" title="Sửa ngày tháng của đợt này">
+                    <button type="button" id="btnEditDot" class="btn btn-warning btn-sm ms-2 shadow-sm" data-bs-toggle="modal" data-bs-target="#modalSuaDot" style="display: none; border-radius: 6px;">
                         <i class="fa-solid fa-pen text-white"></i>
                     </button>
                 }
@@ -276,19 +267,18 @@ else
                 <table class="table table-hover align-middle mb-0" id="dataTable" width="100%" cellspacing="0">
                     <thead class="table-light text-muted" style="font-size: 0.85rem; border-bottom: 2px solid #e9edf7;">
                         <tr>
-                            <th style="width: 25%;" class="ps-3">Sinh Viên & Bộ Môn</th>
+                            <th style="width: 28%;" class="ps-3">Sinh Viên & Bộ Môn</th>
                             <th style="width: 25%;">File Báo Cáo</th>
-                            <th style="width: 15%;">Đợt & Ngày Nộp</th>
-                            <th class="text-center" style="width: 10%;">Điểm số</th>
-                            <th style="width: 10%;">Nhận xét</th>
-                            <th class="text-center" style="width: 15%; padding-right: 15px;">Thao tác</th>
+                            <th style="width: 18%;">Đợt & Ngày Nộp</th>
+                            <th style="width: 15%;">Nhận xét</th>
+                            <th class="text-center" style="width: 14%; padding-right: 15px;">Thao tác</th>
                         </tr>
                     </thead>
                     <tbody class="border-top-0">
                         @if (!Model.Any())
                         {
                             <tr>
-                                <td colspan="6" class="text-center py-5">
+                                <td colspan="5" class="text-center py-5">
                                     <i class="fa-solid fa-folder-open text-muted fs-1 mb-3 opacity-25"></i>
                                     <h6 class="fw-bold text-secondary mb-0">Chưa có báo cáo nào được nộp.</h6>
                                 </td>
@@ -311,31 +301,21 @@ else
                                             <div class="bg-primary bg-opacity-10 p-2 rounded me-3 text-primary">
                                                 <i class="fa-solid fa-file-word fs-5"></i>
                                             </div>
-                                            <span class="fw-bold text-dark text-wrap" style="max-width: 200px; word-break: break-all;">@item.TenFile</span>
+                                            <span class="fw-bold text-dark text-wrap" style="max-width: 200px; word-break: break-all; font-size: 0.85rem;">@item.TenFile</span>
                                         </div>
                                     </td>
                                     <td>
                                         <span class="badge bg-info bg-opacity-10 text-info border border-info mb-1 dot-text">@(item.DotDoAn != null ? item.DotDoAn.TenDot : "Ngoài đợt")</span><br />
-                                        <span class="fw-bold text-secondary">@item.NgayNop.ToString("dd/MM/yyyy HH:mm")</span>
-                                    </td>
-                                    <td class="text-center">
-                                        @if (item.Diem.HasValue)
-                                        {
-                                            <span class="badge bg-success bg-opacity-10 text-success border border-success p-2 fs-6" style="border-radius: 6px;">@item.Diem / 10</span>
-                                        }
-                                        else
-                                        {
-                                            <span class="badge bg-secondary bg-opacity-10 text-secondary border border-secondary p-2" style="border-radius: 6px;">Chưa chấm</span>
-                                        }
+                                        <span class="fw-bold text-secondary" style="font-size: 0.82rem;">@item.NgayNop.ToString("dd/MM/yyyy HH:mm")</span>
                                     </td>
                                     <td>
                                         @if (!string.IsNullOrEmpty(item.NhanXet))
                                         {
-                                            <i class="fa-solid fa-comment-dots text-warning fs-5" data-bs-toggle="tooltip" data-bs-placement="top" title="@item.NhanXet" style="cursor: pointer;"></i>
+                                            <span class="text-muted" style="font-size: 0.82rem;">@item.NhanXet</span>
                                         }
                                         else
                                         {
-                                            <span class="text-muted small">-</span>
+                                            <span class="text-muted small fst-italic">Chưa có nhận xét</span>
                                         }
                                     </td>
                                     <td class="text-center pe-3">
@@ -345,10 +325,10 @@ else
                                             </a>
                                             @if (isGiangVien)
                                             {
-                                                <a asp-action="ChamDiem" asp-route-id="@item.Id" class="btn btn-warning btn-sm text-white shadow-sm" title="Chấm điểm" style="border-radius: 6px;">
-                                                    <i class="fa-solid fa-star"></i>
+                                                <a asp-action="ChamDiem" asp-route-id="@item.Id" class="btn btn-outline-primary btn-sm shadow-sm" title="Nhận xét" style="border-radius: 6px;">
+                                                    <i class="fa-solid fa-comment-dots me-1"></i> Nhận xét
                                                 </a>
-                                                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm shadow-sm opacity-75 hover-opacity-100" onclick="return confirm('Xóa file báo cáo này?');" title="Xóa báo cáo" style="border-radius: 6px;">
+                                                <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm shadow-sm" onclick="return confirm('Xóa file báo cáo này?');" title="Xóa báo cáo" style="border-radius: 6px;">
                                                     <i class="fa-solid fa-trash"></i>
                                                 </a>
                                             }
@@ -366,8 +346,7 @@ else
 
 @section Scripts {
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    <script src="https://npmcdn.com/flatpickr/dist/l10n/vn.js"></script>
-
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/vn.js"></script>
     <script>
         $(document).ready(function () {
         var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
@@ -381,50 +360,30 @@ else
         if (!isSinhVienJS) {
         if ($('#dataTable tbody tr td').length > 1) {
         var table = $('#dataTable').DataTable({
-        "language": {
-        "url": "//cdn.datatables.net/plug-ins/1.13.6/i18n/vi.json"
-        },
+        "language": { "url": "//cdn.datatables.net/plug-ins/1.13.6/i18n/vi.json" },
         "pageLength": 10,
         "order": [[2, "desc"]],
         "dom": '<"row align-items-center mb-3"<"col-md-6"l><"col-md-6"f>>rt<"row align-items-center mt-3"<"col-md-5"i><"col-md-7"p>>'
         });
 
         if (isAdminJS) {
-                        
-        if (typeof flatpickr !== 'undefined' && flatpickr.l10ns && flatpickr.l10ns.vn) {
-        flatpickr.l10ns.vn.months.longhand = [
-        "Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4",
-        "Tháng 5", "Tháng 6", "Tháng 7", "Tháng 8",
-        "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12"
-        ];
-        }
-
         var flatpickrConfig = {
-        enableTime: true,
-        time_24hr: true,
-        dateFormat: "Y-m-d\\TH:i",
-        altInput: true,
-        altFormat: "d/m/Y H:i",
-        locale: "vn"
+        enableTime: true, time_24hr: true,
+        dateFormat: "Y-m-d\\TH:i", altInput: true,
+        altFormat: "d/m/Y H:i", locale: "vn"
         };
-
         flatpickr(".datepicker-new", flatpickrConfig);
-
         var fpEditBatDau = flatpickr("#editNgayBatDau", flatpickrConfig);
         var fpEditKetThuc = flatpickr("#editNgayKetThuc", flatpickrConfig);
 
         $('#filterBoMon').on('change', function() {
-        var val = $(this).val();
-        table.column(0).search(val).draw();
+        table.column(0).search($(this).val()).draw();
         });
-
         $('#filterDot').on('change', function() {
         var val = $(this).val();
         table.column(2).search(val, false, false).draw();
-
         var selectedOption = $(this).find('option:selected');
         var dotId = selectedOption.data('id');
-                            
         if (dotId) {
         $('#btnEditDot').fadeIn();
         $('#editDotId').val(dotId);
@@ -437,11 +396,22 @@ else
         });
         } else {
         $('#filterDot').on('change', function() {
-        var val = $(this).val();
-        table.column(2).search(val, false, false).draw();
+        table.column(2).search($(this).val(), false, false).draw();
         });
         }
         }
+        }
+
+        if (isAdminJS) {
+        $('#modalTaoDot').on('shown.bs.modal', function () {
+        var flatpickrConfig = {
+        enableTime: true, time_24hr: true,
+        dateFormat: "Y-m-d\\TH:i", altInput: true,
+        altFormat: "d/m/Y H:i", locale: "vn"
+        };
+        if (!document.getElementById('newNgayBatDau')._flatpickr) flatpickr("#newNgayBatDau", flatpickrConfig);
+        if (!document.getElementById('newNgayKetThuc')._flatpickr) flatpickr("#newNgayKetThuc", flatpickrConfig);
+        });
         }
         });
     </script>

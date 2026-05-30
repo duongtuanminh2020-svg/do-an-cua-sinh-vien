@@ -3,89 +3,151 @@
     ViewData["Title"] = "Quản lý Tiến Độ";
     bool isSinhVien = User.IsInRole("SinhVien") || User.IsInRole("sinhvien");
     bool isAdmin = User.IsInRole("Admin") || User.IsInRole("admin");
-    
-    // Khởi tạo các biến mới
+
     var dotHienTai = ViewBag.DotHienTai as webquanli.Models.DotDoAn;
     var dotSapToi = ViewBag.DotSapToi as webquanli.Models.DotDoAn;
     var danhSachDot = ViewBag.DanhSachDot as List<webquanli.Models.DotDoAn> ?? new List<webquanli.Models.DotDoAn>();
     var submittedDotIds = ViewBag.SubmittedDotIds as List<int> ?? new List<int>();
+    var dictBaoCao = ViewBag.DictBaoCaoNhanXet as Dictionary<int, string> ?? new Dictionary<int, string>();
 
     int phanTramTong = ViewBag.PhanTramTong ?? 0;
     var dictPhanTram = ViewBag.DictPhanTram as Dictionary<int, int> ?? new Dictionary<int, int>();
     int tongSoDot = ViewBag.TongSoDot ?? 0;
+    int soBaoCaoDaCham = ViewBag.SoBaoCaoDaCham ?? 0;
     var now = DateTime.Now;
+
+    double circumference = 2 * Math.PI * 42;
+    double filled = circumference * phanTramTong / 100;
+    double empty = circumference - filled;
 }
 
 <style>
-    /* CSS cho Vòng tròn tiến độ */
-    .radial-progress {
-        position: relative;
-        width: 160px;
-        height: 160px;
-        border-radius: 50%;
-        background: conic-gradient(#4e73df @(phanTramTong)%, #e9edf7 0deg);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 0 auto;
-        box-shadow: inset 0px 0px 10px rgba(0,0,0,0.05);
-    }
-    .radial-progress::before {
-        content: "";
-        position: absolute;
-        width: 130px;
-        height: 130px;
-        background-color: white;
-        border-radius: 50%;
-        box-shadow: 0px 0px 10px rgba(0,0,0,0.05);
-    }
-    .radial-progress-text {
-        position: relative;
-        font-size: 2.5rem;
-        font-weight: 800;
-        color: #333;
-        z-index: 1;
+    .sv-progress-card {
+        background: linear-gradient(135deg, #f0f7ff 0%, #ffffff 100%);
+        border: 1px solid #dbeafe;
+        border-radius: 20px;
+        padding: 1.5rem;
+        height: 100%;
     }
 
-    /* CSS cho Dòng thời gian (Timeline) */
-    .custom-timeline {
-        position: relative;
-        padding-left: 2rem;
-        margin-top: 1rem;
-    }
-    .custom-timeline::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0.6rem;
+    .sv-open-card {
+        background: linear-gradient(135deg, #f0fdf4 0%, #ffffff 100%);
+        border: 1px solid #bbf7d0;
+        border-radius: 20px;
+        padding: 1.5rem;
         height: 100%;
-        width: 3px;
-        background-color: #e9edf7;
-        border-radius: 3px;
     }
+
+    .sv-warn-card {
+        background: linear-gradient(135deg, #fffbeb 0%, #ffffff 100%);
+        border: 1px solid #fde68a;
+        border-radius: 20px;
+        padding: 1.5rem;
+        height: 100%;
+    }
+
+    .sv-empty-card {
+        background: #f9fafb;
+        border: 1px solid #e5e7eb;
+        border-radius: 20px;
+        padding: 1.5rem;
+        height: 100%;
+    }
+
+    .sv-nop-btn {
+        background: linear-gradient(135deg, #10b981, #059669);
+        border: none;
+        color: white;
+        padding: 14px;
+        border-radius: 12px;
+        font-size: 1rem;
+        font-weight: 600;
+        width: 100%;
+        cursor: pointer;
+        transition: opacity 0.2s;
+    }
+
+        .sv-nop-btn:hover {
+            opacity: 0.9;
+        }
+
+    .pulse-dot {
+        display: inline-block;
+        width: 8px;
+        height: 8px;
+        background: #10b981;
+        border-radius: 50%;
+        animation: pulse 1.5s infinite;
+        margin-right: 6px;
+    }
+
+    @@keyframes pulse {
+        0%, 100% {
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        50% {
+            opacity: 0.5;
+            transform: scale(1.3);
+        }
+    }
+
     .timeline-item {
         position: relative;
-        padding-bottom: 1.5rem;
+        padding-bottom: 1.25rem;
     }
+
+        .timeline-item:last-child {
+            padding-bottom: 0;
+        }
+
     .timeline-icon {
         position: absolute;
-        left: -2.05rem;
-        top: 0;
-        width: 24px;
-        height: 24px;
+        left: -2rem;
+        top: 2px;
+        width: 32px;
+        height: 32px;
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 0.7rem;
-        color: white;
+        border: 3px solid white;
         z-index: 2;
-        border: 4px solid white;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    .timeline-card {
+        border-radius: 12px;
+        padding: 14px 18px;
+        transition: box-shadow 0.2s;
+    }
+
+        .timeline-card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+    .circle-progress {
+        transform: rotate(-90deg);
+    }
+
+    .circle-bg {
+        fill: none;
+        stroke: #dbeafe;
+        stroke-width: 10;
+    }
+
+    .circle-fill {
+        fill: none;
+        stroke: url(#progressGradient);
+        stroke-width: 10;
+        stroke-linecap: round;
+        transition: stroke-dasharray 1s ease;
     }
 </style>
 
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800 fw-bold">
+    <h1 class="h3 mb-0 fw-bold" style="color: #1e293b;">
         <i class="fa-solid fa-chart-line me-2 text-primary"></i>
         @(isSinhVien ? "Bảng Điều Khiển Tiến Độ" : "Giám Sát Tiến Độ Sinh Viên")
     </h1>
@@ -93,136 +155,135 @@
 
 @if (isSinhVien)
 {
-    <div class="row justify-content-center">
-        <div class="col-lg-6 mb-4">
-            <div class="card shadow-sm border-0 h-100" style="border-top: 4px solid var(--primary-color) !important; border-radius: 12px;">
-                <div class="card-body text-center p-5">
-                    <h5 class="fw-bold text-muted text-uppercase mb-4" style="letter-spacing: 1px;">Tiến Độ Chính Thức</h5>
-                    
-                    <div class="radial-progress mb-4">
-                        <div class="radial-progress-text text-primary">@phanTramTong%</div>
+    <div class="row g-4 mb-4">
+        <div class="col-lg-5">
+            <div class="sv-progress-card">
+                <p style="font-size: 0.72rem; letter-spacing: 1.5px; text-transform: uppercase; color: #3b82f6; font-weight: 600; margin-bottom: 20px;">
+                    <i class="fa-solid fa-chart-pie me-2"></i>Tiến độ tổng thể
+                </p>
+                <div class="d-flex align-items-center gap-4">
+                    <div style="position: relative; width: 110px; height: 110px; flex-shrink: 0;">
+                        <svg viewBox="0 0 100 100" width="110" height="110" class="circle-progress">
+                            <defs>
+                                <linearGradient id="progressGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%" style="stop-color:#3b82f6" />
+                                    <stop offset="100%" style="stop-color:#8b5cf6" />
+                                </linearGradient>
+                            </defs>
+                            <circle class="circle-bg" cx="50" cy="50" r="42" />
+                            <circle class="circle-fill" cx="50" cy="50" r="42"
+                                    stroke-dasharray="@(Math.Round(filled, 1)) @(Math.Round(empty, 1))" />
+                        </svg>
+                        <div style="position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                            <span style="font-size: 1.5rem; font-weight: 700; background: linear-gradient(135deg, #3b82f6, #8b5cf6); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">@phanTramTong%</span>
+                        </div>
                     </div>
-                    
-                    <p class="text-muted fs-5 mb-0">
-                        Đã hoàn thành <strong class="text-dark fs-4">@ViewBag.SoBaoCaoDaCham / @tongSoDot</strong> đợt báo cáo
+                    <div>
+                        <div style="font-size: 2rem; font-weight: 700; color: #1e293b; line-height: 1;">
+                            @soBaoCaoDaCham
+                            <span style="font-size: 1rem; font-weight: 400; color: #94a3b8;">/ @tongSoDot đợt</span>
+                        </div>
+                        <p style="font-size: 0.85rem; color: #64748b; margin: 6px 0 12px;">đã hoàn thành</p>
+                        <span style="font-size: 0.75rem; background: #dcfce7; color: #16a34a; padding: 4px 12px; border-radius: 20px; font-weight: 600;">
+                            <i class="fa-solid fa-circle-check me-1"></i>Tính từ đầu khoá
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-7">
+            @if (dotHienTai != null)
+            {
+                <div class="sv-open-card d-flex flex-column">
+                    <p style="font-size: 0.72rem; letter-spacing: 1.5px; text-transform: uppercase; color: #10b981; font-weight: 600; margin-bottom: 12px;">
+                        <span class="pulse-dot"></span>Đang mở cổng nộp bài
                     </p>
-                    <hr class="my-4">
-                    <span class="text-success fw-bold fs-6"><i class="fa-solid fa-check-circle me-1"></i> Tính tự động dựa trên các bài đã có điểm</span>
+                    <h5 style="font-weight: 700; color: #1e293b; margin-bottom: 16px;">@dotHienTai.TenDot</h5>
+                    <div style="background: #fef2f2; border: 1px solid #fecaca; border-radius: 12px; padding: 12px 16px; margin-bottom: 16px; text-align: center;">
+                        <i class="fa-solid fa-hourglass-half text-danger me-2"></i>
+                        <span id="countdown" style="font-size: 1.05rem; font-weight: 700; color: #dc2626;">Đang tải...</span>
+                    </div>
+                    <a asp-controller="BaoCao" asp-action="Index" class="sv-nop-btn mt-auto text-center text-decoration-none d-block">
+                        <i class="fa-solid fa-cloud-arrow-up me-2"></i>Nộp bài ngay
+                    </a>
                 </div>
-            </div>
-        </div>
-
-        <div class="col-lg-6 mb-4">
-            @{
-                // Tính toán giao diện dựa vào trạng thái đợt
-                string borderColor = dotHienTai != null ? "#1cc88a" : (dotSapToi != null ? "#f6c23e" : "#858796");
-                string textColor = dotHienTai != null ? "text-success" : (dotSapToi != null ? "text-warning" : "text-secondary");
-                string titleText = dotHienTai != null ? "ĐANG MỞ CỔNG" : (dotSapToi != null ? "SẮP MỞ CỔNG" : "TRẠNG THÁI RẢNH RỖI");
-                string iconClass = dotHienTai != null ? "fa-door-open" : (dotSapToi != null ? "fa-clock" : "fa-mug-hot");
             }
-            <div class="card shadow-sm border-0 h-100" style="border-top: 4px solid @borderColor !important; border-radius: 12px;">
-                <div class="card-body d-flex flex-column justify-content-center p-5">
-                    <h5 class="fw-bold @textColor text-uppercase text-center mb-4" style="letter-spacing: 1px;">
-                        <i class="fa-solid @iconClass me-2"></i>@titleText
-                    </h5>
-                    
-                    @if (dotHienTai != null)
-                    {
-                        <div class="text-center mb-4">
-                            <h3 class="fw-bold text-dark mb-3">@dotHienTai.TenDot</h3>
-                            <div class="d-inline-block text-danger fw-bold p-3 bg-danger bg-opacity-10 border border-danger rounded-3 w-100">
-                                <i class="fa-solid fa-stopwatch fa-spin fs-4 me-2"></i>
-                                <span class="fs-5" id="countdown">Đang tải đồng hồ...</span>
-                            </div>
-                        </div>
-                        <a asp-controller="BaoCao" asp-action="Index" class="btn btn-success shadow text-white w-100 fw-bold fs-5 py-3 mt-auto" style="border-radius: 8px;">
-                            <i class="fa-solid fa-cloud-arrow-up me-2"></i> Nộp bài ngay
-                        </a>
-                    }
-                    else if (dotSapToi != null)
-                    {
-                        <div class="text-center mb-4">
-                            <h3 class="fw-bold text-dark mb-3 text-muted">@dotSapToi.TenDot</h3>
-                            <div class="d-inline-block text-warning fw-bold p-3 bg-warning bg-opacity-10 border border-warning rounded-3 w-100">
-                                <i class="fa-solid fa-calendar-day fs-4 me-2"></i>
-                                <span class="fs-5">Mở lúc: @dotSapToi.NgayBatDau.ToString("dd/MM/yyyy HH:mm")</span>
-                            </div>
-                        </div>
-                        <button disabled class="btn btn-secondary text-white w-100 fw-bold fs-5 py-3 mt-auto" style="border-radius: 8px; opacity: 0.6;">
-                            <i class="fa-solid fa-lock me-2"></i> Cổng chưa mở
-                        </button>
-                    }
-                    else
-                    {
-                        <div class="text-center py-4">
-                            <i class="fa-solid fa-face-smile-wink text-muted fs-1 mb-3 opacity-25"></i>
-                            <h5 class="text-muted mb-0 fw-bold">Hiện tại bạn không có bài tập hay báo cáo nào đang mở.</h5>
-                        </div>
-                    }
+            else if (dotSapToi != null)
+            {
+                <div class="sv-warn-card d-flex flex-column">
+                    <p style="font-size: 0.72rem; letter-spacing: 1.5px; text-transform: uppercase; color: #d97706; font-weight: 600; margin-bottom: 12px;">
+                        <i class="fa-solid fa-clock me-2"></i>Sắp mở cổng
+                    </p>
+                    <h5 style="font-weight: 700; color: #1e293b; margin-bottom: 16px;">@dotSapToi.TenDot</h5>
+                    <div style="background: #fffbeb; border: 1px solid #fde68a; border-radius: 12px; padding: 12px 16px; margin-bottom: 16px; text-align: center;">
+                        <i class="fa-solid fa-calendar-day text-warning me-2"></i>
+                        <span style="font-weight: 600; color: #92400e;">Mở lúc: @dotSapToi.NgayBatDau.ToString("dd/MM/yyyy HH:mm")</span>
+                    </div>
+                    <button disabled style="background: #e5e7eb; color: #9ca3af; border: none; padding: 14px; border-radius: 12px; font-size: 1rem; font-weight: 600; width: 100%; cursor: not-allowed;" class="mt-auto">
+                        <i class="fa-solid fa-lock me-2"></i>Cổng chưa mở
+                    </button>
                 </div>
-            </div>
-        </div>
-
-        <div class="col-12 mb-4">
-            <div class="card shadow-sm border-0" style="border-radius: 12px;">
-                <div class="card-header bg-white py-3 border-bottom">
-                    <h6 class="m-0 font-weight-bold text-primary"><i class="fa-solid fa-route me-2"></i> Hành trình Đồ án của bạn</h6>
+            }
+            else
+            {
+                <div class="sv-empty-card d-flex flex-column align-items-center justify-content-center text-center">
+                    <i class="fa-solid fa-mug-hot" style="font-size: 2.5rem; color: #cbd5e1; margin-bottom: 12px;"></i>
+                    <p style="color: #94a3b8; margin: 0; font-size: 0.9rem;">Hiện không có đợt báo cáo nào đang mở.</p>
                 </div>
-                <div class="card-body px-5 py-4">
-                    @if (!danhSachDot.Any())
-                    {
-                        <div class="text-center text-muted py-3">Chưa có lịch trình đồ án nào được lên.</div>
-                    }
-                    else
-                    {
-                        <div class="custom-timeline">
-                            @foreach (var dot in danhSachDot)
-                            {
-                                bool isDaNop = submittedDotIds.Contains(dot.Id);
-                                
-                                string tIcon = "fa-circle";
-                                string tBgColor = "bg-secondary";
-                                string tStatus = "Chờ mở";
-                                string tStatusColor = "text-secondary";
-
-                                if (isDaNop)
-                                {
-                                    tIcon = "fa-check"; tBgColor = "bg-success"; tStatus = "Đã nộp"; tStatusColor = "text-success";
-                                }
-                                else if (now > dot.NgayKetThuc)
-                                {
-                                    tIcon = "fa-xmark"; tBgColor = "bg-danger"; tStatus = "Quá hạn"; tStatusColor = "text-danger";
-                                }
-                                else if (now >= dot.NgayBatDau && now <= dot.NgayKetThuc)
-                                {
-                                    tIcon = "fa-play"; tBgColor = "bg-primary"; tStatus = "Đang mở"; tStatusColor = "text-primary";
-                                }
-
-                                <div class="timeline-item">
-                                    <div class="timeline-icon @tBgColor shadow-sm"><i class="fa-solid @tIcon"></i></div>
-                                    <div class="ms-3 p-3 rounded-3 border @(tStatus == "Đang mở" ? "border-primary bg-primary bg-opacity-10 shadow-sm" : "bg-light")">
-                                        <div class="d-flex justify-content-between align-items-center mb-2">
-                                            <h6 class="fw-bold mb-0 @(tStatus == "Đang mở" ? "text-primary" : "text-dark")">@dot.TenDot</h6>
-                                            <span class="badge @tBgColor bg-opacity-10 @tStatusColor border">@tStatus</span>
-                                        </div>
-                                        <div class="small text-muted">
-                                            <i class="fa-regular fa-calendar me-1"></i> Mở: @dot.NgayBatDau.ToString("dd/MM/yy HH:mm") &nbsp;|&nbsp; 
-                                            <i class="fa-regular fa-clock me-1"></i> Hạn: <strong class="@(tStatus == "Quá hạn" ? "text-danger" : "")">@dot.NgayKetThuc.ToString("dd/MM/yy HH:mm")</strong>
-                                        </div>
-                                    </div>
-                                </div>
-                            }
-                        </div>
-                    }
-                </div>
-            </div>
+            }
         </div>
     </div>
+
+    @if (danhSachDot.Any())
+    {
+        <div style="background: white; border: 1px solid #e2e8f0; border-radius: 20px; padding: 1.75rem; box-shadow: 0 2px 12px rgba(0,0,0,0.05);">
+            <p style="font-size: 0.85rem; font-weight: 600; color: #1e293b; margin-bottom: 24px;">
+                <i class="fa-solid fa-route me-2 text-primary"></i>Hành trình Đồ án của bạn
+            </p>
+
+            <div style="position: relative; padding-left: 2.5rem;">
+                <div style="position: absolute; left: 15px; top: 16px; bottom: 16px; width: 2px; background: linear-gradient(to bottom, #3b82f6, #e2e8f0); border-radius: 2px;"></div>
+
+                @foreach (var dot in danhSachDot)
+                {
+                    bool isDaNop = submittedDotIds.Contains(dot.Id);
+                    bool isOpen = now >= dot.NgayBatDau && now <= dot.NgayKetThuc;
+                    bool isQuaHan = now > dot.NgayKetThuc;
+
+                    string iconBg = isDaNop ? "linear-gradient(135deg, #10b981, #059669)" : (isOpen ? "linear-gradient(135deg, #3b82f6, #6366f1)" : (isQuaHan ? "#fee2e2" : "#f1f5f9"));
+                    string iconColor = isDaNop ? "white" : (isOpen ? "white" : (isQuaHan ? "#dc2626" : "#94a3b8"));
+                    string iconClass2 = isDaNop ? "fa-check" : (isOpen ? "fa-play" : (isQuaHan ? "fa-xmark" : "fa-clock"));
+                    string statusText = isDaNop ? "Đã nộp" : (isOpen ? "Đang mở" : (isQuaHan ? "Quá hạn" : "Chờ mở"));
+                    string statusBg = isDaNop ? "#dcfce7" : (isOpen ? "#dbeafe" : (isQuaHan ? "#fee2e2" : "#f1f5f9"));
+                    string statusColor = isDaNop ? "#16a34a" : (isOpen ? "#3b82f6" : (isQuaHan ? "#dc2626" : "#6b7280"));
+                    string cardBg = isDaNop ? "#f0fdf4" : (isOpen ? "#eff6ff" : "#fafafa");
+                    string cardBorder = isDaNop ? "1px solid #bbf7d0" : (isOpen ? "1px solid #bfdbfe" : "1px solid #e5e7eb");
+
+                    <div class="timeline-item">
+                        <div class="timeline-icon" style="background: @iconBg; color: @iconColor;">
+                            <i class="fa-solid @iconClass2" style="font-size: 12px;"></i>
+                        </div>
+                        <div class="timeline-card" style="background: @cardBg; border: @cardBorder;">
+                            <div class="d-flex justify-content-between align-items-center mb-1">
+                                <p style="font-size: 0.9rem; font-weight: 600; margin: 0; color: @(isOpen ? "#3b82f6" : "#374151");">@dot.TenDot</p>
+                                <span style="font-size: 0.75rem; background: @statusBg; color: @statusColor; padding: 3px 12px; border-radius: 20px; font-weight: 600;">@statusText</span>
+                            </div>
+                            <p style="font-size: 0.78rem; color: #94a3b8; margin: 0;">
+                                <i class="fa-regular fa-calendar me-1"></i>Mở: @dot.NgayBatDau.ToString("dd/MM/yy HH:mm")
+                                &nbsp;·&nbsp;
+                                <i class="fa-regular fa-clock me-1"></i>Hạn: <span style="color: @(isQuaHan && !isDaNop ? "#dc2626" : "#94a3b8"); font-weight: @(isQuaHan && !isDaNop ? "600" : "400");">@dot.NgayKetThuc.ToString("dd/MM/yy HH:mm")</span>
+                            </p>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    }
 }
 else
 {
-    // GIAO DIỆN ADMIN/GIẢNG VIÊN GIỮ NGUYÊN (Chỉ cập nhật bắt lỗi role)
-    <div class="card shadow-sm border-0 mb-4" style="border-radius: 12px;">
+    <div class="card shadow-sm border-0 mb-4" style="border-radius: 16px;">
         <div class="card-header py-3 bg-white d-flex align-items-center justify-content-between border-bottom">
             <h6 class="m-0 font-weight-bold text-primary">
                 <i class="fa-solid fa-list-check me-2"></i> DANH SÁCH TIẾN ĐỘ SINH VIÊN
@@ -231,14 +292,13 @@ else
                 Hệ thống đang có: <strong>@tongSoDot đợt báo cáo</strong>
             </span>
         </div>
-        
         <div class="card-body bg-light p-4">
             @if (isAdmin)
             {
                 <div class="d-flex justify-content-end mb-3">
                     <div class="d-flex align-items-center bg-white p-2 rounded-3 shadow-sm border">
                         <label class="fw-bold text-muted me-2 mb-0 ms-2" style="font-size: 0.9rem;"><i class="fa-solid fa-filter text-primary"></i> Lọc Bộ môn:</label>
-                        <select id="filterBoMon" class="form-select form-select-sm border-0 shadow-none fw-bold text-dark" style="width: 250px; background-color: #f8f9fa; cursor: pointer;">
+                        <select id="filterBoMon" class="form-select form-select-sm border-0 shadow-none fw-bold text-dark" style="width: 250px; cursor: pointer;">
                             <option value="">-- Hiển thị tất cả bộ môn --</option>
                             @if (ViewBag.ListBoMon != null)
                             {
@@ -251,7 +311,6 @@ else
                     </div>
                 </div>
             }
-
             <div class="table-responsive bg-white rounded-3 shadow-sm p-3">
                 <table class="table table-hover align-middle border-bottom" id="dataTable" width="100%">
                     <thead class="table-light text-muted" style="font-size: 0.85rem;">
@@ -268,7 +327,6 @@ else
                             {
                                 int overallPt = dictPhanTram.ContainsKey(dk.Id) ? dictPhanTram[dk.Id] : 0;
                                 string badgeColor = overallPt >= 70 ? "bg-success text-white" : (overallPt >= 30 ? "bg-warning text-dark" : "bg-danger text-white");
-
                                 <tr>
                                     <td>
                                         <div class="fw-bold text-primary fs-6">@dk.SinhVien.TenSV</div>
@@ -280,14 +338,23 @@ else
                                     <td class="fw-bold text-dark">@dk.DeTai.TenDeTai</td>
                                     <td>
                                         <div class="d-flex align-items-center justify-content-center">
-                                            <div class="progress flex-grow-1 me-3" style="height: 10px; max-width: 150px;">
-                                                <div class="progress-bar bg-primary" style="width: @overallPt%;"></div>
+                                            <div class="progress flex-grow-1 me-3" style="height: 10px; max-width: 150px; border-radius: 10px;">
+                                                <div class="progress-bar" style="width: @overallPt%; background: linear-gradient(90deg, #3b82f6, #8b5cf6);"></div>
                                             </div>
                                             <span class="badge @badgeColor p-2 fs-6" style="min-width: 60px;">@overallPt%</span>
                                         </div>
                                     </td>
                                 </tr>
                             }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="3" class="text-center py-5">
+                                    <i class="fa-solid fa-folder-open text-muted fs-1 mb-3 opacity-25"></i>
+                                    <h6 class="fw-bold text-secondary mb-0">Không có dữ liệu</h6>
+                                </td>
+                            </tr>
                         }
                     </tbody>
                 </table>
@@ -299,32 +366,27 @@ else
 @section Scripts {
     <script>
         $(document).ready(function () {
-            if ($('#dataTable').length > 0) {
+            if ($('#dataTable').length > 0 && $(document).find('#dataTable tbody tr td').length > 1) {
                 var table = $('#dataTable').DataTable({
-                    "language": {
-                        "url": "//cdn.datatables.net/plug-ins/1.13.6/i18n/vi.json"
-                    },
+                    "language": { "url": "//cdn.datatables.net/plug-ins/1.13.6/i18n/vi.json" },
                     "pageLength": 10,
+                    "autoWidth": false,
                     "dom": '<"row mb-3"<"col-md-6"l><"col-md-6"f>>rt<"row mt-3"<"col-md-5"i><"col-md-7"p>>'
                 });
-
                 $('#filterBoMon').on('change', function() {
-                    var val = $(this).val();
-                    table.column(0).search(val).draw();
+                    table.column(0).search($(this).val()).draw();
                 });
             }
         });
     </script>
-    
+
     @if (isSinhVien && dotHienTai != null)
     {
         <script>
             var countDownDate = new Date("@dotHienTai.NgayKetThuc.ToString("yyyy-MM-ddTHH:mm:ss")").getTime();
-
             var x = setInterval(function() {
                 var now = new Date().getTime();
                 var distance = countDownDate - now;
-
                 if (distance < 0) {
                     clearInterval(x);
                     document.getElementById("countdown").innerHTML = "ĐÃ HẾT HẠN";
@@ -333,7 +395,6 @@ else
                     var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                     var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
                     var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-                    
                     document.getElementById("countdown").innerHTML = days + " ngày " + hours + "h " + minutes + "p " + seconds + "s";
                 }
             }, 1000);

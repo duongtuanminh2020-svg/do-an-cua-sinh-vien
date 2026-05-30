@@ -38,7 +38,7 @@ namespace webquanli.Controllers
                 {
                     query = query.Where(d => d.SinhVienId == sinhVienId);
 
-                    int soBaoCaoDaCham = _context.BaoCaos.Count(b => b.DangKyDeTai.SinhVienId == sinhVienId && b.Diem != null);
+                    int soBaoCaoDaCham = _context.BaoCaos.Count(b => b.DangKyDeTai.SinhVienId == sinhVienId);
                     ViewBag.SoBaoCaoDaCham = soBaoCaoDaCham;
                     ViewBag.PhanTramTong = (tongSoDot > 0) ? (int)Math.Round((double)soBaoCaoDaCham / tongSoDot * 100) : 0;
 
@@ -77,7 +77,7 @@ namespace webquanli.Controllers
             var dictPhanTram = new Dictionary<int, int>();
             foreach (var dk in danhSachDangKy)
             {
-                int soBaoCao = _context.BaoCaos.Count(b => b.DangKyDeTaiId == dk.Id && b.Diem != null);
+                int soBaoCao = _context.BaoCaos.Count(b => b.DangKyDeTaiId == dk.Id);
                 dictPhanTram[dk.Id] = (tongSoDot > 0) ? (int)Math.Round((double)soBaoCao / tongSoDot * 100) : 0;
             }
             ViewBag.DictPhanTram = dictPhanTram;

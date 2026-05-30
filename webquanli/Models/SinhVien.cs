@@ -24,6 +24,11 @@ namespace webquanli.Models
         [ForeignKey("BoMonId")]
         public virtual BoMon? BoMon { get; set; }
 
+        public string? TenDeTai { get; set; }
+
+        public string? MoTaDeTai { get; set; }
+        public string? TrangThaiDeTai { get; set; } // "choduyet" / "daduyet" / "tuchoi"
+        public string? LyDoTuChoi { get; set; }
     }
 
 }

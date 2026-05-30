@@ -162,6 +162,10 @@
             <a asp-controller="DeTai" asp-action="Index"><i class="fa-solid fa-book" style="color: #ef4444;"></i> Đề tài</a>
             <a asp-controller="TienDo" asp-action="Index"><i class="fa-solid fa-tasks" style="color: #14b8a6;"></i> Tiến độ</a>
             <a asp-controller="BaoCao" asp-action="Index"><i class="fa-solid fa-file-arrow-up" style="color: #3b82f6;"></i> Báo cáo</a>
+            @if (realRole == "admin" || realRole == "giangvien")
+{
+            <a asp-controller="DeTai" asp-action="XuatExcel"><i class="fa-solid fa-file-excel" style="color: #22c55e;"></i> Xuất dữ liệu</a>
+}
             
         </div>
     </div>
